@@ -1,6 +1,7 @@
 package com.drivo.entity;
 
 import jakarta.persistence.*;
+import com.drivo.enums.Role;
 
 @Entity
 @Table(name="users")
@@ -16,7 +17,8 @@ public class User {
 
     private String password;
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Long getId() {
         return id;
@@ -50,11 +52,11 @@ public class User {
         this.password=password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role=role;
     }
 }
