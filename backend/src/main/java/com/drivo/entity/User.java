@@ -2,6 +2,8 @@ package com.drivo.entity;
 
 import jakarta.persistence.*;
 import com.drivo.enums.Role;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="users")
@@ -11,11 +13,17 @@ public class User {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message="name is required")
     private String name;
 
+    @Column(unique=true)
+    @Email(message="invalid email")
+    @NotBlank(message="email is required")
     private String email;
 
+    @NotBlank(message="password is required")
     private String password;
+
 
     @Enumerated(EnumType.STRING)
     private Role role;
