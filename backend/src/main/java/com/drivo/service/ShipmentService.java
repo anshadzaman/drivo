@@ -1,0 +1,26 @@
+package com.drivo.service;
+
+import com.drivo.entity.Shipment;
+import com.drivo.repository.ShipmentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ShipmentService {
+
+    @Autowired
+    private ShipmentRepository shipmentRepository;
+
+    public Shipment createShipment(
+            Shipment shipment){
+
+        return shipmentRepository.save(shipment);
+    }
+
+    public List<Shipment> getAllShipments(){
+
+        return shipmentRepository.findAll();
+    }
+}
