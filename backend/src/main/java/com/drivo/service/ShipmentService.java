@@ -23,4 +23,11 @@ public class ShipmentService {
 
         return shipmentRepository.findAll();
     }
+    public List<Shipment> getShipmentsByShopId(
+            Long shopId){
+
+        return shipmentRepository
+                .findByShopId(shopId);
+
+    }
 }

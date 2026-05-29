@@ -28,4 +28,12 @@ public class ShipmentController {
         return shipmentService
                 .getAllShipments();
     }
+    @GetMapping("/shop/{shopId}")
+    public List<Shipment> getShipmentsByShopId(
+            @PathVariable Long shopId){
+
+        return shipmentService
+                .getShipmentsByShopId(shopId);
+
+    }
 }

@@ -2,6 +2,7 @@ package com.drivo.entity;
 
 import com.drivo.enums.ShipmentStatus;
 import jakarta.persistence.*;
+import com.drivo.entity.User;
 
 @Entity
 @Table(name="shipments")
@@ -11,6 +12,8 @@ public class Shipment {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+
+
     private String pickupLocation;
 
     private String dropLocation;
@@ -19,7 +22,6 @@ public class Shipment {
 
     @Enumerated(EnumType.STRING)
     private ShipmentStatus status;
-
 
     public Long getId() {
         return id;
@@ -71,5 +73,18 @@ public class Shipment {
 
         this.status=status;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "shop_id")
+    private User shop;
+
+    public User getShop() {
+        return shop;
+    }
+
+    public void setShop(User shop) {
+        this.shop = shop;
+    }
+
 
 }
