@@ -1,19 +1,29 @@
-<h1>Drivo</h1>
+<header class="navbar">
 
-<nav>
+  <div class="logo">
+    🚚 Drivo
+  </div>
 
-  <a routerLink="/">Dashboard</a> |
+  <nav class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+      Dashboard
+    </a>
 
-  <a routerLink="/users">Users</a> |
+    <a routerLink="/users" routerLinkActive="active">
+      Users
+    </a>
 
-  <a routerLink="/shipments">Shipments</a> |
+    <a routerLink="/shipments" routerLinkActive="active">
+      Shipments
+    </a>
 
-  <a routerLink="/create-shipment">
-    Create Shipment
-  </a>
+    <a routerLink="/create-shipment" routerLinkActive="active">
+      Create Shipment
+    </a>
+  </nav>
 
-</nav>
+</header>
 
-<hr>
-
-<router-outlet></router-outlet>
+<div class="page-content">
+  <router-outlet></router-outlet>
+</div>

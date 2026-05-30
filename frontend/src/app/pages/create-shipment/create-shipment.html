@@ -1,1 +1,7 @@
-<p>create-shipment works!</p>
+<input [(ngModel)]="pickupLocation" placeholder="enter pickup location">
+<br><br>
+<input [(ngModel)]="dropLocation" placeholder="enter drop location">
+<br><br>
+<input [(ngModel)]="itemName" placeholder="enter item Name">
+<br><br>
+<button (click)="createShipment()">Create Shipment</button>

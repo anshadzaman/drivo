@@ -1,1 +1,18 @@
-<p>shipments works!</p>
+<h2>Shipments</h2>
+
+
+@if(shipments.length === 0) {
+  <p class="no-shipments">No shipments found</p>
+}
+@for(shipment of shipments; track shipment.id) {
+    
+  <p>
+    <strong>{{ shipment.id }}</strong>
+    -
+    {{ shipment.pickupLocation }}
+    →
+    {{ shipment.dropLocation }}
+    -
+    {{ shipment.itemName }}
+  </p>
+}

@@ -1,0 +1,31 @@
+/* Shipments Page */
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+p {
+  background: #ffffff;
+  padding: 12px 16px;
+  margin: 10px auto;
+  max-width: 700px;
+  border-radius: 8px;
+  border-left: 5px solid #3498db;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  transition: transform 0.2s ease;
+}
+
+p:hover {
+  transform: translateY(-2px);
+}
+
+.no-shipments {
+  text-align: center;
+  color: #7f8c8d;
+  background: none;
+  box-shadow: none;
+  border: none;
+}
