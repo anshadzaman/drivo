@@ -16,6 +16,8 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
 
+    console.log('dashboard loaded');
+
     this.userService
       .getUsers()
       .subscribe(data => {
@@ -25,4 +27,5 @@ export class Dashboard implements OnInit {
       });
 
   }
+
 }
