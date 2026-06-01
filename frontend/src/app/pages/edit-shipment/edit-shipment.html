@@ -1,23 +1,30 @@
+<h2>Edit Shipment</h2>
+
 <input
   name="pickupLocation"
   [(ngModel)]="pickupLocation"
-  placeholder="enter pickup location">
+  placeholder="Pickup Location">
 
 <br><br>
 
 <input
   name="dropLocation"
   [(ngModel)]="dropLocation"
-  placeholder="enter drop location">
+  placeholder="Drop Location">
 
 <br><br>
 
 <input
   name="itemName"
   [(ngModel)]="itemName"
-  placeholder="enter item Name">
+  placeholder="Item Name">
+
+<br><br>
+
 <button
   type="button"
-  (click)="createShipment()">
-  Create Shipment
+  (click)="updateShipment()">
+
+  Save Changes
+
 </button>

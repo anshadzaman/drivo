@@ -5,8 +5,8 @@
   <p class="no-shipments">No shipments found</p>
 }
 @for(shipment of shipments; track shipment.id) {
-    
-  <p>
+
+  <div>
     <strong>{{ shipment.id }}</strong>
     -
     {{ shipment.pickupLocation }}
@@ -14,5 +14,18 @@
     {{ shipment.dropLocation }}
     -
     {{ shipment.itemName }}
-  </p>
+
+    <button
+      type="button"
+      (click)="deleteShipment(shipment.id)">
+      Delete
+    </button>
+    <button
+  [routerLink]="['/edit-shipment', shipment.id]">
+
+  Edit
+
+</button>
+  </div>
+
 }
