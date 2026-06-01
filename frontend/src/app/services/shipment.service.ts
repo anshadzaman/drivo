@@ -30,4 +30,29 @@ export class ShipmentService {
   return this.http.get(this.api);
 
 }
+deleteShipment(id: number) {
+
+  return this.http.delete(
+    `${this.api}/${id}`
+  );
+
+}
+getShipmentById(id: number) {
+
+  return this.http.get(
+    `${this.api}/${id}`
+  );
+
+}
+updateShipment(
+  id: number,
+  shipment: any
+) {
+
+  return this.http.put(
+    `${this.api}/${id}`,
+    shipment
+  );
+
+}
 }

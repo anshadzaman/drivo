@@ -36,4 +36,10 @@ public class ShipmentController {
                 .getShipmentsByShopId(shopId);
 
     }
+    @DeleteMapping("/{id}")
+    public void deleteShipment(
+            @PathVariable Long id) {
+
+        shipmentService.deleteShipment(id);
+    }
 }

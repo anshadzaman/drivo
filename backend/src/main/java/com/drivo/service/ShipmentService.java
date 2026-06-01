@@ -30,4 +30,9 @@ public class ShipmentService {
                 .findByShopId(shopId);
 
     }
+    public void deleteShipment(Long id) {
+
+        shipmentRepository.deleteById(id);
+
+    }
 }
