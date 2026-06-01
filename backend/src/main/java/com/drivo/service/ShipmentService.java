@@ -35,4 +35,32 @@ public class ShipmentService {
         shipmentRepository.deleteById(id);
 
     }
+    public Shipment getShipmentById(
+            Long id) {
+
+        return shipmentRepository
+                .findById(id)
+                .orElseThrow();
+    }
+    public Shipment updateShipment(
+            Long id,
+            Shipment updatedShipment) {
+
+        Shipment existingShipment =
+                shipmentRepository
+                        .findById(id)
+                        .orElseThrow();
+
+        existingShipment.setPickupLocation(
+                updatedShipment.getPickupLocation());
+
+        existingShipment.setDropLocation(
+                updatedShipment.getDropLocation());
+
+        existingShipment.setItemName(
+                updatedShipment.getItemName());
+
+        return shipmentRepository
+                .save(existingShipment);
+    }
 }

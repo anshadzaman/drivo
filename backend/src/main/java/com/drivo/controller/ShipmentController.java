@@ -42,4 +42,19 @@ public class ShipmentController {
 
         shipmentService.deleteShipment(id);
     }
+    @GetMapping("/{id}")
+    public Shipment getShipmentById(
+            @PathVariable Long id) {
+
+        return shipmentService
+                .getShipmentById(id);
+    }
+    @PutMapping("/{id}")
+    public Shipment updateShipment(
+            @PathVariable Long id,
+            @RequestBody Shipment shipment) {
+
+        return shipmentService
+                .updateShipment(id, shipment);
+    }
 }
