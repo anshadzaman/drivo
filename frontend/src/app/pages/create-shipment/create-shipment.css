@@ -1,0 +1,144 @@
+.create-shipment-page {
+  display: grid;
+  gap: 22px;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.page-header h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.page-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.back-link {
+  color: #1663d8;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.shipment-form {
+  padding: 22px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.form-field {
+  display: grid;
+  gap: 8px;
+}
+
+.form-field-full {
+  grid-column: 1 / -1;
+}
+
+.form-field span {
+  color: #374151;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.form-field input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #111827;
+  font: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-field input::placeholder {
+  color: #9ca3af;
+}
+
+.form-field input:focus {
+  border-color: #1663d8;
+  box-shadow: 0 0 0 3px rgba(22, 99, 216, 0.14);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #1663d8;
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: #0f55bf;
+}
+
+.btn-secondary {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.btn-secondary:hover {
+  background: #e5e7eb;
+}
+
+@media (max-width: 700px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .shipment-form {
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

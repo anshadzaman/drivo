@@ -1,30 +1,59 @@
-<h2>Edit Shipment</h2>
+<section class="edit-shipment-page">
+  <div class="page-header">
+    <div>
+      <h1>Edit Shipment</h1>
+      <p>Update pickup, delivery, and item details.</p>
+    </div>
 
-<input
-  name="pickupLocation"
-  [(ngModel)]="pickupLocation"
-  placeholder="Pickup Location">
+    <a routerLink="/shipments" class="back-link">
+      Back to Shipments
+    </a>
+  </div>
 
-<br><br>
+  <form class="shipment-form" (ngSubmit)="updateShipment()">
+    <div class="form-grid">
+      <label class="form-field">
+        <span>Pickup Location</span>
+        <input
+          type="text"
+          name="pickupLocation"
+          [(ngModel)]="pickupLocation"
+          placeholder="Enter pickup location"
+          required
+        />
+      </label>
 
-<input
-  name="dropLocation"
-  [(ngModel)]="dropLocation"
-  placeholder="Drop Location">
+      <label class="form-field">
+        <span>Drop Location</span>
+        <input
+          type="text"
+          name="dropLocation"
+          [(ngModel)]="dropLocation"
+          placeholder="Enter drop location"
+          required
+        />
+      </label>
 
-<br><br>
+      <label class="form-field form-field-full">
+        <span>Item Name</span>
+        <input
+          type="text"
+          name="itemName"
+          [(ngModel)]="itemName"
+          placeholder="Enter item name"
+          required
+        />
+      </label>
+    </div>
 
-<input
-  name="itemName"
-  [(ngModel)]="itemName"
-  placeholder="Item Name">
+    <div class="form-actions">
+      <a routerLink="/shipments" class="btn btn-secondary">
+        Cancel
+      </a>
 
-<br><br>
-
-<button
-  type="button"
-  (click)="updateShipment()">
-
-  Save Changes
-
-</button>
+      <button type="submit" class="btn btn-primary">
+        Save Changes
+      </button>
+    </div>
+  </form>
+</section>

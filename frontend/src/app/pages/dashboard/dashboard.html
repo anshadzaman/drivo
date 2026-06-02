@@ -1,7 +1,37 @@
+<section class="dashboard-page">
+  <div class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Quick overview of shipment activity.</p>
+    </div>
+  </div>
 
-<p>dashboard works!</p>
+  <div class="stats-grid">
+    <article class="stat-card total">
+      <div class="stat-icon">📦</div>
 
-<p>
-  Total Shipments:
-  {{ shipmentCount }}
-</p>
+      <div>
+        <p>Total Shipments</p>
+        <strong>{{ shipmentCount }}</strong>
+      </div>
+    </article>
+
+    <article class="stat-card pending">
+      <div class="stat-icon">⏳</div>
+
+      <div>
+        <p>Pending Shipments</p>
+        <strong>{{ pendingCount }}</strong>
+      </div>
+    </article>
+
+    <article class="stat-card delivered">
+      <div class="stat-icon">✓</div>
+
+      <div>
+        <p>Delivered Shipments</p>
+        <strong>{{ deliveredCount }}</strong>
+      </div>
+    </article>
+  </div>
+</section>

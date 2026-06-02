@@ -1,24 +1,59 @@
-<input
-  name="pickupLocation"
-  [(ngModel)]="pickupLocation"
-  placeholder="enter pickup location">
+<section class="create-shipment-page">
+  <div class="page-header">
+    <div>
+      <h1>Create Shipment</h1>
+      <p>Add a new delivery order for your shop.</p>
+    </div>
 
-<br><br>
+    <a routerLink="/shipments" class="back-link">
+      View Shipments
+    </a>
+  </div>
 
-<input
-  name="dropLocation"
-  [(ngModel)]="dropLocation"
-  placeholder="enter drop location">
+  <form class="shipment-form" (ngSubmit)="createShipment()">
+    <div class="form-grid">
+      <label class="form-field">
+        <span>Pickup Location</span>
+        <input
+          type="text"
+          name="pickupLocation"
+          [(ngModel)]="pickupLocation"
+          placeholder="Enter pickup location"
+          required
+        />
+      </label>
 
-<br><br>
+      <label class="form-field">
+        <span>Drop Location</span>
+        <input
+          type="text"
+          name="dropLocation"
+          [(ngModel)]="dropLocation"
+          placeholder="Enter drop location"
+          required
+        />
+      </label>
 
-<input
-  name="itemName"
-  [(ngModel)]="itemName"
-  placeholder="enter item Name">
-  
-<button
-  type="button"
-  (click)="createShipment()">
-  Create Shipment
-</button>
+      <label class="form-field form-field-full">
+        <span>Item Name</span>
+        <input
+          type="text"
+          name="itemName"
+          [(ngModel)]="itemName"
+          placeholder="Enter item name"
+          required
+        />
+      </label>
+    </div>
+
+    <div class="form-actions">
+      <a routerLink="/shipments" class="btn btn-secondary">
+        Cancel
+      </a>
+
+      <button type="submit" class="btn btn-primary">
+        Create Shipment
+      </button>
+    </div>
+  </form>
+</section>

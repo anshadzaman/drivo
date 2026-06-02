@@ -85,4 +85,16 @@ public class ShipmentService {
         return shipmentRepository
                 .save(shipment);
     }
+    public long getPendingCount() {
+
+        return shipmentRepository
+                .countByStatus(
+                        ShipmentStatus.PENDING);
+    }
+    public long getDeliveredCount() {
+
+        return shipmentRepository
+                .countByStatus(
+                        ShipmentStatus.DELIVERED);
+    }
 }

@@ -71,5 +71,16 @@ public class ShipmentController {
         return shipmentService
                 .markAsDelivered(id);
     }
+    @GetMapping("/count/pending")
+    public long getPendingCount() {
+
+        return shipmentService
+                .getPendingCount();
+    }
+    @GetMapping("/count/delivered")
+    public long getDeliveredCount(){
+        return shipmentService
+                .getDeliveredCount();
+    }
 
 }

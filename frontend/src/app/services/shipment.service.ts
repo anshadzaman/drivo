@@ -70,5 +70,15 @@ markAsDelivered(id: number) {
   );
 
 }
+getPendingCount(){
+  return this.http.get(
+    `${this.api}/count/pending`
+  );
+}
+getDeliveredCount(){
+  return this.http.get(
+    `${this.api}/count/delivered`
+  )
+}
 
 }

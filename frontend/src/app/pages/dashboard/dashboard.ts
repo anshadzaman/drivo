@@ -13,6 +13,9 @@ import { ChangeDetectorRef } from '@angular/core';
 export class Dashboard implements OnInit {
   shipmentCount = 0;
   pickupLocation = '';
+  pendingCount = 0;
+
+deliveredCount = 0;
   showPickup() {
 
    alert(this.pickupLocation);
@@ -26,7 +29,8 @@ export class Dashboard implements OnInit {
 
   ngOnInit(): void {
     this.loadShipmentCount();
-      
+    this.loadDeliveredCount()
+    this.loadPendingCount()
     console.log('dashboard loaded');
 
     this.userService
@@ -48,6 +52,22 @@ export class Dashboard implements OnInit {
         this.cdr.detectChanges();
       });
 
+}
+loadPendingCount(){
+  this.shipmentService
+  .getPendingCount()
+  .subscribe((count: any) => {
+    this.pendingCount = count;
+    this.cdr.detectChanges();
+  })
+}
+loadDeliveredCount(){
+  this.shipmentService
+  .getDeliveredCount()
+  .subscribe((count: any) => {
+    this.deliveredCount = count;
+    this.cdr.detectChanges();
+  })
 }
 
 }

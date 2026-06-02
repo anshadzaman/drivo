@@ -1,13 +1,15 @@
-<header class="navbar">
+<header class="app-header">
+  <a class="brand" routerLink="/" aria-label="Drivo dashboard">
+    <span class="brand-icon">🚚</span>
+    <span class="brand-name">Drivo</span>
+  </a>
 
-  <div class="logo">
-
-    🚚 Drivo
-
-  </div>
-
-  <nav class="nav-links">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+  <nav class="main-nav" aria-label="Primary navigation">
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
       Dashboards
     </a>
 
@@ -19,13 +21,12 @@
       Shipments
     </a>
 
-    <a routerLink="/create-shipment" routerLinkActive="active">
+    <a routerLink="/create-shipment" routerLinkActive="active" class="primary-link">
       Create Shipment
     </a>
   </nav>
-
 </header>
 
-<div class="page-content">
+<main class="page-content">
   <router-outlet></router-outlet>
-</div>
+</main>
