@@ -63,4 +63,9 @@ public class ShipmentService {
         return shipmentRepository
                 .save(existingShipment);
     }
+    public long getShipmentCount() {
+
+        return shipmentRepository.count();
+
+    }
 }

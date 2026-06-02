@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
+import { ShipmentService } from '../../services/shipment.service';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -9,6 +11,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './dashboard.css',
 })
 export class Dashboard implements OnInit {
+  shipmentCount = 0;
   pickupLocation = '';
   showPickup() {
 
@@ -16,11 +19,14 @@ export class Dashboard implements OnInit {
 
 }
   constructor(
-    private userService: UserService
+    private userService: UserService,
+     private shipmentService: ShipmentService,
+     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-
+    this.loadShipmentCount();
+      
     console.log('dashboard loaded');
 
     this.userService
@@ -32,5 +38,16 @@ export class Dashboard implements OnInit {
       });
 
   }
+    loadShipmentCount() {
+
+  this.shipmentService
+      .getShipmentCount()
+      .subscribe((count: any) => {
+
+        this.shipmentCount = count;
+        this.cdr.detectChanges();
+      });
+
+}
 
 }

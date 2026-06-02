@@ -55,4 +55,12 @@ updateShipment(
   );
 
 }
+getShipmentCount() {
+
+  return this.http.get(
+    `${this.api}/count`
+  );
+
+}
+
 }

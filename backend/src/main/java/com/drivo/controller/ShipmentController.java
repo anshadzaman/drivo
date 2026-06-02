@@ -57,5 +57,12 @@ public class ShipmentController {
         return shipmentService
                 .updateShipment(id, shipment);
     }
+    @GetMapping("/count")
+    public long getShipmentCount() {
+
+        return shipmentService
+                .getShipmentCount();
+
+    }
 
 }
