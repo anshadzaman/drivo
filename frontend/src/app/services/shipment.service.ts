@@ -62,5 +62,13 @@ getShipmentCount() {
   );
 
 }
+markAsDelivered(id: number) {
+
+  return this.http.put(
+    `${this.api}/${id}/deliver`,
+    {}
+  );
+
+}
 
 }

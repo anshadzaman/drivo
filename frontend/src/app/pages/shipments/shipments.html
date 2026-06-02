@@ -15,6 +15,11 @@
     -
     {{ shipment.itemName }}
 
+    {{ shipment.status }}
+<button
+  (click)="markAsDelivered(shipment.id)">
+  Deliver
+</button>
     <button
       type="button"
       (click)="deleteShipment(shipment.id)">

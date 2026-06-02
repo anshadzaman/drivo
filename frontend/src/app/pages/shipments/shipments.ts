@@ -60,4 +60,15 @@ deleteShipment(id: number) {
       });
 
 }
+markAsDelivered(id: number) {
+
+  this.shipmentService
+      .markAsDelivered(id)
+      .subscribe(() => {
+
+        this.loadShipments();
+       
+      });
+
+}
 }

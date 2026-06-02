@@ -4,7 +4,7 @@ import com.drivo.entity.Shipment;
 import com.drivo.repository.ShipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.drivo.enums.ShipmentStatus;
 import java.util.List;
 
 @Service
@@ -15,6 +15,9 @@ public class ShipmentService {
 
     public Shipment createShipment(
             Shipment shipment){
+
+        shipment.setStatus(
+                ShipmentStatus.PENDING);
 
         return shipmentRepository.save(shipment);
     }
@@ -67,5 +70,19 @@ public class ShipmentService {
 
         return shipmentRepository.count();
 
+    }
+    public Shipment markAsDelivered(
+            Long id) {
+
+        Shipment shipment =
+                shipmentRepository
+                        .findById(id)
+                        .orElseThrow();
+
+        shipment.setStatus(
+                ShipmentStatus.DELIVERED);
+
+        return shipmentRepository
+                .save(shipment);
     }
 }

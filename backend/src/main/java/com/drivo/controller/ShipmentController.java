@@ -64,5 +64,12 @@ public class ShipmentController {
                 .getShipmentCount();
 
     }
+    @PutMapping("/{id}/deliver")
+    public Shipment markAsDelivered(
+            @PathVariable Long id) {
+
+        return shipmentService
+                .markAsDelivered(id);
+    }
 
 }
