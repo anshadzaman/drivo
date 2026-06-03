@@ -1,10 +1,12 @@
 package com.drivo.controller;
 
+import com.drivo.dto.LoginResponse;
 import com.drivo.entity.User;
 import com.drivo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import com.drivo.dto.LoginRequest;
 
 import java.util.List;
 
@@ -32,6 +34,23 @@ public class UserController {
 
         return userService.getAllUsers();
 
+    }
+    @PostMapping("/login")
+    public LoginResponse login(
+            @RequestBody
+            LoginRequest request) {
+
+        return new LoginResponse(
+
+                userService.login(
+
+                        request.getEmail(),
+
+                        request.getPassword()
+
+                )
+
+        );
     }
 
 }
