@@ -8,6 +8,8 @@ import { EditShipment } from './pages/edit-shipment/edit-shipment';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
+import { MyShipments }
+from './pages/my-shipments/my-shipments';
 export const routes: Routes = [
 
   {
@@ -55,6 +57,13 @@ export const routes: Routes = [
   {
     path: 'register',
     component: Register
-  }
+  },
+  {
+  path: 'my-shipments',
+  component: MyShipments,
+  canActivate: [
+    authGuard
+  ]
+}
 
 ];
