@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+/* ── Reset & Base ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #13151c;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CSS Variables ───────────────────────────────────────── */
+:root {
+  --header-bg: #0f1117;
+  --header-border: rgba(255,255,255,0.07);
+  --brand-color: #f5f0e8;
+  --nav-text: rgba(255,255,255,0.55);
+  --nav-hover: #ffffff;
+  --nav-active: #f5f0e8;
+  --accent: #f97316;
+  --accent-dim: rgba(249,115,22,0.12);
+  --logout-bg: rgba(255,255,255,0.06);
+  --logout-hover: rgba(255,255,255,0.12);
+  --radius: 8px;
+  --header-h: 64px;
+  --page-bg: #13151c;
+  --surface: #1a1d27;
+  --surface-hover: #1f2233;
+  --border: rgba(255,255,255,0.07);
+  --text-primary: #f0ede6;
+  --text-muted: rgba(255,255,255,0.45);
+}

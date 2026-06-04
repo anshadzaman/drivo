@@ -1,91 +1,144 @@
+/* ── Dashboard Page ──────────────────────────────────────── */
 .dashboard-page {
-  display: grid;
-  gap: 22px;
+  padding: 40px 32px 60px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 36px;
+  animation: fadeUp 0.4s ease both;
 }
 
 .page-header h1 {
-  margin: 0;
-  color: #111827;
+  font-family: 'Syne', sans-serif;
   font-size: 28px;
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  margin: 0 0 6px;
 }
 
 .page-header p {
-  margin: 6px 0 0;
-  color: #6b7280;
   font-size: 14px;
+  color: var(--text-muted);
+  margin: 0;
 }
 
+/* ── Stats grid ── */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
+/* ── Stat card ── */
 .stat-card {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 16px;
-  min-height: 126px;
-  padding: 20px;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+  gap: 18px;
+  padding: 24px 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  animation: fadeUp 0.45s ease both;
 }
 
+.stat-card:nth-child(1) { animation-delay: 0.08s; }
+.stat-card:nth-child(2) { animation-delay: 0.16s; }
+.stat-card:nth-child(3) { animation-delay: 0.24s; }
+
+.stat-card:hover {
+  background: var(--surface-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+}
+
+.stat-card.total::before     { background: #60a5fa; }
+.stat-card.pending::before   { background: #fbbf24; }
+.stat-card.delivered::before { background: #34d399; }
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  opacity: 0.06;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.stat-card.total::after     { background: #60a5fa; }
+.stat-card.pending::after   { background: #fbbf24; }
+.stat-card.delivered::after { background: #34d399; }
+
+.stat-card:hover::after { opacity: 0.13; }
+
+/* ── Icon ── */
 .stat-icon {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  flex: 0 0 52px;
-  border-radius: 8px;
   font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  flex-shrink: 0;
 }
 
-.stat-card p {
-  margin: 0;
-  color: #6b7280;
-  font-size: 14px;
-  font-weight: 700;
+/* ── Label ── */
+.stat-card > div:not(.stat-icon) p {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 0 0 6px;
 }
 
-.stat-card strong {
-  display: block;
-  margin-top: 6px;
-  color: #111827;
+/* ── Number ── */
+.stat-card > div:not(.stat-icon) strong {
+  font-family: 'Syne', sans-serif;
   font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   line-height: 1;
-  font-weight: 900;
 }
 
-.stat-card.total .stat-icon {
-  background: #e8f1ff;
+.stat-card.total     strong { color: #60a5fa; }
+.stat-card.pending   strong { color: #fbbf24; }
+.stat-card.delivered strong { color: #34d399; }
+
+/* ── Keyframes ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.stat-card.pending .stat-icon {
-  background: #fff7ed;
+/* ── Responsive ── */
+@media (max-width: 720px) {
+  .dashboard-page { padding: 24px 16px 48px; }
+  .stats-grid { grid-template-columns: 1fr; }
 }
 
-.stat-card.delivered .stat-icon {
-  background: #dcfce7;
-}
-
-.stat-card.total {
-  border-top: 4px solid #1663d8;
-}
-
-.stat-card.pending {
-  border-top: 4px solid #f97316;
-}
-
-.stat-card.delivered {
-  border-top: 4px solid #16a34a;
-}
-
-@media (max-width: 900px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
-  }
+@media (max-width: 960px) and (min-width: 721px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-card:last-child { grid-column: 1 / -1; max-width: 50%; }
 }

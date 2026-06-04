@@ -19,15 +19,31 @@ public class ShipmentController {
     public Shipment createShipment(
             @RequestBody Shipment shipment){
 
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
         return shipmentService
-                .createShipment(shipment);
+                .createShipment(
+                        shipment,
+                        email);
     }
 
     @GetMapping
-    public List<Shipment> getAllShipments(){
+    public List<Shipment>
+    getAllShipments(){
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
 
         return shipmentService
-                .getAllShipments();
+                .getMyShopShipments(
+                        email);
     }
     @GetMapping("/shop/{shopId}")
     public List<Shipment> getShipmentsByShopId(
@@ -61,9 +77,15 @@ public class ShipmentController {
     @GetMapping("/count")
     public long getShipmentCount() {
 
-        return shipmentService
-                .getShipmentCount();
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
 
+        return shipmentService
+                .getMyShipmentCount(
+                        email);
     }
     @PutMapping("/{id}/deliver")
     public Shipment markAsDelivered(
@@ -75,14 +97,29 @@ public class ShipmentController {
     @GetMapping("/count/pending")
     public long getPendingCount() {
 
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
         return shipmentService
-                .getPendingCount();
+                .getMyPendingCount(
+                        email);
     }
 
     @GetMapping("/count/delivered")
-    public long getDeliveredCount(){
+    public long getDeliveredCount() {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
         return shipmentService
-                .getDeliveredCount();
+                .getMyDeliveredCount(
+                        email);
     }
     @PutMapping(
             "/{shipmentId}/assign-driver/{driverId}")

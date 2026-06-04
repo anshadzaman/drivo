@@ -15,4 +15,10 @@ public interface ShipmentRepository
     List<Shipment>
     findByAssignedDriverId(
             Long driverId);
+    long countByShopId(
+            Long shopId);
+
+    long countByShopIdAndStatus(
+            Long shopId,
+            ShipmentStatus status);
 }

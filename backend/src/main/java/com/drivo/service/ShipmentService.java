@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.drivo.enums.ShipmentStatus;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShipmentService {
@@ -19,12 +20,21 @@ public class ShipmentService {
     private UserRepository userRepository;
 
     public Shipment createShipment(
-            Shipment shipment){
+            Shipment shipment,
+            String email){
+
+        User shop =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        shipment.setShop(shop);
 
         shipment.setStatus(
                 ShipmentStatus.PENDING);
 
-        return shipmentRepository.save(shipment);
+        return shipmentRepository.save(
+                shipment);
     }
 
     public List<Shipment> getAllShipments(){
@@ -169,5 +179,56 @@ public class ShipmentService {
         return shipmentRepository
                 .findByAssignedDriverId(
                         driver.getId());
+    }
+    public List<Shipment>
+    getMyShopShipments(
+            String email){
+
+        User shop =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        return shipmentRepository
+                .findByShopId(
+                        shop.getId());
+    }
+    public long getMyShipmentCount(
+            String email) {
+
+        User shop =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        return shipmentRepository
+                .countByShopId(
+                        shop.getId());
+    }
+    public long getMyPendingCount(
+            String email) {
+
+        User shop =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        return shipmentRepository
+                .countByShopIdAndStatus(
+                        shop.getId(),
+                        ShipmentStatus.PENDING);
+    }
+    public long getMyDeliveredCount(
+            String email) {
+
+        User shop =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        return shipmentRepository
+                .countByShopIdAndStatus(
+                        shop.getId(),
+                        ShipmentStatus.DELIVERED);
     }
 }
