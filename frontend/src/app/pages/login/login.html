@@ -1,0 +1,43 @@
+<section class="login-page">
+  <div class="login-panel">
+    <a class="brand" routerLink="/" aria-label="Drivo home">
+      <span class="brand-icon">🚚</span>
+      <span class="brand-name">Drivo</span>
+    </a>
+
+    <div class="login-header">
+      <h1>Welcome back</h1>
+      <p>Sign in to manage shop deliveries and drivers.</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="login()">
+      <label class="form-field">
+        <span>Email Address</span>
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </label>
+
+      <label class="form-field">
+        <span>Password</span>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        />
+      </label>
+
+      <button type="submit" class="login-button">
+        Login
+      </button>
+    </form>
+  </div>
+</section>

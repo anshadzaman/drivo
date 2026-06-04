@@ -3,28 +3,37 @@
     <span class="brand-icon">🚚</span>
     <span class="brand-name">Drivo</span>
   </a>
+  @if (isLoggedIn()) {
+  <div class="header-actions">
+  
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        Dashboard
+      </a>
 
-  <nav class="main-nav" aria-label="Primary navigation">
-    <a
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      Dashboards
-    </a>
+      <a routerLink="/users" routerLinkActive="active">
+        Users
+      </a>
 
-    <a routerLink="/users" routerLinkActive="active">
-      Users
-    </a>
+      <a routerLink="/shipments" routerLinkActive="active">
+        Shipments
+      </a>
 
-    <a routerLink="/shipments" routerLinkActive="active">
-      Shipments
-    </a>
+      <a routerLink="/create-shipment" routerLinkActive="active" class="primary-link">
+        Create Shipment
+      </a>
+    </nav>
 
-    <a routerLink="/create-shipment" routerLinkActive="active" class="primary-link">
-      Create Shipment
-    </a>
-  </nav>
+
+    <button type="button" class="logout-button" (click)="logout()">
+      Logout
+    </button>
+  </div>
+    }
 </header>
 
 <main class="page-content">

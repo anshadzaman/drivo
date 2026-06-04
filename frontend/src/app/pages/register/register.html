@@ -1,0 +1,63 @@
+<section class="register-page">
+  <div class="register-panel">
+    <a class="brand" routerLink="/" aria-label="Drivo home">
+      <span class="brand-icon">🚚</span>
+      <span class="brand-name">Drivo</span>
+    </a>
+
+    <div class="register-header">
+      <h1>Create Account</h1>
+      <p>Register a shop owner or delivery driver account.</p>
+    </div>
+
+    <form class="register-form" (ngSubmit)="register()">
+      <label class="form-field">
+        <span>Full Name</span>
+        <input
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          placeholder="Enter full name"
+          autocomplete="name"
+          required
+        />
+      </label>
+
+      <label class="form-field">
+        <span>Email Address</span>
+        <input
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          required
+        />
+      </label>
+
+      <label class="form-field">
+        <span>Password</span>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Create a password"
+          autocomplete="new-password"
+          required
+        />
+      </label>
+
+      <label class="form-field">
+        <span>Account Role</span>
+        <select name="role" [(ngModel)]="role" required>
+          <option value="SHOP">Shop</option>
+          <option value="DRIVER">Driver</option>
+        </select>
+      </label>
+
+      <button type="submit" class="register-button">
+        Register
+      </button>
+    </form>
+  </div>
+</section>
