@@ -14,11 +14,17 @@ public class JwtService {
             "drivo-secret-key-drivo-secret-key";
 
     public String generateToken(
-            String email) {
+            String email,
+     String role) {
 
         return Jwts.builder()
 
                 .setSubject(email)
+
+                .claim(
+                        "role",
+                        role
+                )
 
                 .setIssuedAt(new Date())
 
@@ -58,5 +64,27 @@ public class JwtService {
 
                 .getSubject();
     }
+    public String extractRole(
+            String token) {
 
+        return Jwts.parserBuilder()
+
+                .setSigningKey(
+
+                        Keys.hmacShaKeyFor(
+                                SECRET.getBytes())
+
+                )
+
+                .build()
+
+                .parseClaimsJws(token)
+
+                .getBody()
+
+                .get(
+                        "role",
+                        String.class
+                );
+    }
 }

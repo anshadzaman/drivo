@@ -85,6 +85,19 @@ public class Shipment {
     public void setShop(User shop) {
         this.shop = shop;
     }
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private User assignedDriver;
+
+    public User getAssignedDriver() {
+        return assignedDriver;
+    }
+
+    public void setAssignedDriver(
+            User assignedDriver) {
+
+        this.assignedDriver = assignedDriver;
+    }
 
 
 }

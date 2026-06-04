@@ -29,11 +29,21 @@ public class SecurityConfig {
                                 "/users",
                                 "/users/login"
                         )
-
                         .permitAll()
+                        .requestMatchers(
+                                "/shipments/*/my-deliver"
+                        )
+                        .hasRole("DRIVER")
+                        .requestMatchers(
+                                "/shipments/**"
+                        )
+                        .hasAnyRole(
+                                "ADMIN",
+                                "SHOP",
+                                "DRIVER"
+                        )
 
                         .anyRequest()
-
                         .authenticated()
 
                 );

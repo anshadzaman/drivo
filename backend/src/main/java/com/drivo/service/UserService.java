@@ -63,7 +63,15 @@ public class UserService {
 
         return jwtService
                 .generateToken(
-                        user.getEmail());
+
+                        user.getEmail(),
+
+                        user.getRole()
+                                .name()
+
+                );
+
     }
+
 
 }

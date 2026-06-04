@@ -1,7 +1,9 @@
 package com.drivo.service;
 
 import com.drivo.entity.Shipment;
+import com.drivo.entity.User;
 import com.drivo.repository.ShipmentRepository;
+import com.drivo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.drivo.enums.ShipmentStatus;
@@ -12,6 +14,9 @@ public class ShipmentService {
 
     @Autowired
     private ShipmentRepository shipmentRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public Shipment createShipment(
             Shipment shipment){
@@ -85,6 +90,41 @@ public class ShipmentService {
         return shipmentRepository
                 .save(shipment);
     }
+    public Shipment markMyShipmentDelivered(
+            Long shipmentId,
+            String email) {
+
+        Shipment shipment =
+                shipmentRepository
+                        .findById(shipmentId)
+                        .orElseThrow();
+
+        User driver =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        if (shipment.getAssignedDriver() == null) {
+
+            throw new RuntimeException(
+                    "No driver assigned");
+        }
+
+        if (!shipment
+                .getAssignedDriver()
+                .getId()
+                .equals(driver.getId())) {
+
+            throw new RuntimeException(
+                    "You are not assigned to this shipment");
+        }
+
+        shipment.setStatus(
+                ShipmentStatus.DELIVERED);
+
+        return shipmentRepository
+                .save(shipment);
+    }
     public long getPendingCount() {
 
         return shipmentRepository
@@ -96,5 +136,38 @@ public class ShipmentService {
         return shipmentRepository
                 .countByStatus(
                         ShipmentStatus.DELIVERED);
+    }
+    public Shipment assignDriver(
+            Long shipmentId,
+            Long driverId) {
+
+        Shipment shipment =
+                shipmentRepository
+                        .findById(shipmentId)
+                        .orElseThrow();
+
+        User driver =
+                userRepository
+                        .findById(driverId)
+                        .orElseThrow();
+
+        shipment.setAssignedDriver(
+                driver);
+
+        return shipmentRepository
+                .save(shipment);
+    }
+    public List<Shipment>
+    getMyShipments(
+            String email) {
+
+        User driver =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        return shipmentRepository
+                .findByAssignedDriverId(
+                        driver.getId());
     }
 }
