@@ -1,5 +1,61 @@
-<h2>My Shipments</h2>
+<section class="shipments-page">
+  <div class="page-header">
+    <div>
+      <h1>Shipments</h1>
+      <p>Track, update, and manage delivery orders.</p>
+    </div>
 
-<p>
-  Driver shipments will appear here.
-</p>
+  </div>
+
+  @if (shipments.length === 0) {
+  <div class="empty-state">
+    <h2>No shipments found</h2>
+    <p>Create your first shipment to start assigning deliveries.</p>
+    <a routerLink="/create-shipment">Create Shipment</a>
+  </div>
+  }
+
+  @if (shipments.length > 0) {
+  <div class="shipments-list">
+    @for (shipment of shipments; track $index) {
+    <article class="shipment-card">
+      <div class="shipment-main">
+        <div class="shipment-id">
+          Shipment #{{ $index + 1 }}
+        </div>
+
+        <div class="route">
+          <span>{{ shipment.pickupLocation }}</span>
+          <span class="route-arrow">→</span>
+          <span>{{ shipment.dropLocation }}</span>
+        </div>
+
+        <div class="item-name">
+          {{ shipment.itemName }}
+        </div>
+      </div>
+
+      <div class="shipment-side">
+        <span class="status-badge">
+          {{ shipment.status }}
+        </span>
+      </div>
+      @if (
+      shipment.status ===
+      'PENDING'
+      ) {
+
+      <button (click)="markDelivered(
+    shipment.id
+  )">
+
+        Mark Delivered
+
+      </button>
+
+      }
+    </article>
+    }
+  </div>
+  }
+</section>

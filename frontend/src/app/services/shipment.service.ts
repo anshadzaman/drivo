@@ -78,7 +78,22 @@ getPendingCount(){
 getDeliveredCount(){
   return this.http.get(
     `${this.api}/count/delivered`
-  )
+  );
+}
+getMyShipments (){
+  return this.http.get(
+    `${this.api}/my-shipments`
+  );
 }
 
+markMyShipmentDelivered(
+  id: number
+) {
+
+  return this.http.put(
+    `${this.api}/${id}/my-deliver`,
+    {}
+  );
+
+}
 }
