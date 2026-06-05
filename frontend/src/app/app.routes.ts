@@ -10,6 +10,10 @@ import { Register } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
 import { MyShipments }
 from './pages/my-shipments/my-shipments';
+import {
+  adminGuard
+}
+from './guards/admin-guard';
 export const routes: Routes = [
 
   {
@@ -24,7 +28,8 @@ export const routes: Routes = [
     path: 'users',
     component: Users,
     canActivate: [
-    authGuard
+    authGuard,
+    adminGuard
   ]
   },
 
