@@ -96,4 +96,18 @@ markMyShipmentDelivered(
   );
 
 }
+assignDriver(
+  shipmentId: number,
+  driverId: number
+) {
+
+  return this.http.put(
+
+    `${this.api}/${shipmentId}/assign-driver/${driverId}`,
+
+    {}
+
+  );
+
+}
 }

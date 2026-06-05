@@ -1,57 +1,87 @@
 <section class="shipments-page">
+
   <div class="page-header">
     <div>
       <h1>Shipments</h1>
       <p>Track, update, and manage delivery orders.</p>
     </div>
-
     <a routerLink="/create-shipment" class="create-button">
-      Create Shipment
+      + Create Shipment
     </a>
   </div>
 
   @if (shipments.length === 0) {
     <div class="empty-state">
-      <h2>No shipments found</h2>
+      <div class="empty-icon">📦</div>
+      <h2>No shipments yet</h2>
       <p>Create your first shipment to start assigning deliveries.</p>
-      <a routerLink="/create-shipment">Create Shipment</a>
+      <a routerLink="/create-shipment" class="create-button">
+        + Create Shipment
+      </a>
     </div>
   }
 
   @if (shipments.length > 0) {
     <div class="shipments-list">
       @for (shipment of shipments; track shipment.id) {
+
         <article class="shipment-card">
-          <div class="shipment-main">
-            <div class="shipment-id">
-              Shipment #{{ shipment.id }}
-            </div>
 
-            <div class="route">
-              <span>{{ shipment.pickupLocation }}</span>
+          <!-- Top row: ID + status -->
+          <div class="card-top">
+            <span class="shipment-id">#{{ shipment.id }}</span>
+            <span class="status-badge" [ngClass]="shipment.status.toLowerCase()">
+              {{ shipment.status }}
+            </span>
+          </div>
+
+          <!-- Route -->
+          <div class="route">
+            <div class="route-point">
+              <span class="route-label">From</span>
+              <span class="route-value">{{ shipment.pickupLocation }}</span>
+            </div>
+            <div class="route-divider">
+              <span class="route-line"></span>
               <span class="route-arrow">→</span>
-              <span>{{ shipment.dropLocation }}</span>
+              <span class="route-line"></span>
             </div>
-
-            <div class="item-name">
-              {{ shipment.itemName }}
+            <div class="route-point">
+              <span class="route-label">To</span>
+              <span class="route-value">{{ shipment.dropLocation }}</span>
             </div>
           </div>
 
-          <div class="shipment-side">
-            <span class="status-badge">
-              {{ shipment.status }}
-            </span>
+          <!-- Item -->
+          <div class="item-row">
+            <span class="item-label">Item</span>
+            <span class="item-name">{{ shipment.itemName }}</span>
+          </div>
 
-            <div class="actions">
+          <!-- Actions -->
+          <div class="card-footer">
+            <div class="driver-assign">
+              <select class="driver-select" #driverSelect>
+                @for (driver of drivers; track driver.id) {
+                  <option [value]="driver.id">{{ driver.email }}</option>
+                }
+              </select>
+              <button
+                class="btn btn-assign"
+                (click)="assignDriver(shipment.id, +driverSelect.value)"
+              >
+                Assign
+              </button>
+            </div>
+
+            <div class="card-actions">
               <button
                 type="button"
                 class="btn btn-success"
                 (click)="markAsDelivered(shipment.id)"
               >
-                Deliver
+                ✓ Deliver
               </button>
-
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -59,7 +89,6 @@
               >
                 Edit
               </button>
-
               <button
                 type="button"
                 class="btn btn-danger"
@@ -69,8 +98,10 @@
               </button>
             </div>
           </div>
+
         </article>
       }
     </div>
   }
+
 </section>
