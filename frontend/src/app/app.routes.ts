@@ -15,6 +15,8 @@ import {
 }
 from './guards/admin-guard';
 import { shopGuard } from './guards/shop-guard';
+import { guestGuard } from './guards/guest-guard';
+import { driverGuard } from './guards/driver-guard';
 export const routes: Routes = [
 
   {
@@ -61,17 +63,24 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    component: Login
+    component: Login,
+    canActivate : [
+      guestGuard
+    ]
   },
   {
     path: 'register',
-    component: Register
+    component: Register,
+    canActivate : [
+      guestGuard
+    ]
   },
   {
   path: 'my-shipments',
   component: MyShipments,
   canActivate: [
-    authGuard
+    authGuard,
+    driverGuard
   ]
 }
 

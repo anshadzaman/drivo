@@ -1,0 +1,23 @@
+import { CanActivateFn } from '@angular/router';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
+
+export const guestGuard: CanActivateFn = () => {
+
+  const token =
+    localStorage.getItem(
+      'token'
+    );
+
+  if (!token) {
+
+    return true;
+
+  }
+
+  inject(Router)
+      .navigate(['/']);
+
+  return false;
+
+};
