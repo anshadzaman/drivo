@@ -9,7 +9,21 @@
       + Create Shipment
     </a>
   </div>
+<div class="search-box">
 
+  <input
+
+    type="text"
+
+    placeholder="Search shipments..."
+
+    [(ngModel)]="searchText"
+
+    (input)="searchShipments()"
+
+  >
+
+</div>
   @if (shipments.length === 0) {
     <div class="empty-state">
       <div class="empty-icon">📦</div>
@@ -23,7 +37,10 @@
 
   @if (shipments.length > 0) {
     <div class="shipments-list">
-      @for (shipment of shipments; track shipment.id) {
+      @for (
+  shipment of filteredShipments;
+  track shipment.id
+) {
 
         <article class="shipment-card">
 

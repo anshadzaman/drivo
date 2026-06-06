@@ -2,11 +2,11 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ShipmentService } from '../../services/shipment.service';
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-create-shipment',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './create-shipment.html',
   styleUrl: './create-shipment.css'
 })

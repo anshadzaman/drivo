@@ -18,7 +18,9 @@ export class Shipments implements OnInit {
 
   shipments: any[] = [];
   drivers: any[] = [];
+filteredShipments: any[] = [];
 
+searchText = '';
   constructor(
     private shipmentService: ShipmentService,
     private cdr: ChangeDetectorRef,
@@ -31,7 +33,7 @@ ngOnInit(): void {
 
 
   this.loadDrivers();
-
+  
 
 
 }
@@ -41,11 +43,42 @@ loadShipments() {
       .getShipments()
       .subscribe(data => {
 
-        this.shipments = data as any[];
+        this.shipments =
+  data as any[];
 
-        this.shipments = [...this.shipments];
+this.filteredShipments =
+  [...this.shipments];
    this.cdr.detectChanges();
       });
+
+}
+searchShipments() {
+
+  const search =
+    this.searchText
+        .toLowerCase();
+
+  this.filteredShipments =
+    this.shipments.filter(
+      shipment =>
+
+        shipment.itemName
+          .toLowerCase()
+          .includes(search)
+
+        ||
+
+        shipment.pickupLocation
+          .toLowerCase()
+          .includes(search)
+
+        ||
+
+        shipment.dropLocation
+          .toLowerCase()
+          .includes(search)
+
+    );
 
 }
 deleteShipment(id: number) {
@@ -82,7 +115,7 @@ markAsDelivered(id: number) {
 
 }
 loadDrivers() {
-
+  
   this.userService
       .getUsers()
       .subscribe((users: any) => {
@@ -93,7 +126,7 @@ loadDrivers() {
               u.role ===
               'DRIVER'
           );
-
+this.cdr.detectChanges();
       });
 
 }
@@ -112,6 +145,7 @@ assignDriver(
       .subscribe(() => {
 
         this.loadShipments();
+        this.cdr.detectChanges()
 
       });
 
