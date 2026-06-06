@@ -21,4 +21,12 @@ public interface ShipmentRepository
     long countByShopIdAndStatus(
             Long shopId,
             ShipmentStatus status);
+    long countByAssignedDriverId (
+            long driverId
+    );
+    long countByAssignedDriverIdAndStatus(
+            Long driverId,
+            ShipmentStatus status
+
+    );
 }

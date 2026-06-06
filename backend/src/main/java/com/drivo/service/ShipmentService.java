@@ -231,4 +231,37 @@ public class ShipmentService {
                         shop.getId(),
                         ShipmentStatus.DELIVERED);
     }
+    public long getMyAssignedShipmentCount(String email){
+        User driver = userRepository
+                .findByEmail(email)
+                .orElseThrow();
+        return shipmentRepository
+                .countByAssignedDriverId(
+                        driver.getId()
+                );
+    }
+    public long getMyPendingShipmentCount(String email){
+        User driver = userRepository
+                .findByEmail(email)
+                .orElseThrow();
+        return shipmentRepository
+                .countByAssignedDriverIdAndStatus(
+                        driver.getId(),
+                        ShipmentStatus.PENDING
+
+                );
+    }
+    public long getMyDeliveredShipmentCount(String email){
+        User driver = userRepository
+                .findByEmail(email)
+                .orElseThrow();
+        return shipmentRepository
+                .countByAssignedDriverIdAndStatus(
+                        driver.getId(),
+                        ShipmentStatus.DELIVERED
+                );
+
+    }
+
+
 }

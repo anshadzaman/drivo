@@ -17,7 +17,7 @@ public class ShipmentController {
 
     @PostMapping
     public Shipment createShipment(
-            @RequestBody Shipment shipment){
+            @RequestBody Shipment shipment) {
 
         String email =
                 SecurityContextHolder
@@ -33,7 +33,7 @@ public class ShipmentController {
 
     @GetMapping
     public List<Shipment>
-    getAllShipments(){
+    getAllShipments() {
 
         String email =
                 SecurityContextHolder
@@ -45,20 +45,23 @@ public class ShipmentController {
                 .getMyShopShipments(
                         email);
     }
+
     @GetMapping("/shop/{shopId}")
     public List<Shipment> getShipmentsByShopId(
-            @PathVariable Long shopId){
+            @PathVariable Long shopId) {
 
         return shipmentService
                 .getShipmentsByShopId(shopId);
 
     }
+
     @DeleteMapping("/{id}")
     public void deleteShipment(
             @PathVariable Long id) {
 
         shipmentService.deleteShipment(id);
     }
+
     @GetMapping("/{id}")
     public Shipment getShipmentById(
             @PathVariable Long id) {
@@ -66,6 +69,7 @@ public class ShipmentController {
         return shipmentService
                 .getShipmentById(id);
     }
+
     @PutMapping("/{id}")
     public Shipment updateShipment(
             @PathVariable Long id,
@@ -74,6 +78,7 @@ public class ShipmentController {
         return shipmentService
                 .updateShipment(id, shipment);
     }
+
     @GetMapping("/count")
     public long getShipmentCount() {
 
@@ -87,6 +92,7 @@ public class ShipmentController {
                 .getMyShipmentCount(
                         email);
     }
+
     @PutMapping("/{id}/deliver")
     public Shipment markAsDelivered(
             @PathVariable Long id) {
@@ -94,6 +100,7 @@ public class ShipmentController {
         return shipmentService
                 .markAsDelivered(id);
     }
+
     @GetMapping("/count/pending")
     public long getPendingCount() {
 
@@ -121,6 +128,7 @@ public class ShipmentController {
                 .getMyDeliveredCount(
                         email);
     }
+
     @PutMapping(
             "/{shipmentId}/assign-driver/{driverId}")
     public Shipment assignDriver(
@@ -134,6 +142,7 @@ public class ShipmentController {
                         shipmentId,
                         driverId);
     }
+
     @GetMapping("/my-shipments")
     public List<Shipment>
     getMyShipments() {
@@ -148,6 +157,7 @@ public class ShipmentController {
                 .getMyShipments(
                         email);
     }
+
     @PutMapping("/{id}/my-deliver")
     public Shipment markMyShipmentDelivered(
             @PathVariable Long id) {
@@ -162,5 +172,36 @@ public class ShipmentController {
                 .markMyShipmentDelivered(
                         id,
                         email);
+    }
+
+    @GetMapping("/my-count")
+    public long getMyAssignedShipmentCount() {
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+        return shipmentService
+                .getMyAssignedShipmentCount(email);
+    }
+    @GetMapping("/my-count/delivered")
+    public long getMyDeliveredShipmentCount(){
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+        return shipmentService
+                .getMyDeliveredShipmentCount(email);
+    }
+    @GetMapping("/my-count/pending")
+    public long getMyPendingShipmentCount(){
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+        return shipmentService
+                .getMyPendingShipmentCount(email);
     }
 }
