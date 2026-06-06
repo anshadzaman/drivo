@@ -1,0 +1,67 @@
+@if (shipment) {
+  <section class="shipment-detail-page">
+
+    <div class="page-header">
+      <div>
+        <h1>Shipment <span class="id-accent">#{{ shipment.id }}</span></h1>
+        <p>Full details for this delivery order.</p>
+      </div>
+      <a routerLink="/shipments" class="back-link">Back to Shipments</a>
+    </div>
+
+    <div class="detail-grid">
+
+      <!-- Route card -->
+      <article class="detail-card route-card">
+        <h2 class="card-title">Route</h2>
+        <div class="route">
+          <div class="route-point">
+            <span class="route-label">From</span>
+            <span class="route-value">{{ shipment.pickupLocation }}</span>
+          </div>
+          <div class="route-divider">
+            <span class="route-line"></span>
+            <span class="route-arrow">→</span>
+            <span class="route-line"></span>
+          </div>
+          <div class="route-point">
+            <span class="route-label">To</span>
+            <span class="route-value">{{ shipment.dropLocation }}</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Status card -->
+      <article class="detail-card">
+        <h2 class="card-title">Status</h2>
+        <span class="status-badge" [ngClass]="shipment.status.toLowerCase()">
+          {{ shipment.status }}
+        </span>
+      </article>
+
+      <!-- Item card -->
+      <article class="detail-card">
+        <h2 class="card-title">Item</h2>
+        <p class="detail-value">{{ shipment.itemName }}</p>
+      </article>
+
+      <!-- Driver card -->
+      <article class="detail-card">
+        <h2 class="card-title">Assigned Driver</h2>
+        @if (shipment.assignedDriver) {
+          <p class="detail-value">{{ shipment.assignedDriver.email }}</p>
+        } @else {
+          <p class="detail-value unassigned">Unassigned</p>
+        }
+      </article>
+
+      <!-- Shop card -->
+      <article class="detail-card">
+        <h2 class="card-title">Shop</h2>
+        <p class="detail-value">{{ shipment.shop.email }}</p>
+      </article>
+
+    </div>
+
+  </section>
+}

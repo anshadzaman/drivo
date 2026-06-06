@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ChangeDetectorRef } from '@angular/core';
 import { ShipmentService } from '../../services/shipment.service';
 
 @Component({
   selector: 'app-edit-shipment',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLinkActive,RouterLink],
   templateUrl: './edit-shipment.html',
   styleUrl: './edit-shipment.css'
 })

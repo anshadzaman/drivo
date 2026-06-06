@@ -13,10 +13,12 @@ from './pages/my-shipments/my-shipments';
 import {
   adminGuard
 }
+
 from './guards/admin-guard';
 import { shopGuard } from './guards/shop-guard';
 import { guestGuard } from './guards/guest-guard';
 import { driverGuard } from './guards/driver-guard';
+import { ShipmentDetails } from './pages/shipment-details/shipment-details';
 export const routes: Routes = [
 
   {
@@ -81,6 +83,13 @@ export const routes: Routes = [
   canActivate: [
     authGuard,
     driverGuard
+  ]
+},
+{
+  path: 'shipment-details/:id',
+  component: ShipmentDetails,
+  canActivate: [
+    authGuard
   ]
 }
 

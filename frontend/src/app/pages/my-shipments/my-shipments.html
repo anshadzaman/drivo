@@ -1,3 +1,4 @@
+
 <section class="shipments-page">
   <div class="page-header">
     <div>
@@ -9,9 +10,9 @@
 
   @if (shipments.length === 0) {
   <div class="empty-state">
-    <h2>No shipments found</h2>
-    <p>Create your first shipment to start assigning deliveries.</p>
-    <a routerLink="/create-shipment">Create Shipment</a>
+    <h2>No shipments Assigned</h2>
+    
+    
   </div>
   }
 
@@ -34,7 +35,7 @@
           {{ shipment.itemName }}
         </div>
       </div>
-
+          
       <div class="shipment-side">
         <span class="status-badge">
           {{ shipment.status }}

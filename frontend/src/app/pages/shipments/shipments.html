@@ -9,116 +9,127 @@
       + Create Shipment
     </a>
   </div>
-<div class="search-box">
+  <div class="search-box">
 
-  <input
+    <input type="text" placeholder="Search shipments..." [(ngModel)]="searchText" (input)="searchShipments()">
 
-    type="text"
-
-    placeholder="Search shipments..."
-
-    [(ngModel)]="searchText"
-
-    (input)="searchShipments()"
-
-  >
-
-</div>
+  </div>
   @if (shipments.length === 0) {
-    <div class="empty-state">
-      <div class="empty-icon">📦</div>
-      <h2>No shipments yet</h2>
-      <p>Create your first shipment to start assigning deliveries.</p>
-      <a routerLink="/create-shipment" class="create-button">
-        + Create Shipment
-      </a>
-    </div>
+  <div class="empty-state">
+    <div class="empty-icon">📦</div>
+    <h2>No shipments yet</h2>
+    <p>Create your first shipment to start assigning deliveries.</p>
+    <a routerLink="/create-shipment" class="create-button">
+      + Create Shipment
+    </a>
+  </div>
   }
 
   @if (shipments.length > 0) {
-    <div class="shipments-list">
-      @for (
-  shipment of filteredShipments;
-  track shipment.id
-) {
+  <div class="shipments-list">
+    @for (
+    shipment of filteredShipments;
+    track shipment.id
+    ) {
 
-        <article class="shipment-card">
+    <article class="shipment-card">
 
-          <!-- Top row: ID + status -->
-          <div class="card-top">
-            <span class="shipment-id">#{{ shipment.id }}</span>
-            <span class="status-badge" [ngClass]="shipment.status.toLowerCase()">
-              {{ shipment.status }}
-            </span>
-          </div>
+      <!-- Top row: ID + status -->
+      <div class="card-top">
+        <span class="shipment-id">#{{ shipment.id }}</span>
+        <span class="status-badge" [ngClass]="shipment.status.toLowerCase()">
+          {{ shipment.status }}
+        </span>
+      </div>
 
-          <!-- Route -->
-          <div class="route">
-            <div class="route-point">
-              <span class="route-label">From</span>
-              <span class="route-value">{{ shipment.pickupLocation }}</span>
-            </div>
-            <div class="route-divider">
-              <span class="route-line"></span>
-              <span class="route-arrow">→</span>
-              <span class="route-line"></span>
-            </div>
-            <div class="route-point">
-              <span class="route-label">To</span>
-              <span class="route-value">{{ shipment.dropLocation }}</span>
-            </div>
-          </div>
+      <!-- Route -->
+      <div class="route">
+        <div class="route-point">
+          <span class="route-label">From</span>
+          <span class="route-value">{{ shipment.pickupLocation }}</span>
+        </div>
+        <div class="route-divider">
+          <span class="route-line"></span>
+          <span class="route-arrow">→</span>
+          <span class="route-line"></span>
+        </div>
+        <div class="route-point">
+          <span class="route-label">To</span>
+          <span class="route-value">{{ shipment.dropLocation }}</span>
+        </div>
+      </div>
 
-          <!-- Item -->
-          <div class="item-row">
-            <span class="item-label">Item</span>
-            <span class="item-name">{{ shipment.itemName }}</span>
-          </div>
+      <!-- Item -->
+      <div class="item-row">
+        <span class="item-label">Item</span>
+        <span class="item-name">{{ shipment.itemName }}</span>
+      </div>
+      <div class="item-row">
 
-          <!-- Actions -->
-          <div class="card-footer">
-            <div class="driver-assign">
-              <select class="driver-select" #driverSelect>
-                @for (driver of drivers; track driver.id) {
-                  <option [value]="driver.id">{{ driver.email }}</option>
-                }
-              </select>
-              <button
-                class="btn btn-assign"
-                (click)="assignDriver(shipment.id, +driverSelect.value)"
-              >
-                Assign
-              </button>
-            </div>
+        <span class="item-label">
+          Driver
+        </span>
 
-            <div class="card-actions">
-              <button
-                type="button"
-                class="btn btn-success"
-                (click)="markAsDelivered(shipment.id)"
-              >
-                ✓ Deliver
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                [routerLink]="['/edit-shipment', shipment.id]"
-              >
-                Edit
-              </button>
-              <button
-                type="button"
-                class="btn btn-danger"
-                (click)="deleteShipment(shipment.id)"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
+        <span class="item-name">
 
-        </article>
-      }
-    </div>
+          @if (
+          shipment.assignedDriver
+          ) {
+
+          {{ shipment.assignedDriver.email }}
+
+          }
+
+          @else {
+
+          Unassigned
+
+          }
+
+        </span>
+
+      </div>
+      <!-- Actions -->
+
+      <div class="card-footer">
+        @if (
+        !shipment.assignedDriver
+        ) {
+        <div class="driver-assign">
+          <select class="driver-select" #driverSelect>
+            @for (driver of drivers; track driver.id) {
+            <option [value]="driver.id">{{ driver.email }}</option>
+            }
+          </select>
+          <button class="btn btn-assign" (click)="assignDriver(shipment.id, +driverSelect.value)">
+            Assign
+          </button>
+        </div>
+        }
+        <div class="card-actions">
+          <button type="button" class="btn btn-success" (click)="markAsDelivered(shipment.id)">
+            ✓ Deliver
+          </button>
+          <button type="button" class="btn btn-secondary" [routerLink]="[
+    '/shipment-details',
+    shipment.id
+  ]">
+
+            View
+
+          </button>
+          <button type="button" class="btn btn-secondary" [routerLink]="['/edit-shipment', shipment.id]">
+            Edit
+          </button>
+          <button type="button" class="btn btn-danger" (click)="deleteShipment(shipment.id)">
+            Delete
+          </button>
+        </div>
+      </div>
+
+    </article>
+    }
+  </div>
   }
 
 </section>
