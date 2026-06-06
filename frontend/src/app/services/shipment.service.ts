@@ -110,4 +110,19 @@ assignDriver(
   );
 
 }
+getMyAssignedShipmentCount(){
+  return this.http.get(
+    `${this.api}/my-count`
+  );
+}
+getMyDeliveredShipmentCount(){
+  return this.http.get(
+    `${this.api}/my-count/delivered`
+  );
+}
+getMyPendingShipmentCount(){
+  return this.http.get(
+    `${this.api}/my-count/pending`
+  );
+}
 }

@@ -14,6 +14,7 @@ export class Dashboard implements OnInit {
   shipmentCount = 0;
   pickupLocation = '';
   pendingCount = 0;
+  role='';
 
 deliveredCount = 0;
   showPickup() {
@@ -28,9 +29,30 @@ deliveredCount = 0;
   ) {}
 
   ngOnInit(): void {
+
+  this.role =
+    this.getRole();
+
+  if (
+    this.role ===
+    'DRIVER'
+  ) {
+
+    this.loadDriverCounts();
+
+  }
+
+  else {
+
     this.loadShipmentCount();
-    this.loadDeliveredCount()
-    this.loadPendingCount()
+
+    this.loadDeliveredCount();
+
+    this.loadPendingCount();
+
+  }
+
+
     console.log('dashboard loaded');
 
     this.userService
@@ -69,5 +91,66 @@ loadDeliveredCount(){
     this.cdr.detectChanges();
   })
 }
+getRole() {
 
+  const token =
+    localStorage.getItem(
+      'token'
+    );
+
+  if (!token) {
+
+    return '';
+
+  }
+
+  const payload =
+    JSON.parse(
+      atob(
+        token.split('.')[1]
+      )
+    );
+
+  return payload.role;
+
+}
+loadDriverCounts() {
+
+  this.shipmentService
+      .getMyAssignedShipmentCount()
+      .subscribe((count: any) => {
+
+        this.shipmentCount =
+          count;
+
+        this.cdr
+            .detectChanges();
+
+      });
+
+  this.shipmentService
+      .getMyPendingShipmentCount()
+      .subscribe((count: any) => {
+
+        this.pendingCount =
+          count;
+
+        this.cdr
+            .detectChanges();
+
+      });
+
+  this.shipmentService
+      .getMyDeliveredShipmentCount()
+      .subscribe((count: any) => {
+
+        this.deliveredCount =
+          count;
+
+        this.cdr
+            .detectChanges();
+
+      });
+
+}
 }
