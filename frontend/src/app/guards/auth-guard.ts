@@ -1,4 +1,6 @@
 import { CanActivateFn } from '@angular/router';
+import { Router } from '@angular/router';
+import { inject } from '@angular/core';
 
 export const authGuard:
 CanActivateFn = () => {
@@ -8,6 +10,15 @@ CanActivateFn = () => {
       'token'
     );
 
-  return !!token;
+  if(token) {
+
+    return true;
+
+  }
+
+  inject(Router)
+      .navigate(['/login']);
+
+  return false;
 
 };

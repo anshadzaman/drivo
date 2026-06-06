@@ -14,6 +14,7 @@ import {
   adminGuard
 }
 from './guards/admin-guard';
+import { shopGuard } from './guards/shop-guard';
 export const routes: Routes = [
 
   {
@@ -37,7 +38,8 @@ export const routes: Routes = [
     path: 'shipments',
     component: Shipments,
     canActivate: [
-    authGuard
+    authGuard,
+    shopGuard
   ]
   },
 
@@ -45,14 +47,16 @@ export const routes: Routes = [
     path: 'create-shipment',
     component: CreateShipment,
     canActivate: [
-    authGuard
+    authGuard,
+    shopGuard
   ]
   },
   {
     path: 'edit-shipment/:id',
     component: EditShipment,
     canActivate: [
-    authGuard
+    authGuard,
+    shopGuard
   ]
   },
   {
