@@ -1,62 +1,72 @@
-
 <section class="shipments-page">
+
   <div class="page-header">
     <div>
-      <h1>Shipments</h1>
-      <p>Track, update, and manage delivery orders.</p>
+      <h1>My Shipments</h1>
+      <p>Track and manage your assigned deliveries.</p>
     </div>
 
+    <div class="filter-buttons">
+      <button [class.active]="filter === 'ALL'"       (click)="filter='ALL'">All</button>
+      <button [class.active]="filter === 'PENDING'"   (click)="filter='PENDING'">Pending</button>
+      <button [class.active]="filter === 'DELIVERED'" (click)="filter='DELIVERED'">Delivered</button>
+    </div>
   </div>
 
   @if (shipments.length === 0) {
-  <div class="empty-state">
-    <h2>No shipments Assigned</h2>
-    
-    
-  </div>
+    <div class="empty-state">
+      <div class="empty-icon">🚚</div>
+      <h2>No shipments assigned</h2>
+      <p>You have no delivery orders at the moment.</p>
+    </div>
   }
 
   @if (shipments.length > 0) {
-  <div class="shipments-list">
-    @for (shipment of shipments; track $index) {
-    <article class="shipment-card">
-      <div class="shipment-main">
-        <div class="shipment-id">
-          Shipment #{{ $index + 1 }}
-        </div>
+    <div class="shipments-list">
+      @for (shipment of filteredShipments; track $index) {
+        <article class="shipment-card" [class.is-pending]="shipment.status === 'PENDING'" [class.is-delivered]="shipment.status === 'DELIVERED'">
 
-        <div class="route">
-          <span>{{ shipment.pickupLocation }}</span>
-          <span class="route-arrow">→</span>
-          <span>{{ shipment.dropLocation }}</span>
-        </div>
+          <div class="card-left">
+            <span class="shipment-id">Shipment #{{ $index + 1 }}</span>
 
-        <div class="item-name">
-          {{ shipment.itemName }}
-        </div>
-      </div>
-          
-      <div class="shipment-side">
-        <span class="status-badge">
-          {{ shipment.status }}
-        </span>
-      </div>
-      @if (
-      shipment.status ===
-      'PENDING'
-      ) {
+            <div class="route">
+              <div class="route-point">
+                <span class="route-label">From</span>
+                <span class="route-value">{{ shipment.pickupLocation }}</span>
+              </div>
+              <div class="route-divider">
+                <span class="route-line"></span>
+                <span class="route-arrow">→</span>
+                <span class="route-line"></span>
+              </div>
+              <div class="route-point">
+                <span class="route-label">To</span>
+                <span class="route-value">{{ shipment.dropLocation }}</span>
+              </div>
+            </div>
 
-      <button (click)="markDelivered(
-    shipment.id
-  )">
+            <div class="item-tag">
+              <span class="item-label">Item</span>
+              <span class="item-name">{{ shipment.itemName }}</span>
+            </div>
+          </div>
 
-        Mark Delivered
+          <div class="card-right">
+            <span class="status-badge" [ngClass]="shipment.status.toLowerCase()">
+              {{ shipment.status }}
+            </span>
 
-      </button>
+            @if (shipment.status === 'PENDING') {
+              <button class="mark-delivered-btn" (click)="markDelivered(shipment.id)">
+                <span class="btn-icon">✓</span>
+                Mark Delivered
+              </button>
+            }
+          </div>
 
+        </article>
       }
-    </article>
-    }
-  </div>
+    </div>
   }
+
 </section>
