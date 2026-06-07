@@ -1,5 +1,6 @@
 package com.drivo.controller;
 
+import com.drivo.dto.ShipmentDto;
 import com.drivo.entity.Shipment;
 import com.drivo.service.ShipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ public class ShipmentController {
     }
 
     @GetMapping
-    public List<Shipment>
+    public List<ShipmentDto>
     getAllShipments() {
 
         String email =
@@ -63,7 +64,7 @@ public class ShipmentController {
     }
 
     @GetMapping("/{id}")
-    public Shipment getShipmentById(
+    public ShipmentDto getShipmentById(
             @PathVariable Long id) {
 
         return shipmentService
@@ -144,7 +145,7 @@ public class ShipmentController {
     }
 
     @GetMapping("/my-shipments")
-    public List<Shipment>
+    public List<ShipmentDto>
     getMyShipments() {
 
         String email =

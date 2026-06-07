@@ -1,5 +1,7 @@
 package com.drivo.service;
 
+import com.drivo.dto.ShipmentDto;
+import com.drivo.dto.UserDto;
 import com.drivo.entity.Shipment;
 import com.drivo.entity.User;
 import com.drivo.repository.ShipmentRepository;
@@ -37,9 +39,15 @@ public class ShipmentService {
                 shipment);
     }
 
-    public List<Shipment> getAllShipments(){
+    public List<ShipmentDto>
+    getAllShipments() {
 
-        return shipmentRepository.findAll();
+        return shipmentRepository
+                .findAll()
+                .stream()
+                .map(this::toDto)
+                .toList();
+
     }
     public List<Shipment> getShipmentsByShopId(
             Long shopId){
@@ -53,12 +61,17 @@ public class ShipmentService {
         shipmentRepository.deleteById(id);
 
     }
-    public Shipment getShipmentById(
+    public ShipmentDto
+    getShipmentById(
             Long id) {
 
-        return shipmentRepository
-                .findById(id)
-                .orElseThrow();
+        Shipment shipment =
+                shipmentRepository
+                        .findById(id)
+                        .orElseThrow();
+
+        return toDto(
+                shipment);
     }
     public Shipment updateShipment(
             Long id,
@@ -167,7 +180,8 @@ public class ShipmentService {
         return shipmentRepository
                 .save(shipment);
     }
-    public List<Shipment>
+
+    public List<ShipmentDto>
     getMyShipments(
             String email) {
 
@@ -178,9 +192,13 @@ public class ShipmentService {
 
         return shipmentRepository
                 .findByAssignedDriverId(
-                        driver.getId());
+                        driver.getId())
+                .stream()
+                .map(this::toDto)
+                .toList();
     }
-    public List<Shipment>
+
+    public List<ShipmentDto>
     getMyShopShipments(
             String email){
 
@@ -191,7 +209,10 @@ public class ShipmentService {
 
         return shipmentRepository
                 .findByShopId(
-                        shop.getId());
+                        shop.getId())
+                .stream()
+                .map(this::toDto)
+                .toList();
     }
     public long getMyShipmentCount(
             String email) {
@@ -262,6 +283,71 @@ public class ShipmentService {
                 );
 
     }
+    private ShipmentDto toDto(
+            Shipment shipment) {
 
+        UserDto shopDto =
+                new UserDto(
+
+                        shipment.getShop().getId(),
+
+                        shipment.getShop().getName(),
+
+                        shipment.getShop().getEmail(),
+
+                        shipment.getShop()
+                                .getRole()
+                                .name()
+
+                );
+
+        UserDto driverDto = null;
+
+        if (shipment.getAssignedDriver()
+                != null) {
+
+            driverDto =
+                    new UserDto(
+
+                            shipment
+                                    .getAssignedDriver()
+                                    .getId(),
+
+                            shipment
+                                    .getAssignedDriver()
+                                    .getName(),
+
+                            shipment
+                                    .getAssignedDriver()
+                                    .getEmail(),
+
+                            shipment
+                                    .getAssignedDriver()
+                                    .getRole()
+                                    .name()
+
+                    );
+
+        }
+
+        return new ShipmentDto(
+
+                shipment.getId(),
+
+                shipment.getPickupLocation(),
+
+                shipment.getDropLocation(),
+
+                shipment.getItemName(),
+
+                shipment.getStatus(),
+
+                shopDto,
+
+                driverDto
+
+        );
+
+    }
 
 }

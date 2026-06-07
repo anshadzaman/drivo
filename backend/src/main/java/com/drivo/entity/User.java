@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import com.drivo.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name="users")
 public class User {
@@ -22,6 +22,7 @@ public class User {
     private String email;
 
     @NotBlank(message="password is required")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 

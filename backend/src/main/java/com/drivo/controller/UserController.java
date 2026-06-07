@@ -1,6 +1,7 @@
 package com.drivo.controller;
 
 import com.drivo.dto.LoginResponse;
+import com.drivo.dto.UserDto;
 import com.drivo.entity.User;
 import com.drivo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class UserController {
 
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<UserDto> getAllUsers(){
 
         return userService.getAllUsers();
 
