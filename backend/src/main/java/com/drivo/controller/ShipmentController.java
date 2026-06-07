@@ -67,8 +67,16 @@ public class ShipmentController {
     public ShipmentDto getShipmentById(
             @PathVariable Long id) {
 
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
         return shipmentService
-                .getShipmentById(id);
+                .getShipmentById(
+                        id,
+                        email);
     }
 
     @PutMapping("/{id}")

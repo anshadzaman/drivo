@@ -4,6 +4,7 @@ import com.drivo.dto.ShipmentDto;
 import com.drivo.dto.UserDto;
 import com.drivo.entity.Shipment;
 import com.drivo.entity.User;
+import com.drivo.enums.Role;
 import com.drivo.repository.ShipmentRepository;
 import com.drivo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,14 +62,20 @@ public class ShipmentService {
         shipmentRepository.deleteById(id);
 
     }
+
     public ShipmentDto
     getShipmentById(
-            Long id) {
+            Long id,
+            String email) {
 
         Shipment shipment =
                 shipmentRepository
                         .findById(id)
                         .orElseThrow();
+
+        validateShipmentAccess(
+                shipment,
+                email);
 
         return toDto(
                 shipment);
@@ -347,6 +354,57 @@ public class ShipmentService {
                 driverDto
 
         );
+
+    }
+    private void validateShipmentAccess(
+            Shipment shipment,
+            String email) {
+
+        User user =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        if (user.getRole()
+                == Role.ADMIN) {
+
+            return;
+        }
+
+        if (user.getRole()
+                == Role.SHOP) {
+
+            if (shipment.getShop()
+                    .getId()
+                    .equals(user.getId())) {
+
+                return;
+            }
+
+        }
+
+        if (user.getRole()
+                == Role.DRIVER) {
+
+            if (shipment.getAssignedDriver()
+                    != null
+
+                    &&
+
+                    shipment
+                            .getAssignedDriver()
+                            .getId()
+                            .equals(
+                                    user.getId()
+                            )) {
+
+                return;
+            }
+
+        }
+
+        throw new RuntimeException(
+                "Access Denied");
 
     }
 
