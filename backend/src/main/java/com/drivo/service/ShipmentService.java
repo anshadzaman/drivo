@@ -403,8 +403,13 @@ public class ShipmentService {
 
         }
 
-        throw new RuntimeException(
-                "Access Denied");
+        throw new org.springframework.web.server.ResponseStatusException(
+
+                org.springframework.http.HttpStatus.FORBIDDEN,
+
+                "Access Denied"
+
+        );
 
     }
 
