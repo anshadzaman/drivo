@@ -7,35 +7,64 @@
     </div>
   </div>
 
-  <div class="search-box">
-    <input
-      type="text"
-      placeholder="Search users..."
-      [(ngModel)]="searchText"
-      (input)="searchUsers()"
-    />
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <strong>{{ users.length }}</strong>
+      <p>Total Users</p>
+    </div>
+    <div class="stat-card admin-card">
+      <strong>{{ adminCount }}</strong>
+      <p>Admins</p>
+    </div>
+    <div class="stat-card shop-card">
+      <strong>{{ shopCount }}</strong>
+      <p>Shops</p>
+    </div>
+    <div class="stat-card driver-card">
+      <strong>{{ driverCount }}</strong>
+      <p>Drivers</p>
+    </div>
   </div>
 
+  <!-- Filters + Search -->
+  <div class="toolbar">
+    <div class="filter-buttons">
+      <button [class.active]="activeRole === 'ALL'"    (click)="filterByRole('ALL')">All</button>
+      <button [class.active]="activeRole === 'ADMIN'"  (click)="filterByRole('ADMIN')">Admins</button>
+      <button [class.active]="activeRole === 'SHOP'"   (click)="filterByRole('SHOP')">Shops</button>
+      <button [class.active]="activeRole === 'DRIVER'" (click)="filterByRole('DRIVER')">Drivers</button>
+    </div>
+
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Search users..."
+        [(ngModel)]="searchText"
+        (input)="searchUsers()"
+      />
+    </div>
+  </div>
+
+  <!-- Users grid -->
   <div class="users-grid">
     @for (user of filteredUsers; track user.id) {
       <div class="user-card">
-
-        <div class="user-avatar">
+        <div class="user-avatar" [class.admin]="user.role === 'ADMIN'"
+                                  [class.shop]="user.role === 'SHOP'"
+                                  [class.driver]="user.role === 'DRIVER'">
           {{ user.name.charAt(0).toUpperCase() }}
         </div>
-
         <div class="user-info">
           <h3>{{ user.name }}</h3>
           <p>{{ user.email }}</p>
         </div>
-
         <span class="role-badge"
           [class.admin]="user.role === 'ADMIN'"
           [class.shop]="user.role === 'SHOP'"
           [class.driver]="user.role === 'DRIVER'">
           {{ user.role }}
         </span>
-
       </div>
     }
   </div>

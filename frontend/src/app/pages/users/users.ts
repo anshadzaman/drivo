@@ -16,7 +16,11 @@ export class Users implements OnInit {
   filteredUsers: any[] = [];
 
   searchText = '';
-
+selectedRole = 'ALL';
+activeRole = 'ALL'
+adminCount = 0;
+shopCount = 0;
+driverCount = 0;
   constructor(
     private userService: UserService,
     private cdr : ChangeDetectorRef
@@ -31,6 +35,20 @@ export class Users implements OnInit {
           this.users = data;
 
           this.filteredUsers = data;
+this.adminCount =
+  this.users.filter(
+    u => u.role === 'ADMIN'
+  ).length;
+
+this.shopCount =
+  this.users.filter(
+    u => u.role === 'SHOP'
+  ).length;
+
+this.driverCount =
+  this.users.filter(
+    u => u.role === 'DRIVER'
+  ).length;
 this.cdr.detectChanges();
         });
 
@@ -58,5 +76,25 @@ this.cdr.detectChanges();
       );
 
   }
+  filterByRole(role: string) {
+
+  this.selectedRole = role;
+this.activeRole = role;
+  if (role === 'ALL') {
+
+    this.filteredUsers =
+      this.users;
+
+    return;
+
+  }
+
+  this.filteredUsers =
+    this.users.filter(
+      user =>
+        user.role === role
+    );
+
+}
 
 }
