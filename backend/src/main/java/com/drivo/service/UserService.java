@@ -2,6 +2,7 @@ package com.drivo.service;
 
 import com.drivo.dto.UserDto;
 import com.drivo.entity.User;
+import com.drivo.enums.Role;
 import com.drivo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -95,5 +96,34 @@ public class UserService {
 
     }
 
+    public long getDriverCount() {
 
+        return userRepository
+                .countByRole(
+                        Role.DRIVER);
+
+    }
+
+    public long getShopCount() {
+
+        return userRepository
+                .countByRole(
+                        Role.SHOP);
+
+    }
+
+    public long getUserCount() {
+
+        return userRepository
+                .count();
+
+    }
+    public User getUserByEmail(
+            String email) {
+
+        return userRepository
+                .findByEmail(email)
+                .orElseThrow();
+
+    }
 }

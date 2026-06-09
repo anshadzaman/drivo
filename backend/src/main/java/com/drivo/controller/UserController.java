@@ -53,5 +53,28 @@ public class UserController {
 
         );
     }
+    @GetMapping("/count")
+    public long getUserCount() {
+
+        return userService
+                .getUserCount();
+
+    }
+
+    @GetMapping("/count/drivers")
+    public long getDriverCount() {
+
+        return userService
+                .getDriverCount();
+
+    }
+
+    @GetMapping("/count/shops")
+    public long getShopCount() {
+
+        return userService
+                .getShopCount();
+
+    }
 
 }

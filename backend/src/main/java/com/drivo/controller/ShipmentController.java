@@ -2,7 +2,10 @@ package com.drivo.controller;
 
 import com.drivo.dto.ShipmentDto;
 import com.drivo.entity.Shipment;
+import com.drivo.entity.User;
+import com.drivo.enums.Role;
 import com.drivo.service.ShipmentService;
+import com.drivo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,8 @@ public class ShipmentController {
 
     @Autowired
     private ShipmentService shipmentService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping
     public Shipment createShipment(
@@ -97,9 +102,19 @@ public class ShipmentController {
                         .getAuthentication()
                         .getName();
 
+        User user =
+                userService
+                        .getUserByEmail(email);
+
+        if (user.getRole() == Role.ADMIN) {
+
+            return shipmentService
+                    .getShipmentCount();
+
+        }
+
         return shipmentService
-                .getMyShipmentCount(
-                        email);
+                .getMyShipmentCount(email);
     }
 
     @PutMapping("/{id}/deliver")
@@ -119,6 +134,17 @@ public class ShipmentController {
                         .getAuthentication()
                         .getName();
 
+        User user =
+                userService
+                        .getUserByEmail(email);
+
+        if (user.getRole() == Role.ADMIN) {
+
+            return shipmentService
+                    .getPendingCount();
+
+        }
+
         return shipmentService
                 .getMyPendingCount(
                         email);
@@ -132,6 +158,17 @@ public class ShipmentController {
                         .getContext()
                         .getAuthentication()
                         .getName();
+
+        User user =
+                userService
+                        .getUserByEmail(email);
+
+        if (user.getRole() == Role.ADMIN) {
+
+            return shipmentService
+                    .getDeliveredCount();
+
+        }
 
         return shipmentService
                 .getMyDeliveredCount(
