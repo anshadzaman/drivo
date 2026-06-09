@@ -126,4 +126,41 @@ public class UserService {
                 .orElseThrow();
 
     }
+    public void deleteUser(
+            Long id,
+            String currentEmail) {
+
+        User user =
+                userRepository
+                        .findById(id)
+                        .orElseThrow();
+
+        User currentUser =
+                userRepository
+                        .findByEmail(
+                                currentEmail)
+                        .orElseThrow();
+
+        if (user.getId()
+                .equals(
+                        currentUser.getId())) {
+
+            throw new RuntimeException(
+                    "You cannot delete your own account");
+
+        }
+
+        if (user.getRole() == Role.ADMIN
+                &&
+                userRepository.countByRole(
+                        Role.ADMIN) == 1) {
+
+            throw new RuntimeException(
+                    "Cannot delete last admin");
+
+        }
+
+        userRepository.deleteById(id);
+
+    }
 }

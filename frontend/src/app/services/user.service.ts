@@ -41,4 +41,11 @@ export class UserService {
   );
 
 }
+deleteUser(id: number) {
+
+  return this.http.delete(
+    `${this.api}/${id}`
+  );
+
+}
 }

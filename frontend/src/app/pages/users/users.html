@@ -5,13 +5,43 @@
       <h1>Users</h1>
       <p>Manage registered accounts and roles.</p>
     </div>
-    <button class="create-button" (click)="showCreateDriver = !showCreateDriver">
-      {{ showCreateDriver ? '✕ Cancel' : '+ Create Driver' }}
-    </button>
+    <div class="header-actions">
+      <button class="create-button secondary" (click)="openForm('shop')">
+        {{ activeForm === 'shop' ? '✕ Cancel' : '+ Create Shop' }}
+      </button>
+      <button class="create-button" (click)="openForm('driver')">
+        {{ activeForm === 'driver' ? '✕ Cancel' : '+ Create Driver' }}
+      </button>
+    </div>
   </div>
 
+  <!-- Create shop form -->
+  @if (activeForm === 'shop') {
+    <div class="create-driver-card shop">
+      <h2 class="form-title">New Shop Account</h2>
+      <div class="create-driver-fields">
+        <label class="form-field">
+          <span>Name</span>
+          <input type="text" placeholder="Enter shop name" [(ngModel)]="shop.name" />
+        </label>
+        <label class="form-field">
+          <span>Email</span>
+          <input type="email" placeholder="you@example.com" [(ngModel)]="shop.email" />
+        </label>
+        <label class="form-field">
+          <span>Password</span>
+          <input type="password" placeholder="Create a password" [(ngModel)]="shop.password" />
+        </label>
+      </div>
+      <div class="create-driver-footer">
+        <button class="btn-cancel" (click)="activeForm = ''">Cancel</button>
+        <button class="btn-create shop" (click)="createShop()">Create Shop</button>
+      </div>
+    </div>
+  }
+
   <!-- Create driver form -->
-  @if (showCreateDriver) {
+  @if (activeForm === 'driver') {
     <div class="create-driver-card">
       <h2 class="form-title">New Driver Account</h2>
       <div class="create-driver-fields">
@@ -29,7 +59,7 @@
         </label>
       </div>
       <div class="create-driver-footer">
-        <button class="btn-cancel" (click)="showCreateDriver = false">Cancel</button>
+        <button class="btn-cancel" (click)="activeForm = ''">Cancel</button>
         <button class="btn-create" (click)="createDriver()">Create Driver</button>
       </div>
     </div>
@@ -72,23 +102,24 @@
   <div class="users-grid">
     @for (user of filteredUsers; track user.id) {
       <div class="user-card">
-        <div class="user-avatar"
-          [class.admin]="user.role === 'ADMIN'"
-          [class.shop]="user.role === 'SHOP'"
-          [class.driver]="user.role === 'DRIVER'">
-          {{ user.name.charAt(0).toUpperCase() }}
-        </div>
-        <div class="user-info">
-          <h3>{{ user.name }}</h3>
-          <p>{{ user.email }}</p>
-        </div>
-        <span class="role-badge"
-          [class.admin]="user.role === 'ADMIN'"
-          [class.shop]="user.role === 'SHOP'"
-          [class.driver]="user.role === 'DRIVER'">
-          {{ user.role }}
-        </span>
-      </div>
+  <div class="user-avatar"
+    [class.admin]="user.role === 'ADMIN'"
+    [class.shop]="user.role === 'SHOP'"
+    [class.driver]="user.role === 'DRIVER'">
+    {{ user.name.charAt(0).toUpperCase() }}
+  </div>
+  <div class="user-info">
+    <h3>{{ user.name }}</h3>
+    <p>{{ user.email }}</p>
+  </div>
+  <span class="role-badge"
+    [class.admin]="user.role === 'ADMIN'"
+    [class.shop]="user.role === 'SHOP'"
+    [class.driver]="user.role === 'DRIVER'">
+    {{ user.role }}
+  </span>
+  <button class="delete-btn" (click)="deleteUser(user.id)">✕</button>
+</div>
     }
   </div>
 

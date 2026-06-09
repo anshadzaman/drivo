@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -12,16 +13,25 @@ import { ChangeDetectorRef } from '@angular/core';
 export class Users implements OnInit {
 
   users: any[] = [];
-
   filteredUsers: any[] = [];
 
   searchText = '';
+
   selectedRole = 'ALL';
-  activeRole = 'ALL'
+  activeRole = 'ALL';
+
   adminCount = 0;
   shopCount = 0;
   driverCount = 0;
-  showCreateDriver = false;
+
+  activeForm = '';
+
+  shop = {
+    name: '',
+    email: '',
+    password: '',
+    role: 'SHOP'
+  };
 
   driver = {
     name: '',
@@ -29,14 +39,59 @@ export class Users implements OnInit {
     password: '',
     role: 'DRIVER'
   };
+
   constructor(
     private userService: UserService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
 
-this.loadUsers();
+    this.loadUsers();
+
+  }
+
+  openForm(form: string) {
+
+    if (this.activeForm === form) {
+
+      this.activeForm = '';
+
+    } else {
+
+      this.activeForm = form;
+
+    }
+
+  }
+
+  loadUsers() {
+
+    this.userService
+      .getUsers()
+      .subscribe((data: any) => {
+
+        this.users = data;
+        this.filteredUsers = data;
+
+        this.adminCount =
+          this.users.filter(
+            u => u.role === 'ADMIN'
+          ).length;
+
+        this.shopCount =
+          this.users.filter(
+            u => u.role === 'SHOP'
+          ).length;
+
+        this.driverCount =
+          this.users.filter(
+            u => u.role === 'DRIVER'
+          ).length;
+
+        this.cdr.detectChanges();
+
+      });
 
   }
 
@@ -62,33 +117,52 @@ this.loadUsers();
       );
 
   }
+
   filterByRole(role: string) {
 
     this.selectedRole = role;
     this.activeRole = role;
+
     if (role === 'ALL') {
 
-      this.filteredUsers =
-        this.users;
-
+      this.filteredUsers = this.users;
       return;
 
     }
 
     this.filteredUsers =
       this.users.filter(
-        user =>
-          user.role === role
+        user => user.role === role
       );
 
   }
-createDriver() {
 
-  this.userService
-      .createUser(this.driver)
+  createShop() {
+
+    this.userService
+      .createUser(this.shop)
       .subscribe(() => {
 
-        this.showCreateDriver = false;
+        this.shop = {
+          name: '',
+          email: '',
+          password: '',
+          role: 'SHOP'
+        };
+
+        this.activeForm = '';
+
+        this.loadUsers();
+
+      });
+
+  }
+
+  createDriver() {
+
+    this.userService
+      .createUser(this.driver)
+      .subscribe(() => {
 
         this.driver = {
           name: '',
@@ -97,35 +171,31 @@ createDriver() {
           role: 'DRIVER'
         };
 
+        this.activeForm = '';
+
         this.loadUsers();
 
       });
 
-}
-loadUsers() {
+  }
+deleteUser(id: number) {
+
+  if (
+    !confirm(
+      'Delete this user?'
+    )
+  ) {
+
+    return;
+
+  }
 
   this.userService
-      .getUsers()
-      .subscribe((data: any) => {
+      .deleteUser(id)
+      .subscribe(() => {
 
-        this.users = data;
-        this.filteredUsers = data;
+        this.loadUsers();
 
-        this.adminCount =
-          this.users.filter(
-            u => u.role === 'ADMIN'
-          ).length;
-
-        this.shopCount =
-          this.users.filter(
-            u => u.role === 'SHOP'
-          ).length;
-
-        this.driverCount =
-          this.users.filter(
-            u => u.role === 'DRIVER'
-          ).length;
-this.cdr.detectChanges();
       });
 
 }

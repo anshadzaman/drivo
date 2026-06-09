@@ -5,6 +5,7 @@ import com.drivo.dto.UserDto;
 import com.drivo.entity.User;
 import com.drivo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import com.drivo.dto.LoginRequest;
@@ -74,6 +75,21 @@ public class UserController {
 
         return userService
                 .getShopCount();
+
+    }
+    @DeleteMapping("/{id}")
+    public void deleteUser(
+            @PathVariable Long id) {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
+        userService.deleteUser(
+                id,
+                email);
 
     }
 
