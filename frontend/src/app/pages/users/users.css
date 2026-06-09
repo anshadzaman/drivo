@@ -7,6 +7,10 @@
 
 /* ── Page header ── */
 .page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
   margin-bottom: 28px;
   animation: fadeUp 0.4s ease both;
 }
@@ -26,6 +30,155 @@
   margin: 0;
 }
 
+/* ── Create button ── */
+.create-button {
+  flex-shrink: 0;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-top: 4px;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.create-button:hover {
+  background: #fb923c;
+  box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+  transform: translateY(-1px);
+}
+
+.create-button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* ── Create driver card ── */
+.create-driver-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 24px 24px 20px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.3s ease both;
+}
+
+.form-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 20px;
+  letter-spacing: -0.01em;
+}
+
+.create-driver-fields {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-field span {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+}
+
+.form-field input {
+  height: 40px;
+  padding: 0 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  outline: none;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.form-field input::placeholder { color: rgba(255,255,255,0.2); }
+
+.form-field input:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+}
+
+.form-field input:focus {
+  border-color: var(--accent);
+  background: rgba(249,115,22,0.05);
+  box-shadow: 0 0 0 3px rgba(249,115,22,0.1);
+}
+
+/* ── Create driver footer ── */
+.create-driver-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-cancel {
+  height: 36px;
+  padding: 0 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.btn-cancel:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-primary);
+}
+
+.btn-create {
+  height: 36px;
+  padding: 0 20px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
+}
+
+.btn-create:hover {
+  background: #fb923c;
+  box-shadow: 0 4px 14px rgba(249,115,22,0.3);
+  transform: translateY(-1px);
+}
+
+.btn-create:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 /* ── Stats grid ── */
 .stats-grid {
   display: grid;
@@ -39,12 +192,12 @@
 .stat-card {
   background: var(--surface);
   border: 1px solid var(--border);
+  border-top: 2px solid transparent;
   border-radius: 12px;
   padding: 18px 16px;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  border-top: 2px solid transparent;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
@@ -267,9 +420,12 @@
   .toolbar { flex-direction: column; align-items: stretch; }
   .filter-buttons { justify-content: stretch; }
   .filter-buttons button { flex: 1; }
+  .create-driver-fields { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
+  .page-header { flex-direction: column; gap: 12px; }
+  .create-button { width: 100%; justify-content: center; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .users-grid { grid-template-columns: 1fr; }
 }

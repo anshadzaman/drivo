@@ -5,7 +5,35 @@
       <h1>Users</h1>
       <p>Manage registered accounts and roles.</p>
     </div>
+    <button class="create-button" (click)="showCreateDriver = !showCreateDriver">
+      {{ showCreateDriver ? '✕ Cancel' : '+ Create Driver' }}
+    </button>
   </div>
+
+  <!-- Create driver form -->
+  @if (showCreateDriver) {
+    <div class="create-driver-card">
+      <h2 class="form-title">New Driver Account</h2>
+      <div class="create-driver-fields">
+        <label class="form-field">
+          <span>Name</span>
+          <input type="text" placeholder="Enter full name" [(ngModel)]="driver.name" />
+        </label>
+        <label class="form-field">
+          <span>Email</span>
+          <input type="email" placeholder="you@example.com" [(ngModel)]="driver.email" />
+        </label>
+        <label class="form-field">
+          <span>Password</span>
+          <input type="password" placeholder="Create a password" [(ngModel)]="driver.password" />
+        </label>
+      </div>
+      <div class="create-driver-footer">
+        <button class="btn-cancel" (click)="showCreateDriver = false">Cancel</button>
+        <button class="btn-create" (click)="createDriver()">Create Driver</button>
+      </div>
+    </div>
+  }
 
   <!-- Stats -->
   <div class="stats-grid">
@@ -35,14 +63,8 @@
       <button [class.active]="activeRole === 'SHOP'"   (click)="filterByRole('SHOP')">Shops</button>
       <button [class.active]="activeRole === 'DRIVER'" (click)="filterByRole('DRIVER')">Drivers</button>
     </div>
-
     <div class="search-box">
-      <input
-        type="text"
-        placeholder="Search users..."
-        [(ngModel)]="searchText"
-        (input)="searchUsers()"
-      />
+      <input type="text" placeholder="Search users..." [(ngModel)]="searchText" (input)="searchUsers()" />
     </div>
   </div>
 
@@ -50,9 +72,10 @@
   <div class="users-grid">
     @for (user of filteredUsers; track user.id) {
       <div class="user-card">
-        <div class="user-avatar" [class.admin]="user.role === 'ADMIN'"
-                                  [class.shop]="user.role === 'SHOP'"
-                                  [class.driver]="user.role === 'DRIVER'">
+        <div class="user-avatar"
+          [class.admin]="user.role === 'ADMIN'"
+          [class.shop]="user.role === 'SHOP'"
+          [class.driver]="user.role === 'DRIVER'">
           {{ user.name.charAt(0).toUpperCase() }}
         </div>
         <div class="user-info">

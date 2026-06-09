@@ -33,4 +33,12 @@ export class UserService {
       `${this.api}/count/shops`
     );
   }
+  createUser(user: any) {
+
+  return this.http.post(
+    this.api,
+    user
+  );
+
+}
 }
