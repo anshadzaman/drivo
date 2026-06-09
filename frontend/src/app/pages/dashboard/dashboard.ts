@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { FormsModule } from '@angular/forms';
 import { ShipmentService } from '../../services/shipment.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { count } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -15,7 +16,9 @@ export class Dashboard implements OnInit {
   pickupLocation = '';
   pendingCount = 0;
   role='';
-
+driverCount=0;
+userCount=0;
+shopCount=0;
 deliveredCount = 0;
   showPickup() {
 
@@ -33,24 +36,29 @@ deliveredCount = 0;
   this.role =
     this.getRole();
 
-  if (
-    this.role ===
-    'DRIVER'
-  ) {
+if (
+  this.role === 'ADMIN'
+) {
 
-    this.loadDriverCounts();
+  this.loadAdminCounts();
 
-  }
+}
 
-  else {
+else if (
+  this.role === 'DRIVER'
+) {
 
-    this.loadShipmentCount();
+  this.loadDriverCounts();
 
-    this.loadDeliveredCount();
+}
 
-    this.loadPendingCount();
+else {
 
-  }
+  this.loadShipmentCount();
+  this.loadDeliveredCount();
+  this.loadPendingCount();
+
+}
 
 
     console.log('dashboard loaded');
@@ -147,6 +155,68 @@ loadDriverCounts() {
         this.deliveredCount =
           count;
 
+        this.cdr
+            .detectChanges();
+
+      });
+
+}
+loadAdminCounts() {
+
+  this.userService
+      .getUserCount()
+      .subscribe((count: any) => {
+
+        this.userCount = count;
+        this.cdr
+            .detectChanges();
+
+      });
+
+  this.userService
+      .getDriverCount()
+      .subscribe((count: any) => {
+
+        this.driverCount = count;
+this.cdr
+            .detectChanges();
+      });
+
+  this.userService
+      .getShopCount()
+      .subscribe((count: any) => {
+
+        this.shopCount = count;
+        this.cdr
+            .detectChanges();
+
+      });
+
+  this.shipmentService
+      .getShipmentCount()
+      .subscribe((count: any) => {
+
+        this.shipmentCount = count;
+        this.cdr
+            .detectChanges();
+
+      });
+
+  this.shipmentService
+      .getPendingCount()
+      .subscribe((count: any) => {
+
+        this.pendingCount = count;
+        this.cdr
+            .detectChanges();
+
+      });
+
+  this.shipmentService
+      .getDeliveredCount()
+      .subscribe((count: any) => {
+
+        this.deliveredCount = count;
         this.cdr
             .detectChanges();
 

@@ -18,5 +18,19 @@ export class UserService {
     return this.http.get(this.api);
 
   }
-
+  getDriverCount(){
+    return this.http.get(
+      `${this.api}/count/drivers`
+    );
+  }
+  getUserCount(){
+    return this.http.get(
+      `${this.api}/count`
+    );
+  }
+    getShopCount(){
+    return this.http.get(
+      `${this.api}/count/shops`
+    );
+  }
 }

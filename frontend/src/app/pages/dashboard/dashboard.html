@@ -1,4 +1,5 @@
 <section class="dashboard-page">
+
   <div class="page-header">
     <div>
       <h1>Dashboard</h1>
@@ -6,32 +7,70 @@
     </div>
   </div>
 
-  <div class="stats-grid">
-    <article class="stat-card total">
-      <div class="stat-icon">📦</div>
+  @if (role === 'ADMIN') {
+    <div class="section-block">
+      <h2 class="section-title">Users</h2>
+      <div class="stats-grid">
 
-      <div>
-        <p>Total Shipments</p>
-        <strong>{{ shipmentCount }}</strong>
+        <article class="stat-card">
+          <div class="stat-icon">👥</div>
+          <div>
+            <p>Total Users</p>
+            <strong>{{ userCount }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🚗</div>
+          <div>
+            <p>Total Drivers</p>
+            <strong>{{ driverCount }}</strong>
+          </div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-icon">🏪</div>
+          <div>
+            <p>Total Shops</p>
+            <strong>{{ shopCount }}</strong>
+          </div>
+        </article>
+
       </div>
-    </article>
+    </div>
+  }
 
-    <article class="stat-card pending">
-      <div class="stat-icon">⏳</div>
+  <div class="section-block">
+    @if (role === 'ADMIN') {
+      <h2 class="section-title">Shipments</h2>
+    }
+    <div class="stats-grid">
 
-      <div>
-        <p>Pending Shipments</p>
-        <strong>{{ pendingCount }}</strong>
-      </div>
-    </article>
+      <article class="stat-card total">
+        <div class="stat-icon">📦</div>
+        <div>
+          <p>Total Shipments</p>
+          <strong>{{ shipmentCount }}</strong>
+        </div>
+      </article>
 
-    <article class="stat-card delivered">
-      <div class="stat-icon">✓</div>
+      <article class="stat-card pending">
+        <div class="stat-icon">⏳</div>
+        <div>
+          <p>Pending Shipments</p>
+          <strong>{{ pendingCount }}</strong>
+        </div>
+      </article>
 
-      <div>
-        <p>Delivered Shipments</p>
-        <strong>{{ deliveredCount }}</strong>
-      </div>
-    </article>
+      <article class="stat-card delivered">
+        <div class="stat-icon">✓</div>
+        <div>
+          <p>Delivered Shipments</p>
+          <strong>{{ deliveredCount }}</strong>
+        </div>
+      </article>
+
+    </div>
   </div>
+
 </section>

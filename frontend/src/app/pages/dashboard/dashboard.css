@@ -5,6 +5,7 @@
   margin: 0 auto;
 }
 
+/* ── Page header ── */
 .page-header {
   margin-bottom: 36px;
   animation: fadeUp 0.4s ease both;
@@ -25,11 +26,31 @@
   margin: 0;
 }
 
+/* ── Section block ── */
+.section-block {
+  margin-bottom: 32px;
+  animation: fadeUp 0.45s ease both;
+}
+
+.section-block:last-child {
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+
 /* ── Stats grid ── */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
 
 /* ── Stat card ── */
@@ -37,8 +58,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 18px;
-  padding: 24px 22px;
+  gap: 16px;
+  padding: 22px 20px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -47,37 +68,29 @@
   animation: fadeUp 0.45s ease both;
 }
 
-.stat-card:nth-child(1) { animation-delay: 0.08s; }
-.stat-card:nth-child(2) { animation-delay: 0.16s; }
-.stat-card:nth-child(3) { animation-delay: 0.24s; }
+.stat-card:nth-child(1) { animation-delay: 0.06s; }
+.stat-card:nth-child(2) { animation-delay: 0.12s; }
+.stat-card:nth-child(3) { animation-delay: 0.18s; }
 
 .stat-card:hover {
   background: var(--surface-hover);
   transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.3);
 }
 
-.stat-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 16px;
-  bottom: 16px;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
-}
+/* top border accent */
+.stat-card.total     { border-top: 2px solid #60a5fa; }
+.stat-card.pending   { border-top: 2px solid #fbbf24; }
+.stat-card.delivered { border-top: 2px solid #34d399; }
 
-.stat-card.total::before     { background: #60a5fa; }
-.stat-card.pending::before   { background: #fbbf24; }
-.stat-card.delivered::before { background: #34d399; }
-
+/* glow blob */
 .stat-card::after {
   content: '';
   position: absolute;
   top: -20px;
   right: -20px;
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   opacity: 0.06;
   transition: opacity 0.3s ease;
@@ -88,13 +101,13 @@
 .stat-card.pending::after   { background: #fbbf24; }
 .stat-card.delivered::after { background: #34d399; }
 
-.stat-card:hover::after { opacity: 0.13; }
+.stat-card:hover::after { opacity: 0.12; }
 
-/* ── Icon ── */
+/* ── Stat icon ── */
 .stat-icon {
-  font-size: 24px;
-  width: 48px;
-  height: 48px;
+  font-size: 22px;
+  width: 46px;
+  height: 46px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -103,28 +116,33 @@
   flex-shrink: 0;
 }
 
-/* ── Label ── */
+/* ── Stat text ── */
 .stat-card > div:not(.stat-icon) p {
   font-size: 11px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-  margin: 0 0 6px;
+  margin: 0 0 5px;
 }
 
-/* ── Number ── */
 .stat-card > div:not(.stat-icon) strong {
   font-family: 'Syne', sans-serif;
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
+  color: var(--text-primary);
 }
 
 .stat-card.total     strong { color: #60a5fa; }
 .stat-card.pending   strong { color: #fbbf24; }
 .stat-card.delivered strong { color: #34d399; }
+
+/* admin cards — no colour accent, neutral style */
+.stat-card:not(.total):not(.pending):not(.delivered) strong {
+  color: var(--text-primary);
+}
 
 /* ── Keyframes ── */
 @keyframes fadeUp {
@@ -140,5 +158,8 @@
 
 @media (max-width: 960px) and (min-width: 721px) {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .stat-card:last-child { grid-column: 1 / -1; max-width: 50%; }
+  .stats-grid .stat-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 7px);
+  }
 }
