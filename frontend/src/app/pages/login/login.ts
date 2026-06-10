@@ -17,16 +17,18 @@ export class Login {
   email = '';
 
   password = '';
-  login() {
+login() {
 
-    console.log("Login clicked");
+  console.log("Login clicked");
 
-    this.authService
-      .login(
-        this.email,
-        this.password
-      )
-      .subscribe((response: any) => {
+  this.authService
+    .login(
+      this.email,
+      this.password
+    )
+    .subscribe({
+
+      next: (response: any) => {
 
         console.log(response);
 
@@ -34,11 +36,22 @@ export class Login {
           'token',
           response.token
         );
+
         this.router.navigate(
           ['/']
         );
 
-      });
+      },
 
-  }
+      error: (err) => {
+
+        alert(
+          "Invalid email or Password"
+        );
+
+      }
+
+    });
+
+}
 }

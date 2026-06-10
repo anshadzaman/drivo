@@ -9,7 +9,16 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleRuntimeException(
+            RuntimeException ex) {
 
+        return Map.of(
+                "message",
+                ex.getMessage()
+        );
+    }
     @ExceptionHandler(
             MethodArgumentNotValidException.class
     )
@@ -33,5 +42,6 @@ public class GlobalExceptionHandler {
 
         return errors;
     }
+
 
 }

@@ -21,30 +21,47 @@ export class CreateShipment {
     private cdr: ChangeDetectorRef
   ) {}
 
-  createShipment() {
+createShipment() {
 
-    const shipment = {
+  const shipment = {
 
-      pickupLocation: this.pickupLocation,
+    pickupLocation: this.pickupLocation,
 
-      dropLocation: this.dropLocation,
+    dropLocation: this.dropLocation,
 
-      itemName: this.itemName
+    itemName: this.itemName
 
-    };
+  };
 
-    this.shipmentService
+  this.shipmentService
       .createShipment(shipment)
-      .subscribe(() => {
+      .subscribe({
 
-        this.pickupLocation = '';
-        this.dropLocation = '';
-        this.itemName = '';
+        next: () => {
 
-        this.cdr.detectChanges();
+          alert(
+            'Shipment created successfully'
+          );
+
+          this.pickupLocation = '';
+          this.dropLocation = '';
+          this.itemName = '';
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error?.message ||
+            'Failed to create shipment'
+          );
+
+        }
 
       });
 
-  }
+}
 
 }

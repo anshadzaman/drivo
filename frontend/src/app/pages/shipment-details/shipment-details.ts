@@ -32,28 +32,39 @@ export class ShipmentDetails
 
   ) { }
 
-  ngOnInit() {
+ngOnInit() {
 
-    const id =
-      Number(
-        this.route
-          .snapshot
-          .paramMap
-          .get('id')
-      );
+  const id =
+    Number(
+      this.route
+        .snapshot
+        .paramMap
+        .get('id')
+    );
 
-    this.shipmentService
+  this.shipmentService
       .getShipmentById(id)
-      .subscribe((data) => {
+      .subscribe({
 
-        this.shipment =
-          data;
+        next: (data) => {
 
-        this.cdr
-          .detectChanges();
+          this.shipment =
+            data;
+
+          this.cdr
+              .detectChanges();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
 
       });
 
-  }
-
 }
+  }

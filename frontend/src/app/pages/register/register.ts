@@ -35,14 +35,28 @@ register() {
         this.role
 
       )
-      .subscribe(() => {
+      .subscribe({
 
-        alert(
-          'Registration Successful'
-        );
- this.router.navigate(
-          ['login']
-        );
+        next: () => {
+
+          alert(
+            'Registration Successful'
+          );
+
+          this.router.navigate(
+            ['login']
+          );
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
       });
 
 }

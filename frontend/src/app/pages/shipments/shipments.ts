@@ -41,14 +41,28 @@ loadShipments() {
 
   this.shipmentService
       .getShipments()
-      .subscribe(data => {
+      .subscribe({
 
-        this.shipments =
-  data as any[];
+        next: (data) => {
 
-this.filteredShipments =
-  [...this.shipments];
-   this.cdr.detectChanges();
+          this.shipments =
+            data as any[];
+
+          this.filteredShipments =
+            [...this.shipments];
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
       });
 
 }
@@ -94,11 +108,13 @@ deleteShipment(id: number) {
 
         },
 
-        error: error => {
+        error: (err) => {
 
-          console.log(error);
+  alert(
+    err.error.message
+  );
 
-        }
+}
 
       });
 
@@ -107,10 +123,22 @@ markAsDelivered(id: number) {
 
   this.shipmentService
       .markAsDelivered(id)
-      .subscribe(() => {
+      .subscribe({
 
-        this.loadShipments();
-       
+        next: () => {
+
+          this.loadShipments();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
       });
 
 }
@@ -142,10 +170,23 @@ assignDriver(
         shipmentId,
         driverId
       )
-      .subscribe(() => {
+      .subscribe({
 
-        this.loadShipments();
-        this.cdr.detectChanges()
+        next: () => {
+
+          this.loadShipments();
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
 
       });
 

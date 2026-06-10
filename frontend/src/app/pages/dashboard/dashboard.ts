@@ -223,4 +223,11 @@ this.cdr
       });
 
 }
+showError(err: any) {
+
+  alert(
+    err.error.message
+  );
+
+}
 }

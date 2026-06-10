@@ -25,47 +25,36 @@ export class MyShipments
   ngOnInit() {
 
     console.log("MyShipments loaded");
-
-    this.shipmentService
-      .getMyShipments()
-      .subscribe((data: any) => {
-
-        console.log("API DATA:", data);
-
-        this.shipments = data;
+  this.loadMyShipments();
 
         this.cdr.detectChanges();
 
-      });
+      
 
   }
-  markDelivered(
-    id: number
-  ) {
+markDelivered(id: number) {
 
-    this.shipmentService
-      .markMyShipmentDelivered(
-        id
-      )
-      .subscribe(() => {
-        this.cdr.detectChanges();
-        this.shipmentService
-          .getMyShipments()
-          .subscribe(
-            (data: any) => {
+  this.shipmentService
+      .markMyShipmentDelivered(id)
+      .subscribe({
 
-              this.shipments =
-                data;
+        next: () => {
 
-              this.cdr
-                .detectChanges();
+          this.loadMyShipments();
 
-            }
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
           );
 
+        }
+
       });
 
-  }
+}
   get filteredShipments() {
 
     if (this.filter === 'ALL') {
@@ -77,4 +66,29 @@ export class MyShipments
     );
 
   }
+  loadMyShipments() {
+
+  this.shipmentService
+      .getMyShipments()
+      .subscribe({
+
+        next: (data: any) => {
+
+          this.shipments = data;
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
+      });
+
+}
 }

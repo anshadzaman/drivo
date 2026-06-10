@@ -36,55 +36,83 @@ export class EditShipment implements OnInit {
 
   }
 
-  loadShipment() {
+ loadShipment() {
 
-    this.shipmentService
+  this.shipmentService
       .getShipmentById(this.id)
-      .subscribe((shipment: any) => {
+      .subscribe({
 
-        this.pickupLocation =
-          shipment.pickupLocation;
+        next: (shipment: any) => {
 
-        this.dropLocation =
-          shipment.dropLocation;
+          this.pickupLocation =
+            shipment.pickupLocation;
 
-        this.itemName =
-          shipment.itemName;
-        this.cdr.detectChanges();
+          this.dropLocation =
+            shipment.dropLocation;
 
+          this.itemName =
+            shipment.itemName;
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+          this.router.navigate(
+            ['/shipments']
+          );
+
+        }
 
       });
 
-  }
+}
 
   updateShipment() {
 
-    const shipment = {
+  const shipment = {
 
-      pickupLocation:
-        this.pickupLocation,
+    pickupLocation:
+      this.pickupLocation,
 
-      dropLocation:
-        this.dropLocation,
+    dropLocation:
+      this.dropLocation,
 
-      itemName:
-        this.itemName
+    itemName:
+      this.itemName
 
-    };
+  };
 
-    this.shipmentService
+  this.shipmentService
       .updateShipment(
         this.id,
         shipment
       )
-      .subscribe(() => {
+      .subscribe({
 
-        this.router.navigate(
-          ['/shipments']
-        );
+        next: () => {
+
+          this.router.navigate(
+            ['/shipments']
+          );
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
 
       });
 
-  }
+}
 
 }

@@ -137,47 +137,70 @@ export class Users implements OnInit {
 
   }
 
-  createShop() {
+createShop() {
 
-    this.userService
+  this.userService
       .createUser(this.shop)
-      .subscribe(() => {
+      .subscribe({
 
-        this.shop = {
-          name: '',
-          email: '',
-          password: '',
-          role: 'SHOP'
-        };
+        next: () => {
 
-        this.activeForm = '';
+          this.shop = {
+            name: '',
+            email: '',
+            password: '',
+            role: 'SHOP'
+          };
 
-        this.loadUsers();
+          this.activeForm = '';
+
+          this.loadUsers();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
 
       });
 
-  }
+}
+ createDriver() {
 
-  createDriver() {
-
-    this.userService
+  this.userService
       .createUser(this.driver)
-      .subscribe(() => {
+      .subscribe({
 
-        this.driver = {
-          name: '',
-          email: '',
-          password: '',
-          role: 'DRIVER'
-        };
+        next: () => {
 
-        this.activeForm = '';
+          this.driver = {
+            name: '',
+            email: '',
+            password: '',
+            role: 'DRIVER'
+          };
 
-        this.loadUsers();
+          this.activeForm = '';
+
+          this.loadUsers();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
 
       });
 
-  }
+}
 deleteUser(id: number) {
 
   if (
@@ -192,9 +215,21 @@ deleteUser(id: number) {
 
   this.userService
       .deleteUser(id)
-      .subscribe(() => {
+      .subscribe({
 
-        this.loadUsers();
+        next: () => {
+
+          this.loadUsers();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
 
       });
 
