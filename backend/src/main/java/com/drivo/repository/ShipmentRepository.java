@@ -29,4 +29,17 @@ public interface ShipmentRepository
             ShipmentStatus status
 
     );
+    long countByStatusIn(
+            List<ShipmentStatus> statuses
+    );
+
+    long countByShopIdAndStatusIn(
+            Long shopId,
+            List<ShipmentStatus> statuses
+    );
+
+    long countByAssignedDriverIdAndStatusIn(
+            Long driverId,
+            List<ShipmentStatus> statuses
+    );
 }

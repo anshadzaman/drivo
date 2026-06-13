@@ -250,4 +250,34 @@ public class ShipmentController {
         return shipmentService
                 .getMyPendingShipmentCount(email);
     }
+    @PutMapping("/{id}/pickup")
+    public Shipment markPickedUp(
+            @PathVariable Long id) {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
+        return shipmentService
+                .markPickedUp(
+                        id,
+                        email);
+    }
+    @PutMapping("/{id}/in-transit")
+    public Shipment markInTransit(
+            @PathVariable Long id) {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
+        return shipmentService
+                .markInTransit(
+                        id,
+                        email);
+    }
 }

@@ -158,8 +158,14 @@ public class ShipmentService {
     public long getPendingCount() {
 
         return shipmentRepository
-                .countByStatus(
-                        ShipmentStatus.PENDING);
+                .countByStatusIn(
+                        List.of(
+                                ShipmentStatus.PENDING,
+                                ShipmentStatus.ASSIGNED,
+                                ShipmentStatus.PICKED_UP,
+                                ShipmentStatus.IN_TRANSIT
+                        )
+                );
     }
     public long getDeliveredCount() {
 
@@ -183,7 +189,8 @@ public class ShipmentService {
 
         shipment.setAssignedDriver(
                 driver);
-
+        shipment.setStatus(
+                ShipmentStatus.ASSIGNED);
         return shipmentRepository
                 .save(shipment);
     }
@@ -242,9 +249,15 @@ public class ShipmentService {
                         .orElseThrow();
 
         return shipmentRepository
-                .countByShopIdAndStatus(
+                .countByShopIdAndStatusIn(
                         shop.getId(),
-                        ShipmentStatus.PENDING);
+                        List.of(
+                                ShipmentStatus.PENDING,
+                                ShipmentStatus.ASSIGNED,
+                                ShipmentStatus.PICKED_UP,
+                                ShipmentStatus.IN_TRANSIT
+                        )
+                );
     }
     public long getMyDeliveredCount(
             String email) {
@@ -268,15 +281,22 @@ public class ShipmentService {
                         driver.getId()
                 );
     }
-    public long getMyPendingShipmentCount(String email){
-        User driver = userRepository
-                .findByEmail(email)
-                .orElseThrow();
-        return shipmentRepository
-                .countByAssignedDriverIdAndStatus(
-                        driver.getId(),
-                        ShipmentStatus.PENDING
+    public long getMyPendingShipmentCount(
+            String email) {
 
+        User driver =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        return shipmentRepository
+                .countByAssignedDriverIdAndStatusIn(
+                        driver.getId(),
+                        List.of(
+                                ShipmentStatus.ASSIGNED,
+                                ShipmentStatus.PICKED_UP,
+                                ShipmentStatus.IN_TRANSIT
+                        )
                 );
     }
     public long getMyDeliveredShipmentCount(String email){
@@ -412,5 +432,74 @@ public class ShipmentService {
         );
 
     }
+    public Shipment markPickedUp(
+            Long shipmentId,
+            String email) {
 
+        Shipment shipment =
+                shipmentRepository
+                        .findById(shipmentId)
+                        .orElseThrow();
+
+        User driver =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        if (shipment.getAssignedDriver() == null) {
+
+            throw new RuntimeException(
+                    "No driver assigned");
+        }
+
+        if (!shipment
+                .getAssignedDriver()
+                .getId()
+                .equals(driver.getId())) {
+
+            throw new RuntimeException(
+                    "You are not assigned to this shipment");
+        }
+
+        shipment.setStatus(
+                ShipmentStatus.PICKED_UP);
+
+        return shipmentRepository
+                .save(shipment);
+    }
+    public Shipment markInTransit(
+            Long shipmentId,
+            String email) {
+
+        Shipment shipment =
+                shipmentRepository
+                        .findById(shipmentId)
+                        .orElseThrow();
+
+        User driver =
+                userRepository
+                        .findByEmail(email)
+                        .orElseThrow();
+
+        if (shipment.getAssignedDriver() == null) {
+
+            throw new RuntimeException(
+                    "No driver assigned");
+        }
+
+        if (!shipment
+                .getAssignedDriver()
+                .getId()
+                .equals(driver.getId())) {
+
+            throw new RuntimeException(
+                    "You are not assigned to this shipment");
+        }
+
+        shipment.setStatus(
+                ShipmentStatus.IN_TRANSIT);
+
+        return shipmentRepository
+                .save(shipment);
+    }
 }
