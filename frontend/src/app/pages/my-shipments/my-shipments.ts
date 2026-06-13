@@ -26,10 +26,10 @@ export class MyShipments
 
     console.log("MyShipments loaded");
   this.loadMyShipments();
-
+  
+      
         this.cdr.detectChanges();
 
-      
 
   }
 markDelivered(id: number) {
@@ -91,4 +91,55 @@ markDelivered(id: number) {
       });
 
 }
+markPickedUp(id: number) {
+
+  this.shipmentService
+      .markPickedUp(id)
+      .subscribe({
+
+        next: () => {
+
+          this.loadMyShipments();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error?.message ||
+            'Failed to mark shipment as picked up'
+          );
+
+        }
+
+      });
+
+}
+markInTransit(id: number) {
+
+  this.shipmentService
+      .markInTransit(id)
+      .subscribe({
+
+        next: () => {
+
+          this.loadMyShipments();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error?.message ||
+            'Failed to start transit'
+          );
+
+        }
+
+      });
+
+}
+
+
+
 }

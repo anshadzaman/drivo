@@ -5,7 +5,6 @@
   margin: 0 auto;
 }
 
-/* ── Page header ── */
 .page-header {
   display: flex;
   align-items: flex-start;
@@ -34,7 +33,7 @@
 .filter-buttons {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -79,11 +78,7 @@
   animation: fadeUp 0.4s ease both;
 }
 
-.empty-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
-  opacity: 0.5;
-}
+.empty-icon { font-size: 40px; margin-bottom: 16px; opacity: 0.5; }
 
 .empty-state h2 {
   font-family: 'Syne', sans-serif;
@@ -99,56 +94,57 @@
   margin: 0;
 }
 
-/* ── Shipments list ── */
+/* ── List ── */
 .shipments-list {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* ── Shipment card ── */
+/* ── Card ── */
 .shipment-card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 20px 24px;
+  align-items: stretch;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-  position: relative;
   overflow: hidden;
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   animation: fadeUp 0.4s ease both;
 }
 
 .shipment-card:hover {
   background: var(--surface-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.28);
 }
 
-/* left accent bar per status */
-.shipment-card::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 14px;
-  bottom: 14px;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
+/* ── Left accent bar ── */
+.card-accent {
+  width: 4px;
+  flex-shrink: 0;
 }
 
-.shipment-card.is-pending::before   { background: #fbbf24; }
-.shipment-card.is-delivered::before { background: #34d399; }
+.is-assigned   .card-accent { background: #60a5fa; }
+.is-picked-up  .card-accent { background: #c084fc; }
+.is-in-transit .card-accent { background: #fbbf24; }
+.is-delivered  .card-accent { background: #34d399; }
 
-/* ── Card left ── */
-.card-left {
+/* ── Card content ── */
+.card-content {
+  flex: 1;
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   min-width: 0;
-  flex: 1;
+}
+
+/* ── Top row ── */
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .shipment-id {
@@ -158,6 +154,22 @@
   letter-spacing: 0.1em;
   color: var(--text-muted);
 }
+
+/* ── Status badge ── */
+.status-badge {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid transparent;
+}
+
+.status-badge.assigned   { background: rgba(96,165,250,0.12);  color: #60a5fa;  border-color: rgba(96,165,250,0.3);  }
+.status-badge.picked-up  { background: rgba(192,132,252,0.12); color: #c084fc;  border-color: rgba(192,132,252,0.3); }
+.status-badge.in-transit { background: rgba(251,191,36,0.12);  color: #fbbf24;  border-color: rgba(251,191,36,0.3);  }
+.status-badge.delivered  { background: rgba(52,211,153,0.12);  color: #34d399;  border-color: rgba(52,211,153,0.3);  }
 
 /* ── Route ── */
 .route {
@@ -170,11 +182,12 @@
   display: flex;
   flex-direction: column;
   gap: 3px;
+  min-width: 0;
 }
 
 .route-label {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
@@ -184,46 +197,56 @@
   font-size: 15px;
   font-weight: 600;
   color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.route-divider {
+.route-track {
   display: flex;
   align-items: center;
-  gap: 4px;
   flex: 1;
-  margin-top: 14px;
+  gap: 4px;
 }
 
-.route-line {
+.track-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+
+.track-line {
   flex: 1;
   height: 1px;
   background: rgba(255,255,255,0.1);
 }
 
-.route-arrow {
+.track-arrow {
   color: var(--accent);
-  font-size: 14px;
+  font-size: 18px;
+  line-height: 1;
   flex-shrink: 0;
 }
 
-/* ── Item tag ── */
+/* ── Bottom row ── */
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
 .item-tag {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 5px 12px;
-  background: rgba(255,255,255,0.03);
+  gap: 7px;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.04);
   border: 1px solid var(--border);
   border-radius: 6px;
-  width: fit-content;
-}
-
-.item-label {
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: var(--text-muted);
+  font-size: 13px;
 }
 
 .item-name {
@@ -232,44 +255,15 @@
   color: var(--text-primary);
 }
 
-/* ── Card right ── */
-.card-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-/* ── Status badge ── */
-.status-badge {
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  white-space: nowrap;
-  background: rgba(255,255,255,0.06);
-  color: var(--text-muted);
-  border: 1px solid var(--border);
-}
-
-.status-badge.pending   { background: rgba(251,191,36,0.1);  color: #fbbf24; border-color: rgba(251,191,36,0.25); }
-.status-badge.delivered { background: rgba(52,211,153,0.1);  color: #34d399; border-color: rgba(52,211,153,0.25); }
-
-/* ── Mark delivered button ── */
-.mark-delivered-btn {
+/* ── Action buttons ── */
+.action-btn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  height: 36px;
-  padding: 0 16px;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
   border-radius: var(--radius);
-  border: none;
-  background: rgba(52,211,153,0.1);
-  color: #34d399;
-  border: 1px solid rgba(52,211,153,0.25);
+  border: 1px solid transparent;
   font-family: 'DM Sans', sans-serif;
   font-size: 13px;
   font-weight: 500;
@@ -278,22 +272,16 @@
   transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.15s ease;
 }
 
-.mark-delivered-btn:hover {
-  background: rgba(52,211,153,0.2);
-  box-shadow: 0 4px 14px rgba(52,211,153,0.2);
-  transform: translateY(-1px);
-}
+.action-btn:hover  { transform: translateY(-1px); }
+.action-btn:active { transform: translateY(0); }
 
-.mark-delivered-btn:active {
-  transform: translateY(0);
-  box-shadow: none;
-}
+.action-btn.pickup  { background: rgba(96,165,250,0.1);  color: #60a5fa; border-color: rgba(96,165,250,0.25); }
+.action-btn.transit { background: rgba(192,132,252,0.1); color: #c084fc; border-color: rgba(192,132,252,0.25); }
+.action-btn.deliver { background: rgba(52,211,153,0.1);  color: #34d399; border-color: rgba(52,211,153,0.25); }
 
-.btn-icon {
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1;
-}
+.action-btn.pickup:hover  { background: rgba(96,165,250,0.2);  box-shadow: 0 4px 12px rgba(96,165,250,0.2); }
+.action-btn.transit:hover { background: rgba(192,132,252,0.2); box-shadow: 0 4px 12px rgba(192,132,252,0.2); }
+.action-btn.deliver:hover { background: rgba(52,211,153,0.2);  box-shadow: 0 4px 12px rgba(52,211,153,0.2); }
 
 /* ── Keyframes ── */
 @keyframes fadeUp {
@@ -304,28 +292,11 @@
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .shipments-page { padding: 24px 16px 48px; }
-
-  .page-header {
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  .filter-buttons { width: 100%; justify-content: stretch; }
+  .page-header { flex-direction: column; gap: 14px; }
+  .filter-buttons { width: 100%; }
   .filter-buttons button { flex: 1; }
-
-  .shipment-card {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .card-right {
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .route { flex-wrap: wrap; }
-  .route-divider { display: none; }
+  .route { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .route-track { display: none; }
+  .card-bottom { flex-direction: column; align-items: flex-start; }
+  .action-btn { width: 100%; justify-content: center; }
 }

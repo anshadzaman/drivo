@@ -125,4 +125,27 @@ getMyPendingShipmentCount(){
     `${this.api}/my-count/pending`
   );
 }
+markPickedUp(id: number) {
+
+  return this.http.put(
+
+    `${this.api}/${id}/pickup`,
+
+    {}
+
+  );
+
+}
+
+markInTransit(id: number) {
+
+  return this.http.put(
+
+    `${this.api}/${id}/in-transit`,
+
+    {}
+
+  );
+
+}
 }
