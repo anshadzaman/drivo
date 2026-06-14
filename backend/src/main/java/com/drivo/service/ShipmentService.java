@@ -156,7 +156,9 @@ public class ShipmentService {
 
         shipment.setStatus(
                 ShipmentStatus.DELIVERED);
-
+        shipment.setDeliveredAt(
+                LocalDateTime.now()
+        );
         return shipmentRepository
                 .save(shipment);
     }

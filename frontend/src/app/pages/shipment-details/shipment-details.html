@@ -9,7 +9,7 @@
       <a routerLink="/shipments" class="back-link">← Back to Shipments</a>
     </div>
 
-    <!-- Timeline -->
+    <!-- Timeline progress -->
     <div class="timeline">
       @for (status of statuses; track status) {
         <div class="timeline-step" [class.completed]="isCompleted(status)">
@@ -22,7 +22,6 @@
 
     <!-- Detail grid -->
     <div class="detail-grid">
-
       <article class="detail-card route-card">
         <h2 class="card-title">Route</h2>
         <div class="route">
@@ -69,7 +68,64 @@
         <h2 class="card-title">Shop</h2>
         <p class="detail-value">{{ shipment.shop.email }}</p>
       </article>
+    </div>
 
+    <!-- Tracking history -->
+    <div class="tracking-timeline">
+      <h2 class="section-title">Tracking History</h2>
+
+      <div class="tracking-list">
+        @if (shipment.createdAt) {
+          <div class="tracking-item">
+            <div class="tracking-icon">📦</div>
+            <div class="tracking-line"></div>
+            <div class="tracking-info">
+              <strong>Created</strong>
+              <p>{{ shipment.createdAt | date:'medium' }}</p>
+            </div>
+          </div>
+        }
+        @if (shipment.assignedAt) {
+          <div class="tracking-item">
+            <div class="tracking-icon">👨</div>
+            <div class="tracking-line"></div>
+            <div class="tracking-info">
+              <strong>Driver Assigned</strong>
+              <p>{{ shipment.assignedAt | date:'medium' }}</p>
+            </div>
+          </div>
+        }
+        @if (shipment.pickedUpAt) {
+          <div class="tracking-item">
+            <div class="tracking-icon">📍</div>
+            <div class="tracking-line"></div>
+            <div class="tracking-info">
+              <strong>Picked Up</strong>
+              <p>{{ shipment.pickedUpAt | date:'medium' }}</p>
+            </div>
+          </div>
+        }
+        @if (shipment.inTransitAt) {
+          <div class="tracking-item">
+            <div class="tracking-icon">🚚</div>
+            <div class="tracking-line"></div>
+            <div class="tracking-info">
+              <strong>In Transit</strong>
+              <p>{{ shipment.inTransitAt | date:'medium' }}</p>
+            </div>
+          </div>
+        }
+        @if (shipment.deliveredAt) {
+          <div class="tracking-item last">
+            <div class="tracking-icon">✅</div>
+            <div class="tracking-line"></div>
+            <div class="tracking-info">
+              <strong>Delivered</strong>
+              <p>{{ shipment.deliveredAt | date:'medium' }}</p>
+            </div>
+          </div>
+        }
+      </div>
     </div>
 
   </section>

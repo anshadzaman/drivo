@@ -6,11 +6,10 @@ import { ShipmentService }
 import { ChangeDetectorRef }
   from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
-
+import { DatePipe, NgClass } from '@angular/common';
 @Component({
   selector: 'app-shipment-details',
-  imports: [FormsModule,NgClass,RouterLink,RouterLinkActive],
+  imports: [FormsModule,NgClass,RouterLink,RouterLinkActive,DatePipe],
   templateUrl: './shipment-details.html',
   styleUrl: './shipment-details.css',
 })
