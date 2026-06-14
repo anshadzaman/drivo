@@ -10,6 +10,8 @@ import com.drivo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.drivo.enums.ShipmentStatus;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +37,8 @@ public class ShipmentService {
 
         shipment.setStatus(
                 ShipmentStatus.PENDING);
+        shipment.setCreatedAt(
+                LocalDateTime.now());
 
         return shipmentRepository.save(
                 shipment);
@@ -116,7 +120,8 @@ public class ShipmentService {
 
         shipment.setStatus(
                 ShipmentStatus.DELIVERED);
-
+        shipment.setDeliveredAt(
+                LocalDateTime.now());
         return shipmentRepository
                 .save(shipment);
     }
@@ -191,6 +196,9 @@ public class ShipmentService {
                 driver);
         shipment.setStatus(
                 ShipmentStatus.ASSIGNED);
+        shipment.setAssignedAt(
+                LocalDateTime.now());
+
         return shipmentRepository
                 .save(shipment);
     }
@@ -371,7 +379,12 @@ public class ShipmentService {
 
                 shopDto,
 
-                driverDto
+                driverDto,
+                shipment.getCreatedAt(),
+                shipment.getAssignedAt(),
+                shipment.getPickedUpAt(),
+                shipment.getInTransitAt(),
+                shipment.getDeliveredAt()
 
         );
 
@@ -463,7 +476,8 @@ public class ShipmentService {
 
         shipment.setStatus(
                 ShipmentStatus.PICKED_UP);
-
+        shipment.setPickedUpAt(
+                LocalDateTime.now());
         return shipmentRepository
                 .save(shipment);
     }
@@ -498,7 +512,8 @@ public class ShipmentService {
 
         shipment.setStatus(
                 ShipmentStatus.IN_TRANSIT);
-
+        shipment.setInTransitAt(
+                LocalDateTime.now());
         return shipmentRepository
                 .save(shipment);
     }
