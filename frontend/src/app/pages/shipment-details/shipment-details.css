@@ -11,7 +11,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   animation: fadeUp 0.4s ease both;
 }
 
@@ -24,9 +24,7 @@
   margin: 0 0 6px;
 }
 
-.id-accent {
-  color: var(--accent);
-}
+.id-accent { color: var(--accent); }
 
 .page-header p {
   font-size: 14px;
@@ -34,7 +32,6 @@
   margin: 0;
 }
 
-/* ── Back link ── */
 .back-link {
   flex-shrink: 0;
   padding: 8px 16px;
@@ -56,11 +53,82 @@
   border-color: rgba(255,255,255,0.15);
 }
 
+/* ── Timeline ── */
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px 28px;
+  animation: fadeUp 0.4s ease both;
+  animation-delay: 0.05s;
+  overflow-x: auto;
+}
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  min-width: 80px;
+}
+
+/* connector line between steps */
+.timeline-step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.timeline-step.completed:not(:last-child)::after {
+  background: var(--accent);
+}
+
+.timeline-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--surface);
+  z-index: 1;
+  flex-shrink: 0;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.timeline-step.completed .timeline-dot {
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(249,115,22,0.4);
+}
+
+.timeline-label {
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-muted);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.timeline-step.completed .timeline-label {
+  color: var(--accent);
+}
+
 /* ── Detail grid ── */
 .detail-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 12px;
 }
 
 /* ── Detail card ── */
@@ -68,26 +136,23 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 22px 22px;
+  padding: 20px 22px;
   animation: fadeUp 0.45s ease both;
   transition: background 0.2s ease, box-shadow 0.2s ease;
 }
 
-.detail-card:nth-child(1) { animation-delay: 0.06s; }
-.detail-card:nth-child(2) { animation-delay: 0.10s; }
-.detail-card:nth-child(3) { animation-delay: 0.14s; }
-.detail-card:nth-child(4) { animation-delay: 0.18s; }
-.detail-card:nth-child(5) { animation-delay: 0.22s; }
+.detail-card:nth-child(1) { animation-delay: 0.08s; }
+.detail-card:nth-child(2) { animation-delay: 0.12s; }
+.detail-card:nth-child(3) { animation-delay: 0.16s; }
+.detail-card:nth-child(4) { animation-delay: 0.20s; }
+.detail-card:nth-child(5) { animation-delay: 0.24s; }
 
 .detail-card:hover {
   background: var(--surface-hover);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
-/* Route card spans full width */
-.route-card {
-  grid-column: 1 / -1;
-}
+.route-card { grid-column: 1 / -1; }
 
 /* ── Card title ── */
 .card-title {
@@ -117,18 +182,19 @@
   display: inline-block;
   padding: 4px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  background: rgba(255,255,255,0.06);
-  color: var(--text-muted);
-  border: 1px solid var(--border);
+  border: 1px solid transparent;
 }
 
-.status-badge.pending    { background: rgba(251,191,36,0.1);  color: #fbbf24; border-color: rgba(251,191,36,0.25);  }
-.status-badge.delivered  { background: rgba(52,211,153,0.1);  color: #34d399; border-color: rgba(52,211,153,0.25);  }
-.status-badge.cancelled  { background: rgba(248,113,113,0.1); color: #f87171; border-color: rgba(248,113,113,0.25); }
+.status-badge.pending     { background: rgba(251,191,36,0.12);  color: #fbbf24; border-color: rgba(251,191,36,0.3);  }
+.status-badge.assigned    { background: rgba(96,165,250,0.12);  color: #60a5fa; border-color: rgba(96,165,250,0.3);  }
+.status-badge.picked-up   { background: rgba(192,132,252,0.12); color: #c084fc; border-color: rgba(192,132,252,0.3); }
+.status-badge.in-transit  { background: rgba(251,191,36,0.12);  color: #fbbf24; border-color: rgba(251,191,36,0.3);  }
+.status-badge.delivered   { background: rgba(52,211,153,0.12);  color: #34d399; border-color: rgba(52,211,153,0.3);  }
+.status-badge.cancelled   { background: rgba(248,113,113,0.12); color: #f87171; border-color: rgba(248,113,113,0.3); }
 
 /* ── Route ── */
 .route {
@@ -145,33 +211,44 @@
 
 .route-label {
   font-size: 10px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
 }
 
 .route-value {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
-.route-divider {
+.route-track {
   display: flex;
   align-items: center;
-  gap: 6px;
   flex: 1;
-  margin-top: 14px;
+  gap: 6px;
 }
 
-.route-line {
+.track-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.track-line {
   flex: 1;
   height: 1px;
-  background: rgba(255,255,255,0.1);
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.1),
+    rgba(249,115,22,0.4),
+    rgba(255,255,255,0.1)
+  );
 }
 
-.route-arrow {
+.track-arrow {
   color: var(--accent);
   font-size: 16px;
   flex-shrink: 0;
@@ -185,22 +262,15 @@
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .shipment-detail-page {
-    padding: 24px 16px 48px;
-  }
+  .shipment-detail-page { padding: 24px 16px 48px; }
 
   .page-header {
     flex-direction: column;
     gap: 12px;
   }
 
-  .detail-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .route-card {
-    grid-column: 1;
-  }
+  .detail-grid { grid-template-columns: 1fr; }
+  .route-card { grid-column: 1; }
 
   .route {
     flex-direction: column;
@@ -208,7 +278,5 @@
     gap: 10px;
   }
 
-  .route-divider {
-    display: none;
-  }
+  .route-track { display: none; }
 }

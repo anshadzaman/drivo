@@ -16,7 +16,13 @@ import { NgClass } from '@angular/common';
 })
 export class ShipmentDetails
   implements OnInit {
-
+statuses = [
+  'PENDING',
+  'ASSIGNED',
+  'PICKED_UP',
+  'IN_TRANSIT',
+  'DELIVERED'
+];
   shipment: any;
 
   constructor(
@@ -65,6 +71,23 @@ ngOnInit() {
         }
 
       });
+
+}
+isCompleted(status: string) {
+
+  return (
+
+    this.statuses.indexOf(
+      status
+    )
+
+    <=
+
+    this.statuses.indexOf(
+      this.shipment.status
+    )
+
+  );
 
 }
   }
