@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class NotificationService {
@@ -14,6 +15,9 @@ public class NotificationService {
     @Autowired
     private NotificationRepository
             notificationRepository;
+
+    @Autowired
+    private UserService userService;
 
     public void createNotification(
             User user,
@@ -25,14 +29,35 @@ public class NotificationService {
         notification.setUser(user);
 
         notification.setMessage(
-                message);
+                message
+        );
 
         notification.setRead(false);
 
         notification.setCreatedAt(
-                LocalDateTime.now());
+                LocalDateTime.now()
+        );
 
         notificationRepository.save(
-                notification);
+                notification
+        );
     }
+
+    public List<Notification>
+    getMyNotifications(
+            String email
+    ) {
+
+        User user =
+                userService
+                        .getUserByEmail(
+                                email
+                        );
+
+        return notificationRepository
+                .findByUserIdOrderByCreatedAtDesc(
+                        user.getId()
+                );
+    }
+
 }
