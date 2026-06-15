@@ -1,0 +1,32 @@
+<section class="notifications-page">
+
+  <div class="page-header">
+    <div>
+      <h1>Notifications</h1>
+      <p>Your latest updates and alerts.</p>
+    </div>
+  </div>
+
+  @if (notifications.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🔔</div>
+      <h2>No notifications</h2>
+      <p>You're all caught up!</p>
+    </div>
+  }
+
+  @if (notifications.length > 0) {
+    <div class="notifications-list">
+      @for (notification of notifications; track notification.id) {
+        <div class="notification-card">
+          <div class="notification-dot"></div>
+          <div class="notification-body">
+            <p class="notification-message">{{ notification.message }}</p>
+            <span class="notification-time">{{ notification.createdAt | date:'medium' }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</section>

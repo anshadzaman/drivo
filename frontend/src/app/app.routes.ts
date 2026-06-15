@@ -8,11 +8,13 @@ import { EditShipment } from './pages/edit-shipment/edit-shipment';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
+import { Notifications } from './pages/notifications/notifications';
 import { MyShipments }
 from './pages/my-shipments/my-shipments';
 import {
   adminGuard
 }
+
 
 from './guards/admin-guard';
 import { shopGuard } from './guards/shop-guard';
@@ -91,6 +93,10 @@ export const routes: Routes = [
   canActivate: [
     authGuard
   ]
+},
+{
+  path: 'notifications',
+  component: Notifications
 }
 
 ];
