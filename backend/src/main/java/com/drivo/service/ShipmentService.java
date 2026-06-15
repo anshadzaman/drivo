@@ -23,7 +23,9 @@ public class ShipmentService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private NotificationService
+            notificationService;
     public Shipment createShipment(
             Shipment shipment,
             String email){
@@ -200,7 +202,16 @@ public class ShipmentService {
                 ShipmentStatus.ASSIGNED);
         shipment.setAssignedAt(
                 LocalDateTime.now());
+        notificationService
+                .createNotification(
 
+                        driver,
+
+                        "Shipment #"
+                                + shipment.getId()
+                                + " assigned to you"
+
+                );
         return shipmentRepository
                 .save(shipment);
     }
