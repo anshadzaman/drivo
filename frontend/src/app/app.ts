@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive,Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { NotificationService } from './services/notification.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,9 +17,16 @@ import { FormsModule } from '@angular/forms';
 export class App {
   constructor(
   private router:
-  Router
+  Router,
+  private notificationService : NotificationService
 ) {}
+ngOnInit() {
+
+  this.loadUnreadCount();
+
+}
   protected readonly title = signal('frontend');
+  unreadCount = 0;
   logout() {
 
   localStorage.removeItem(
@@ -58,6 +66,28 @@ getRole(): string {
     );
 
   return payload.role;
+
+}
+loadUnreadCount() {
+
+  this.notificationService
+      .getUnreadCount()
+      .subscribe({
+
+        next: (count: any) => {
+
+          this.unreadCount =
+            count;
+
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+        }
+
+      });
 
 }
 }
