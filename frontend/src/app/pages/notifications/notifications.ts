@@ -59,5 +59,16 @@ implements OnInit {
       });
 
   }
+  markAsRead(id: number) {
+
+  this.notificationService
+      .markAsRead(id)
+      .subscribe(() => {
+
+        this.loadNotifications();
+        this.cdr.detectChanges();
+      });
+
+}
 
 }

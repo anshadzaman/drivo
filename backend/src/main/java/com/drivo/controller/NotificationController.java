@@ -31,5 +31,22 @@ public class NotificationController {
                         email
                 );
     }
+    @PutMapping("/{id}/read")
+    public void markAsRead(
+            @PathVariable Long id) {
+
+        notificationService
+                .markAsRead(id);
+
+    }
+    @GetMapping("/unread-count")
+    public long getUnreadCount(){
+        String email = SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getName();
+        return notificationService.getUnreadCount(email);
+
+    }
 
 }

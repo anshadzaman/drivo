@@ -18,7 +18,11 @@
   @if (notifications.length > 0) {
     <div class="notifications-list">
       @for (notification of notifications; track notification.id) {
-        <div class="notification-card">
+        <div
+  class="notification-card"
+  [class.unread]="!notification.read"
+  (click)="markAsRead(notification.id)"
+>
           <div class="notification-dot"></div>
           <div class="notification-body">
             <p class="notification-message">{{ notification.message }}</p>

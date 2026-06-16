@@ -130,3 +130,7 @@
 @media (max-width: 600px) {
   .notifications-page { padding: 24px 16px 48px; }
 }
+.unread {
+  border-left: 4px solid #2563eb;
+  font-weight: 600;
+}

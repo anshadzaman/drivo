@@ -20,5 +20,17 @@ export class NotificationService {
     );
 
   }
+  markAsRead(id : number){
+    return this.http.put(
+      `${this.api}/{id}/read`,
+      {}
+    )
+  }
+getUnreadCount() {
 
+  return this.http.get(
+    `${this.api}/unread-count`
+  );
+
+}
 }

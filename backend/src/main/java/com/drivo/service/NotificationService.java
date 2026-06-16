@@ -59,5 +59,37 @@ public class NotificationService {
                         user.getId()
                 );
     }
+    public void markAsRead(
+            Long id) {
+
+        Notification notification =
+                notificationRepository
+                        .findById(id)
+                        .orElseThrow(
+                                () -> new RuntimeException(
+                                        "Notification not found"
+                                )
+                        );
+
+        notification.setRead(true);
+
+        notificationRepository.save(
+                notification
+        );
+    }
+    public long getUnreadCount(
+            String email) {
+
+        User user =
+                userService
+                        .getUserByEmail(
+                                email
+                        );
+
+        return notificationRepository
+                .countByUserIdAndIsReadFalse(
+                        user.getId()
+                );
+    }
 
 }
