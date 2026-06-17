@@ -29,7 +29,8 @@ implements OnInit {
   ngOnInit() {
 
     this.loadNotifications();
-
+    this.cdr.detectChanges();
+    
   }
 
   loadNotifications() {
@@ -63,11 +64,92 @@ implements OnInit {
 
   this.notificationService
       .markAsRead(id)
-      .subscribe(() => {
+      .subscribe({
 
-        this.loadNotifications();
-        this.cdr.detectChanges();
+        next: () => {
+
+          this.loadNotifications();
+this.cdr.detectChanges();
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
       });
+
+}
+getTimeAgo(
+  dateString: string
+) {
+
+  const now =
+    new Date();
+
+  const date =
+    new Date(
+      dateString
+    );
+
+  const seconds =
+    Math.floor(
+      (now.getTime()
+        -
+       date.getTime())
+      / 1000
+    );
+
+  if (seconds < 60) {
+
+    return 'Just now';
+
+  }
+
+  const minutes =
+    Math.floor(
+      seconds / 60
+    );
+
+  if (minutes < 60) {
+
+    return minutes +
+      ' minute' +
+      (minutes > 1 ? 's' : '') +
+      ' ago';
+
+  }
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+  if (hours < 24) {
+
+    return hours +
+      ' hour' +
+      (hours > 1 ? 's' : '') +
+      ' ago';
+
+  }
+
+  const days =
+    Math.floor(
+      hours / 24
+    );
+
+  if (days === 1) {
+
+    return 'Yesterday';
+
+  }
+
+  return days +
+    ' days ago';
 
 }
 

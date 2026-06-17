@@ -22,7 +22,7 @@ export class NotificationService {
   }
   markAsRead(id : number){
     return this.http.put(
-      `${this.api}/{id}/read`,
+      `${this.api}/${id}/read`,
       {}
     )
   }

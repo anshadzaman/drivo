@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive,Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from './services/notification.service';
+import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -18,11 +19,13 @@ export class App {
   constructor(
   private router:
   Router,
-  private notificationService : NotificationService
+  private notificationService : NotificationService,
+  private cdr : ChangeDetectorRef
 ) {}
 ngOnInit() {
 
   this.loadUnreadCount();
+  this.cdr.detectChanges();
 
 }
   protected readonly title = signal('frontend');

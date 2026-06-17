@@ -1,136 +1,155 @@
-/* ── Notifications Page ──────────────────────────────────── */
+/* notifications.component.css */
+
 .notifications-page {
-  padding: 40px 32px 60px;
-  max-width: 720px;
+  padding: 2rem;
+  max-width: 800px;
   margin: 0 auto;
 }
 
-/* ── Page header ── */
+/* ── Header ── */
 .page-header {
-  margin-bottom: 32px;
-  animation: fadeUp 0.4s ease both;
+  margin-bottom: 2rem;
 }
 
 .page-header h1 {
   font-family: 'Syne', sans-serif;
-  font-size: 28px;
+  font-size: 1.75rem;
   font-weight: 700;
   color: var(--text-primary);
-  letter-spacing: -0.03em;
-  margin: 0 0 6px;
+  margin: 0 0 0.25rem 0;
 }
 
 .page-header p {
-  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
   color: var(--text-muted);
   margin: 0;
 }
 
-/* ── Empty state ── */
+/* ── Empty State ── */
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem;
   text-align: center;
-  padding: 80px 24px;
-  background: var(--surface);
-  border: 1px dashed rgba(255,255,255,0.1);
-  border-radius: 18px;
-  animation: fadeUp 0.4s ease both;
+  color: var(--text-muted);
 }
 
 .empty-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
+  font-size: 3rem;
+  margin-bottom: 1rem;
   opacity: 0.4;
 }
 
 .empty-state h2 {
   font-family: 'Syne', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 6px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0 0 0.5rem 0;
 }
 
 .empty-state p {
-  font-size: 14px;
-  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
   margin: 0;
 }
 
-/* ── Notifications list ── */
+/* ── Notifications List ── */
 .notifications-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  animation: fadeUp 0.4s ease both;
-  animation-delay: 0.05s;
+  gap: 0.75rem;
 }
 
-/* ── Notification card ── */
+/* ── Notification Card ── */
 .notification-card {
   display: flex;
   align-items: flex-start;
-  gap: 14px;
-  padding: 16px 20px;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
+  border-top: 3px solid transparent;
   border-radius: 12px;
-  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .notification-card:hover {
-  background: var(--surface-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  background: var(--surface-hover, #1f2330);
+  border-top-color: var(--accent);
 }
 
-/* ── Accent dot ── */
+.notification-card.unread {
+  border-top-color: var(--accent);
+  background: rgba(249, 115, 22, 0.04);
+}
+
+/* ── Unread Dot ── */
 .notification-dot {
   width: 8px;
   height: 8px;
+  min-width: 8px;
   border-radius: 50%;
+  background: transparent;
+  margin-top: 0.35rem;
+  transition: background 0.2s ease;
+}
+
+.notification-card.unread .notification-dot {
   background: var(--accent);
-  flex-shrink: 0;
-  margin-top: 6px;
-  box-shadow: 0 0 6px rgba(249,115,22,0.5);
 }
 
 /* ── Body ── */
 .notification-body {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 0.4rem;
   flex: 1;
-  min-width: 0;
 }
 
 .notification-message {
-  font-size: 14px;
-  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
   color: var(--text-primary);
   margin: 0;
   line-height: 1.5;
 }
 
-.notification-time {
-  font-size: 11px;
+.notification-card:not(.unread) .notification-message {
   color: var(--text-muted);
+}
+
+.notification-time {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.notification-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mark-read-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  padding: 0.2rem 0.65rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
 
-/* ── Keyframes ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ── Responsive ── */
-@media (max-width: 600px) {
-  .notifications-page { padding: 24px 16px 48px; }
-}
-.unread {
-  border-left: 4px solid #2563eb;
-  font-weight: 600;
+.mark-read-btn:hover {
+  background: var(--accent);
+  color: #fff;
 }
