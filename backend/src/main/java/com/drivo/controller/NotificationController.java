@@ -48,5 +48,20 @@ public class NotificationController {
         return notificationService.getUnreadCount(email);
 
     }
+    @PutMapping("/read-all")
+    public void markAllAsRead() {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
+        notificationService
+                .markAllAsRead(
+                        email
+                );
+
+    }   
 
 }

@@ -23,7 +23,7 @@ export class App {
   private cdr : ChangeDetectorRef
 ) {}
 ngOnInit() {
-
+  
   this.loadUnreadCount();
   this.cdr.detectChanges();
 
@@ -81,6 +81,7 @@ loadUnreadCount() {
 
           this.unreadCount =
             count;
+            this.cdr.detectChanges();
 
         },
 

@@ -152,5 +152,27 @@ getTimeAgo(
     ' days ago';
 
 }
+markAllAsRead() {
 
+  this.notificationService
+      .markAllAsRead()
+      .subscribe({
+
+        next: () => {
+
+          this.loadNotifications();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
+      });
+
+}
 }

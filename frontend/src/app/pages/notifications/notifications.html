@@ -5,6 +5,14 @@
       <h1>Notifications</h1>
       <p>Your latest updates and alerts.</p>
     </div>
+     <div class="page-actions">
+    <button
+      class="mark-all-btn"
+      (click)="markAllAsRead()"
+    >
+      Mark All Read
+    </button>
+  </div>
   </div>
 
   @if (notifications.length === 0) {

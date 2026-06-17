@@ -33,5 +33,11 @@ getUnreadCount() {
   );
 
 }
+markAllAsRead(){
+    return this.http.put(
+     `${this.api}/read-all`,
+     {}
+    )
+}
 
 }

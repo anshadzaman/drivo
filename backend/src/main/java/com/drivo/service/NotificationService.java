@@ -91,5 +91,37 @@ public class NotificationService {
                         user.getId()
                 );
     }
+    public void markAllAsRead(
+            String email) {
+
+        User user =
+                userService
+                        .getUserByEmail(
+                                email
+                        );
+
+        List<Notification>
+                notifications =
+                notificationRepository
+                        .findByUserIdAndIsReadFalse(
+                                user.getId()
+                        );
+
+        for (
+                Notification notification
+                : notifications
+        ) {
+
+            notification
+                    .setRead(true);
+
+        }
+
+        notificationRepository
+                .saveAll(
+                        notifications
+                );
+
+    }
 
 }

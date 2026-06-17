@@ -224,8 +224,10 @@ public class ShipmentService {
                         driver,
 
                         "Shipment #"
-                                + shipment.getId()
-                                + " assigned to you"
+                                + shipment.getId()+
+                                " (" +
+                                shipment.getItemName()
+                                +  ") assigned to you"
 
                 );
         return shipmentRepository
@@ -510,8 +512,10 @@ public class ShipmentService {
         notificationService.createNotification(
                 shipment.getShop(),
                 "Shipment #" +
-                        shipment.getId() +
-                        " has been picked up"
+                        shipment.getId()+
+                        " (" +
+                        shipment.getItemName() +
+                        ") has been picked up"
         );
         return shipmentRepository
                 .save(shipment);
@@ -552,8 +556,11 @@ public class ShipmentService {
         notificationService.createNotification(
                 shipment.getShop(),
                 "Shipment #" +
-                        shipment.getId() +
-                        " is now in transit"
+                        shipment.getId()
+                        +
+                        " (" +
+                        shipment.getItemName()+
+                        ") is now in transit"
         );
         return shipmentRepository
                 .save(shipment);
