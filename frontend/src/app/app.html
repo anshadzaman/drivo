@@ -5,70 +5,61 @@
   </a>
 
   @if (isLoggedIn()) {
+    <div class="header-actions">
 
-  <div class="header-actions">
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          Dashboard
+        </a>
 
-    <nav class="main-nav" aria-label="Primary navigation">
+        @if (getRole() === 'ADMIN') {
+          <a routerLink="/users" routerLinkActive="active">Users</a>
+        }
 
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{
-          exact: true
-        }">
-        Dashboard
-      </a>
+        @if (getRole() === 'SHOP') {
+          <a routerLink="/shipments" routerLinkActive="active">Shipments</a>
+          <a routerLink="/create-shipment" routerLinkActive="active" class="primary-link">
+            Create Shipment
+          </a>
+        }
 
-      @if (getRole() === 'ADMIN') {
+        @if (getRole() === 'DRIVER') {
+          <a routerLink="/my-shipments" routerLinkActive="active">My Shipments</a>
+        }
+      </nav>
 
-      <a routerLink="/users" routerLinkActive="active">
-        Users
-      </a>
+      <div class="notification-wrapper" tabindex="0" (blur)="closeDropdown()">
+        <button class="bell-btn" (click)="toggleNotifications()">
+          🔔
+          @if (unreadCount > 0) {
+            <span class="notification-badge">{{ unreadCount }}</span>
+          }
+        </button>
 
-      }
+        @if (showNotifications) {
+          <div class="notification-dropdown">
+            @if (notifications.length === 0) {
+              <p class="dropdown-empty">No notifications</p>
+            }
 
-      @if (getRole() === 'SHOP') {
+            @for (notification of notifications; track notification.id) {
+              <div class="dropdown-item">
+                <div class="dropdown-message">{{ notification.message }}</div>
+                <small class="dropdown-time">{{ getTimeAgo(notification.createdAt) }}</small>
+              </div>
+            }
 
-      <a routerLink="/shipments" routerLinkActive="active">
-        Shipments
-      </a>
+            <a class="dropdown-view-all" routerLink="/notifications" (click)="showNotifications = false">
+              View All
+            </a>
+          </div>
+        }
+      </div>
 
-      <a routerLink="/create-shipment" routerLinkActive="active" class="primary-link">
-        Create Shipment
-      </a>
+      <button type="button" class="logout-button" (click)="logout()">Logout</button>
 
-      }
-
-      @if (getRole() === 'DRIVER') {
-
-      <a routerLink="/my-shipments" routerLinkActive="active">
-        My Shipments
-      </a>
-
-      }
-
-    </nav>
-<a routerLink="/notifications"
-   class="notification-link">
-
-  🔔 Notifications
-
-  @if (unreadCount > 0) {
-
-    <span class="notification-badge">
-
-      {{ unreadCount }}
-
-    </span>
-
+    </div>
   }
-
-</a>
-    <button type="button" class="logout-button" (click)="logout()">
-      Logout
-    </button>
-
-  </div>
-
-  }
-
 </header>
 
 <main class="page-content">
