@@ -6,12 +6,15 @@
       <p>Your latest updates and alerts.</p>
     </div>
      <div class="page-actions">
-    <button
-      class="mark-all-btn"
-      (click)="markAllAsRead()"
-    >
-      Mark All Read
-    </button>
+      
+  <button
+  class="mark-all-btn"
+  (click)="markAllAsRead()"
+  [disabled]="notifications.every(n => n.read)"
+>
+  Mark All Read
+</button>
+
   </div>
   </div>
 

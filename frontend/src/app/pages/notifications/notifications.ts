@@ -3,7 +3,7 @@ import {
   OnInit,
   ChangeDetectorRef
 } from '@angular/core';
-
+import { interval } from 'rxjs';
 import { NotificationService }
 from '../../services/notification.service';
 import { CommonModule } from '@angular/common';
@@ -26,12 +26,18 @@ implements OnInit {
       ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+ngOnInit() {
 
-    this.loadNotifications();
-    this.cdr.detectChanges();
-    
-  }
+  this.loadNotifications();
+this.cdr.detectChanges();
+  interval(30000)
+      .subscribe(() => {
+
+        this.loadNotifications();
+
+      });
+
+}
 
   loadNotifications() {
 

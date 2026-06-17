@@ -3,6 +3,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive,Router } from '@angular/rout
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from './services/notification.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -23,9 +24,23 @@ export class App {
   private cdr : ChangeDetectorRef
 ) {}
 ngOnInit() {
-  
+
   this.loadUnreadCount();
   this.cdr.detectChanges();
+  interval(30000)
+      .subscribe(() => {
+
+        this.loadUnreadCount();
+        
+        if (
+          this.showNotifications
+        ) {
+
+          this.loadNotifications();
+
+        }
+
+      });
 
 }
   protected readonly title = signal('frontend');
