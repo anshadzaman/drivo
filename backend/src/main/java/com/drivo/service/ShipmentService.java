@@ -124,6 +124,14 @@ public class ShipmentService {
                 ShipmentStatus.DELIVERED);
         shipment.setDeliveredAt(
                 LocalDateTime.now());
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId() +
+                        " (" +
+                        shipment.getItemName() +
+                        ") has been delivered"
+        );
         return shipmentRepository
                 .save(shipment);
     }
@@ -160,6 +168,14 @@ public class ShipmentService {
                 ShipmentStatus.DELIVERED);
         shipment.setDeliveredAt(
                 LocalDateTime.now()
+        );
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId() +
+                        " (" +
+                        shipment.getItemName() +
+                        ") has been delivered"
         );
         return shipmentRepository
                 .save(shipment);
@@ -491,6 +507,12 @@ public class ShipmentService {
                 ShipmentStatus.PICKED_UP);
         shipment.setPickedUpAt(
                 LocalDateTime.now());
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId() +
+                        " has been picked up"
+        );
         return shipmentRepository
                 .save(shipment);
     }
@@ -527,6 +549,12 @@ public class ShipmentService {
                 ShipmentStatus.IN_TRANSIT);
         shipment.setInTransitAt(
                 LocalDateTime.now());
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId() +
+                        " is now in transit"
+        );
         return shipmentRepository
                 .save(shipment);
     }
