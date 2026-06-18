@@ -4,9 +4,11 @@ import com.drivo.dto.ShipmentDto;
 import com.drivo.dto.UserDto;
 import com.drivo.entity.Shipment;
 import com.drivo.entity.User;
+import com.drivo.enums.NotificationType;
 import com.drivo.enums.Role;
 import com.drivo.repository.ShipmentRepository;
 import com.drivo.repository.UserRepository;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.drivo.enums.ShipmentStatus;
@@ -130,7 +132,8 @@ public class ShipmentService {
                         shipment.getId() +
                         " (" +
                         shipment.getItemName() +
-                        ") has been delivered"
+                        ") has been delivered",
+                NotificationType.DELIVERED
         );
         return shipmentRepository
                 .save(shipment);
@@ -175,7 +178,8 @@ public class ShipmentService {
                         shipment.getId() +
                         " (" +
                         shipment.getItemName() +
-                        ") has been delivered"
+                        ") has been delivered",
+                NotificationType.DELIVERED
         );
         return shipmentRepository
                 .save(shipment);
@@ -227,7 +231,8 @@ public class ShipmentService {
                                 + shipment.getId()+
                                 " (" +
                                 shipment.getItemName()
-                                +  ") assigned to you"
+                                +  ") assigned to you",
+                        NotificationType.ASSIGNMENT
 
                 );
         return shipmentRepository
@@ -515,7 +520,8 @@ public class ShipmentService {
                         shipment.getId()+
                         " (" +
                         shipment.getItemName() +
-                        ") has been picked up"
+                        ") has been picked up",
+                NotificationType.PICKUP
         );
         return shipmentRepository
                 .save(shipment);
@@ -560,7 +566,8 @@ public class ShipmentService {
                         +
                         " (" +
                         shipment.getItemName()+
-                        ") is now in transit"
+                        ") is now in transit",
+                NotificationType.ASSIGNMENT
         );
         return shipmentRepository
                 .save(shipment);

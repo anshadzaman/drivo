@@ -2,6 +2,7 @@ package com.drivo.service;
 
 import com.drivo.entity.Notification;
 import com.drivo.entity.User;
+import com.drivo.enums.NotificationType;
 import com.drivo.repository.NotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class NotificationService {
 
     public void createNotification(
             User user,
-            String message) {
+            String message,
+            NotificationType type) {
 
         Notification notification =
                 new Notification();
@@ -31,7 +33,7 @@ public class NotificationService {
         notification.setMessage(
                 message
         );
-
+        notification.setType(type);
         notification.setRead(false);
 
         notification.setCreatedAt(

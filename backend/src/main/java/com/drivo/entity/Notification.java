@@ -1,5 +1,6 @@
 package com.drivo.entity;
 
+import com.drivo.enums.NotificationType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,16 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Enumerated(EnumType.STRING)
+    private NotificationType type;
+
+    public NotificationType getType(){
+        return type;
+    }
+    public void setType(NotificationType type){
+        this.type=type;
+    }
 
     public Long getId() {
         return id;
