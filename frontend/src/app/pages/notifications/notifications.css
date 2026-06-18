@@ -1,5 +1,4 @@
-/* notifications.component.css */
-
+/* ── Page Layout ── */
 .notifications-page {
   padding: 2rem;
   max-width: 800px;
@@ -8,6 +7,9 @@
 
 /* ── Header ── */
 .page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 2rem;
 }
 
@@ -24,6 +26,63 @@
   font-size: 0.9rem;
   color: var(--text-muted);
   margin: 0;
+}
+
+/* ── Page Actions ── */
+.page-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mark-all-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.mark-all-btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.mark-all-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.clear-btn {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #f87171;
+  background: transparent;
+  border: 1px solid #f87171;
+  border-radius: 8px;
+  padding: 0.5rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.clear-btn:hover {
+  background: #f87171;
+  color: #fff;
+}
+
+.clear-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* ── Empty State ── */
@@ -47,7 +106,7 @@
   font-family: 'Syne', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   margin: 0 0 0.5rem 0;
 }
 
@@ -74,7 +133,6 @@
   border: 1px solid var(--border);
   border-top: 3px solid transparent;
   border-radius: 12px;
-  cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
@@ -111,6 +169,17 @@
   flex: 1;
 }
 
+/* ── Type Badge ── */
+.notification-type {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Message ── */
 .notification-message {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.95rem;
@@ -123,16 +192,26 @@
   color: var(--text-muted);
 }
 
-.notification-time {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
+/* ── Footer ── */
 .notification-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.notification-time {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ── Action Buttons ── */
+.notification-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .mark-read-btn {
@@ -153,42 +232,22 @@
   background: var(--accent);
   color: #fff;
 }
-.page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-}
 
-.mark-all-btn {
+.delete-btn {
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: var(--accent);
+  color: #f87171;
   background: transparent;
-  border: 1px solid var(--accent);
-  border-radius: 8px;
-  padding: 0.5rem 1.1rem;
+  border: 1px solid #f87171;
+  border-radius: 6px;
+  padding: 0.2rem 0.65rem;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
   white-space: nowrap;
 }
 
-.mark-all-btn:hover {
-  background: var(--accent);
+.delete-btn:hover {
+  background: #f87171;
   color: #fff;
-}
-.mark-all-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-.notification-type {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 0.35rem;
 }

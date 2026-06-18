@@ -62,6 +62,25 @@ public class NotificationController {
                         email
                 );
 
-    }   
+    }
+    @DeleteMapping("/{id}")
+    public void deleteNotification( @PathVariable Long id){
 
+        notificationService.deleteNotifcation(id);
+    }
+    @DeleteMapping("/clear-all")
+    public void clearAllNotifications() {
+
+        String email =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication()
+                        .getName();
+
+        notificationService
+                .clearAllNotifications(
+                        email
+                );
+
+    }
 }

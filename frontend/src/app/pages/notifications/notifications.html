@@ -13,6 +13,13 @@
       >
         Mark All Read
       </button>
+      <button
+        class="clear-btn"
+        (click)="clearAllNotifications()"
+        [disabled]="notifications.length === 0"
+      >
+        Clear All
+      </button>
     </div>
   </div>
 
@@ -45,14 +52,22 @@
             <p class="notification-message">{{ notification.message }}</p>
             <div class="notification-footer">
               <span class="notification-time">{{ getTimeAgo(notification.createdAt) }}</span>
-              @if (!notification.read) {
+              <div class="notification-actions">
+                @if (!notification.read) {
+                  <button
+                    class="mark-read-btn"
+                    (click)="markAsRead(notification.id); $event.stopPropagation()"
+                  >
+                    Mark as read
+                  </button>
+                }
                 <button
-                  class="mark-read-btn"
-                  (click)="markAsRead(notification.id); $event.stopPropagation()"
+                  class="delete-btn"
+                  (click)="deleteNotification(notification.id); $event.stopPropagation()"
                 >
-                  Mark as read
+                  Delete
                 </button>
-              }
+              </div>
             </div>
           </div>
         </div>

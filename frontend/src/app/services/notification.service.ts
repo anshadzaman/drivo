@@ -39,5 +39,14 @@ markAllAsRead(){
      {}
     )
 }
+deleteNotification(id : number){
+  return this.http.delete(`${this.api}/${id}`)
+}
+clearAllNotifications() {
 
+  return this.http.delete(
+    `${this.api}/clear-all`
+  );
+
+}
 }

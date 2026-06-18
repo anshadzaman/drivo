@@ -180,5 +180,64 @@ markAllAsRead() {
 
       });
 
+
+    }
+    deleteNotification(
+  id: number
+) {
+
+  this.notificationService
+      .deleteNotification(id)
+      .subscribe({
+
+        next: () => {
+
+          this.loadNotifications();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
+      });
+
+}
+clearAllNotifications() {
+
+  if (
+    !confirm(
+      'Clear all notifications?'
+    )
+  ) {
+
+    return;
+
+  }
+
+  this.notificationService
+      .clearAllNotifications()
+      .subscribe({
+
+        next: () => {
+
+          this.loadNotifications();
+
+        },
+
+        error: (err) => {
+
+          alert(
+            err.error.message
+          );
+
+        }
+
+      });
+
 }
 }

@@ -125,5 +125,29 @@ public class NotificationService {
                 );
 
     }
+    public void deleteNotifcation(Long id){
+        notificationRepository.deleteById(id);
+    }
+    public void clearAllNotifications(
+            String email) {
 
+        User user =
+                userService
+                        .getUserByEmail(
+                                email
+                        );
+
+        List<Notification>
+                notifications =
+                notificationRepository
+                        .findByUserId(
+                                user.getId()
+                        );
+
+        notificationRepository
+                .deleteAll(
+                        notifications
+                );
+
+    }
 }

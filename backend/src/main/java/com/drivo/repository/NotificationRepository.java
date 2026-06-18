@@ -18,5 +18,9 @@ public interface NotificationRepository
     findByUserIdAndIsReadFalse(
             Long userId
     );
+    List<Notification>
+    findByUserId(
+            Long userId
+    );
 
 }
