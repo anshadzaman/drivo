@@ -4,9 +4,11 @@ import com.drivo.dto.ShipmentDto;
 import com.drivo.dto.UserDto;
 import com.drivo.entity.Shipment;
 import com.drivo.entity.User;
+import com.drivo.enums.NotificationType;
 import com.drivo.enums.Role;
 import com.drivo.repository.ShipmentRepository;
 import com.drivo.repository.UserRepository;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.drivo.enums.ShipmentStatus;
@@ -23,7 +25,9 @@ public class ShipmentService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private NotificationService
+            notificationService;
     public Shipment createShipment(
             Shipment shipment,
             String email){
@@ -122,6 +126,15 @@ public class ShipmentService {
                 ShipmentStatus.DELIVERED);
         shipment.setDeliveredAt(
                 LocalDateTime.now());
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId() +
+                        " (" +
+                        shipment.getItemName() +
+                        ") has been delivered",
+                NotificationType.DELIVERED
+        );
         return shipmentRepository
                 .save(shipment);
     }
@@ -158,6 +171,15 @@ public class ShipmentService {
                 ShipmentStatus.DELIVERED);
         shipment.setDeliveredAt(
                 LocalDateTime.now()
+        );
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId() +
+                        " (" +
+                        shipment.getItemName() +
+                        ") has been delivered",
+                NotificationType.DELIVERED
         );
         return shipmentRepository
                 .save(shipment);
@@ -200,7 +222,19 @@ public class ShipmentService {
                 ShipmentStatus.ASSIGNED);
         shipment.setAssignedAt(
                 LocalDateTime.now());
+        notificationService
+                .createNotification(
 
+                        driver,
+
+                        "Shipment #"
+                                + shipment.getId()+
+                                " (" +
+                                shipment.getItemName()
+                                +  ") assigned to you",
+                        NotificationType.ASSIGNMENT
+
+                );
         return shipmentRepository
                 .save(shipment);
     }
@@ -480,6 +514,15 @@ public class ShipmentService {
                 ShipmentStatus.PICKED_UP);
         shipment.setPickedUpAt(
                 LocalDateTime.now());
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId()+
+                        " (" +
+                        shipment.getItemName() +
+                        ") has been picked up",
+                NotificationType.PICKUP
+        );
         return shipmentRepository
                 .save(shipment);
     }
@@ -516,6 +559,16 @@ public class ShipmentService {
                 ShipmentStatus.IN_TRANSIT);
         shipment.setInTransitAt(
                 LocalDateTime.now());
+        notificationService.createNotification(
+                shipment.getShop(),
+                "Shipment #" +
+                        shipment.getId()
+                        +
+                        " (" +
+                        shipment.getItemName()+
+                        ") is now in transit",
+                NotificationType.ASSIGNMENT
+        );
         return shipmentRepository
                 .save(shipment);
     }

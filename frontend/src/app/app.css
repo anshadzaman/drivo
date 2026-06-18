@@ -1,105 +1,330 @@
-/* ── Header ──────────────────────────────────────────────── */
+/* ── Header ── */
 .app-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: var(--header-h);
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
-  gap: 24px;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  padding: 0 2rem;
+  height: 64px;
+  background: #0f1117;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 50;
 }
 
+/* ── Brand ── */
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
   text-decoration: none;
-  flex-shrink: 0;
 }
 
-.brand-icon { font-size: 22px; line-height: 1; }
+.brand-icon {
+  font-size: 1.4rem;
+  line-height: 1;
+}
 
 .brand-name {
   font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
   font-weight: 700;
-  font-size: 20px;
-  letter-spacing: -0.02em;
-  color: var(--brand-color);
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
 }
 
+/* ── Header Actions ── */
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex: 1;
-  justify-content: space-between;
-  margin-left: 32px;
+  gap: 1.5rem;
 }
 
+/* ── Nav ── */
 .main-nav {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 0.25rem;
 }
 
 .main-nav a {
-  padding: 6px 14px;
-  border-radius: var(--radius);
-  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
   font-weight: 500;
-  color: var(--nav-text);
+  color: var(--text-muted);
   text-decoration: none;
-  letter-spacing: 0.01em;
-  transition: color 0.18s ease, background 0.18s ease;
-  white-space: nowrap;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
 .main-nav a:hover {
-  color: var(--nav-hover);
-  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .main-nav a.active {
-  color: var(--nav-active);
-  background: rgba(255,255,255,0.09);
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .main-nav a.primary-link {
-  background: var(--accent-dim);
   color: var(--accent);
-  border: 1px solid rgba(249,115,22,0.25);
-  margin-left: 6px;
+  background: rgba(249, 115, 22, 0.1);
 }
 
 .main-nav a.primary-link:hover {
-  background: rgba(249,115,22,0.2);
-  color: #fb923c;
+  background: rgba(249, 115, 22, 0.18);
 }
 
-.main-nav a.primary-link.active {
+/* ── Notification Wrapper ── */
+.notification-wrapper {
+  position: relative;
+  outline: none;
+}
+
+/* ── Bell Button ── */
+.bell-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+
+.bell-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Badge ── */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
   background: var(--accent);
   color: #fff;
-  border-color: transparent;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  pointer-events: none;
 }
 
-.logout-button {
-  height: 36px;
-  padding: 0 16px;
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,0.1);
-  background: var(--logout-bg);
-  color: rgba(255,255,255,0.6);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13.5px;
-  font-weight: 500;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
-  flex-shrink: 0;
+/* ── Dropdown ── */
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
 }
+
+.dropdown-empty {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2rem 1rem;
+  margin: 0;
+}
+
+/* ── Dropdown Items ── */
+.dropdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dropdown-message {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.dropdown-time {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── View All ── */
+.dropdown-view-all {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.dropdown-view-all:hover {
+  background: rgba(249, 115, 22, 0.06);
+}
+
+/* ── Logout ── */
+.logout-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 1rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.logout-button:hover {
+  color: var(--text-primary);
+  border-color: var(--text-muted);
+}
+
+/* ── Page Content ── */
+.page-content {
+  background: #13151c;
+  min-height: calc(100vh - 64px);
+}
+/* ── Bell Button ── */
+.notification-wrapper {
+  position: relative;
+  outline: none; /* hides the focus ring from tabindex */
+}
+
+.bell-btn {
+  position: relative;
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  border-radius: 8px;
+  line-height: 1;
+  transition: background 0.2s ease;
+}
+
+.bell-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ── Badge ── */
+.notification-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 3px;
+  pointer-events: none;
+}
+
+/* ── Dropdown ── */
+.notification-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 320px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.dropdown-empty {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 2rem 1rem;
+  margin: 0;
+}
+
+/* ── Dropdown Items ── */
+.dropdown-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.dropdown-message {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.dropdown-time {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* ── View All ── */
+.dropdown-view-all {
+  display: block;
+  text-align: center;
+  padding: 0.75rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.dropdown-view-all:hover {
+  background: rgba(249, 115, 22, 0.06);
+}
+.notification-type {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+}   

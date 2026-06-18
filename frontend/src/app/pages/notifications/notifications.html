@@ -1,0 +1,78 @@
+<section class="notifications-page">
+
+  <div class="page-header">
+    <div>
+      <h1>Notifications</h1>
+      <p>Your latest updates and alerts.</p>
+    </div>
+    <div class="page-actions">
+      <button
+        class="mark-all-btn"
+        (click)="markAllAsRead()"
+        [disabled]="notifications.every(n => n.read)"
+      >
+        Mark All Read
+      </button>
+      <button
+        class="clear-btn"
+        (click)="clearAllNotifications()"
+        [disabled]="notifications.length === 0"
+      >
+        Clear All
+      </button>
+    </div>
+  </div>
+
+  @if (notifications.length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">🔔</div>
+      <h2>No notifications</h2>
+      <p>You're all caught up!</p>
+    </div>
+  }
+
+  @if (notifications.length > 0) {
+    <div class="notifications-list">
+      @for (notification of notifications; track notification.id) {
+        <div
+          class="notification-card"
+          [class.unread]="!notification.read"
+        >
+          <div class="notification-dot"></div>
+          <div class="notification-body">
+            <div class="notification-type">
+              @switch (notification.type) {
+                @case ('ASSIGNMENT') { 🚚 Assignment }
+                @case ('PICKUP')     { 📦 Picked Up }
+                @case ('TRANSIT')    { 🛣 In Transit }
+                @case ('DELIVERED')  { ✅ Delivered }
+                @default             { 🔔 Notification }
+              }
+            </div>
+            <p class="notification-message">{{ notification.message }}</p>
+            <div class="notification-footer">
+              <span class="notification-time">{{ getTimeAgo(notification.createdAt) }}</span>
+              <div class="notification-actions">
+                @if (!notification.read) {
+                  <button
+                    class="mark-read-btn"
+                    (click)="markAsRead(notification.id); $event.stopPropagation()"
+                  >
+                    Mark as read
+                  </button>
+                }
+                <button
+                  class="delete-btn"
+                  (click)="deleteNotification(notification.id); $event.stopPropagation()"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</section>
