@@ -319,3 +319,12 @@
 .dropdown-view-all:hover {
   background: rgba(249, 115, 22, 0.06);
 }
+.notification-type {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.35rem;
+}   

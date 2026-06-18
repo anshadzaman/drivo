@@ -5,17 +5,15 @@
       <h1>Notifications</h1>
       <p>Your latest updates and alerts.</p>
     </div>
-     <div class="page-actions">
-      
-  <button
-  class="mark-all-btn"
-  (click)="markAllAsRead()"
-  [disabled]="notifications.every(n => n.read)"
->
-  Mark All Read
-</button>
-
-  </div>
+    <div class="page-actions">
+      <button
+        class="mark-all-btn"
+        (click)="markAllAsRead()"
+        [disabled]="notifications.every(n => n.read)"
+      >
+        Mark All Read
+      </button>
+    </div>
   </div>
 
   @if (notifications.length === 0) {
@@ -35,6 +33,15 @@
         >
           <div class="notification-dot"></div>
           <div class="notification-body">
+            <div class="notification-type">
+              @switch (notification.type) {
+                @case ('ASSIGNMENT') { 🚚 Assignment }
+                @case ('PICKUP')     { 📦 Picked Up }
+                @case ('TRANSIT')    { 🛣 In Transit }
+                @case ('DELIVERED')  { ✅ Delivered }
+                @default             { 🔔 Notification }
+              }
+            </div>
             <p class="notification-message">{{ notification.message }}</p>
             <div class="notification-footer">
               <span class="notification-time">{{ getTimeAgo(notification.createdAt) }}</span>

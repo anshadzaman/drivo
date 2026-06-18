@@ -44,6 +44,15 @@
 
             @for (notification of notifications; track notification.id) {
               <div class="dropdown-item">
+                 <div class="notification-type">
+              @switch (notification.type) {
+                @case ('ASSIGNMENT') { 🚚 Assignment }
+                @case ('PICKUP')     { 📦 Picked Up }
+                @case ('TRANSIT')    { 🛣 In Transit }
+                @case ('DELIVERED')  { ✅ Delivered }
+                @default             { 🔔 Notification }
+              }
+            </div>
                 <div class="dropdown-message">{{ notification.message }}</div>
                 <small class="dropdown-time">{{ getTimeAgo(notification.createdAt) }}</small>
               </div>
