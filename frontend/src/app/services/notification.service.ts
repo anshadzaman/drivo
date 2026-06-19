@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
 
-  private api =
-    'http://localhost:8080/notifications';
+private api =
+  `${environment.apiUrl}/notifications`;
 
   constructor(
     private http: HttpClient
