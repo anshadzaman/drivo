@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../environments/environment.prod';
 import { Shipment } from '../models/shipment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShipmentService {
-
-  private api =
-    'http://localhost:8080/shipments';
-
+private api =
+  `${environment.apiUrl}/shipments`;
   constructor(
     private http: HttpClient
   ) {}

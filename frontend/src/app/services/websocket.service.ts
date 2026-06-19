@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
-
+import { environment } from '../environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,8 +20,8 @@ export class WebSocketService {
 
     this.client = new Client({
 
-      brokerURL:
-        'ws://localhost:8080/ws',
+     brokerURL:
+environment.wsUrl,
 
       reconnectDelay:
         5000,
