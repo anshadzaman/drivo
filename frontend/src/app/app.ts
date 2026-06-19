@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NotificationService } from './services/notification.service';
 import { ChangeDetectorRef } from '@angular/core';
 import { interval } from 'rxjs';
+import { WebSocketService } from './services/websocket.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -21,11 +22,34 @@ export class App {
   private router:
   Router,
   private notificationService : NotificationService,
-  private cdr : ChangeDetectorRef
+  private cdr : ChangeDetectorRef,
+  private webSocketService:
+  WebSocketService
 ) {}
 ngOnInit() {
 
   this.loadUnreadCount();
+  const userId =
+  this.getUserId();
+  console.log(
+  'WebSocket User ID:',
+  userId
+);
+
+this.webSocketService
+    .connect(
+
+      userId,
+
+      () => {
+
+        this.loadUnreadCount();
+
+        this.loadNotifications();
+
+      }
+
+    );
   this.cdr.detectChanges();
   interval(30000)
       .subscribe(() => {
@@ -219,5 +243,29 @@ getTimeAgo(
 }
 closeDropdown(): void {
   setTimeout(() => (this.showNotifications = false), 150);
+}
+
+  getUserId() {
+
+  const token =
+    localStorage.getItem(
+      'token'
+    );
+
+  if (!token) {
+
+    return 0;
+
+  }
+
+  const payload =
+    JSON.parse(
+      atob(
+        token.split('.')[1]
+      )
+    );
+
+  return payload.id;
+
 }
 }

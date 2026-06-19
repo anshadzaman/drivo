@@ -20,6 +20,10 @@ public class NotificationService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private WebSocketNotificationService
+            webSocketNotificationService;
+
     public void createNotification(
             User user,
             String message,
@@ -43,6 +47,14 @@ public class NotificationService {
         notificationRepository.save(
                 notification
         );
+        webSocketNotificationService
+                .sendNotification(
+
+                        user.getId(),
+
+                        message
+
+                );
     }
 
     public List<Notification>

@@ -36,6 +36,10 @@ public class SecurityConfig {
                         )
                         .permitAll()
                         .requestMatchers(
+                                "/ws/**"
+                        )
+                        .permitAll()
+                        .requestMatchers(
                                 "/shipments/*/my-deliver"
                         )
                         .hasRole("DRIVER")

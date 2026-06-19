@@ -567,7 +567,7 @@ public class ShipmentService {
                         " (" +
                         shipment.getItemName()+
                         ") is now in transit",
-                NotificationType.ASSIGNMENT
+                NotificationType.TRANSIT
         );
         return shipmentRepository
                 .save(shipment);

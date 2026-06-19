@@ -84,15 +84,11 @@ public class UserService {
                     "Invalid Password");
         }
 
-        return jwtService
-                .generateToken(
-
-                        user.getEmail(),
-
-                        user.getRole()
-                                .name()
-
-                );
+        return jwtService.generateToken(
+                user.getId(),
+                user.getEmail(),
+                user.getRole().name()
+        );
 
     }
 

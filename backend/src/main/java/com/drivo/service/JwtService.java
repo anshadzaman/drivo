@@ -14,35 +14,40 @@ public class JwtService {
             "drivo-secret-key-drivo-secret-key";
 
     public String generateToken(
+            Long id,
             String email,
-     String role) {
+            String role) {
 
         return Jwts.builder()
 
                 .setSubject(email)
 
                 .claim(
+                        "id",
+                        id
+                )
+
+                .claim(
                         "role",
                         role
                 )
 
-                .setIssuedAt(new Date())
+                .setIssuedAt(
+                        new Date()
+                )
 
                 .setExpiration(
-
                         new Date(
                                 System.currentTimeMillis()
-                                        + 86400000)
-
+                                        + 86400000
+                        )
                 )
 
                 .signWith(
-
                         Keys.hmacShaKeyFor(
-                                SECRET.getBytes()),
-
+                                SECRET.getBytes()
+                        ),
                         SignatureAlgorithm.HS256
-
                 )
 
                 .compact();
