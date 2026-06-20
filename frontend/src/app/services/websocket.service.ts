@@ -13,10 +13,6 @@ export class WebSocketService {
     callback: (message: string) => void
   ) {
 
-    console.log(
-      'Connecting WebSocket for user:',
-      userId
-    );
 
     this.client = new Client({
 

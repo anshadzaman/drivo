@@ -30,7 +30,6 @@ login() {
 
       next: (response: any) => {
 
-        console.log(response);
 
         localStorage.setItem(
           'token',

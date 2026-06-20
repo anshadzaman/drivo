@@ -3,7 +3,6 @@ import { RouterOutlet, RouterLink, RouterLinkActive,Router } from '@angular/rout
 import { FormsModule } from '@angular/forms';
 import { NotificationService } from './services/notification.service';
 import { ChangeDetectorRef } from '@angular/core';
-import { interval } from 'rxjs';
 import { WebSocketService } from './services/websocket.service';
 @Component({
   selector: 'app-root',
@@ -29,44 +28,28 @@ export class App {
 ngOnInit() {
 
   this.loadUnreadCount();
-  const userId =
+const userId =
   this.getUserId();
-  console.log(
-  'WebSocket User ID:',
-  userId
-);
 
-this.webSocketService
-    .connect(
+if (userId > 0) {
 
-      userId,
+  this.webSocketService
+      .connect(
 
-      () => {
+        userId,
 
-        this.loadUnreadCount();
+        () => {
 
-        this.loadNotifications();
-
-      }
-
-    );
-  this.cdr.detectChanges();
-  interval(30000)
-      .subscribe(() => {
-
-        this.loadUnreadCount();
-        
-        if (
-          this.showNotifications
-        ) {
+          this.loadUnreadCount();
 
           this.loadNotifications();
 
         }
 
-      });
+      );
 
 }
+  }
   protected readonly title = signal('frontend');
   unreadCount = 0;
   showNotifications = false;
