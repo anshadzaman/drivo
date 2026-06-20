@@ -38,7 +38,7 @@ public class WebSocketConfig
                         "/ws"
                 )
                 .setAllowedOrigins(
-                        "https://drivo-kpfmucgy3-anshadzamans-projects.vercel.app"
+                        "https://drivopro.vercel.app"
                 );
 
     }
