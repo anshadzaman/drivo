@@ -1,9 +1,9 @@
 export const environment = {
 
   apiUrl:
-    'https://YOUR-BACKEND.onrender.com',
+    'https://drivo-w7c8.onrender.com',
 
   wsUrl:
-    'wss://YOUR-BACKEND.onrender.com/ws'
+    'wss://drivo-w7c8.onrender.com/ws'
 
 };
