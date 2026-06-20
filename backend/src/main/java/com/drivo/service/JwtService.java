@@ -1,8 +1,11 @@
 package com.drivo.service;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -10,13 +13,22 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    private final String SECRET =
-            "drivo-secret-key-drivo-secret-key";
+    @Value("${JWT_SECRET}")
+    private String secret;
+
+    private static final long
+            TOKEN_VALIDITY =
+            24 * 60 * 60 * 1000;
 
     public String generateToken(
+
             Long id,
+
             String email,
-            String role) {
+
+            String role
+
+    ) {
 
         return Jwts.builder()
 
@@ -39,57 +51,78 @@ public class JwtService {
                 .setExpiration(
                         new Date(
                                 System.currentTimeMillis()
-                                        + 86400000
+                                        +
+                                        TOKEN_VALIDITY
                         )
                 )
 
                 .signWith(
                         Keys.hmacShaKeyFor(
-                                SECRET.getBytes()
+                                secret.getBytes()
                         ),
                         SignatureAlgorithm.HS256
                 )
 
                 .compact();
+
     }
-    public String extractEmail(
-            String token) {
+
+    private Claims getClaims(
+            String token
+    ) {
 
         return Jwts.parserBuilder()
 
                 .setSigningKey(
                         Keys.hmacShaKeyFor(
-                                SECRET.getBytes()))
-
-                .build()
-
-                .parseClaimsJws(token)
-
-                .getBody()
-
-                .getSubject();
-    }
-    public String extractRole(
-            String token) {
-
-        return Jwts.parserBuilder()
-
-                .setSigningKey(
-
-                        Keys.hmacShaKeyFor(
-                                SECRET.getBytes())
-
+                                secret.getBytes()
+                        )
                 )
 
                 .build()
 
-                .parseClaimsJws(token)
+                .parseClaimsJws(
+                        token
+                )
 
-                .getBody()
+                .getBody();
 
-                .get(
-                        "role",
-                        String.class
-                );
     }
+
+    public String extractEmail(
+            String token
+    ) {
+
+        return getClaims(
+                token
+        ).getSubject();
+
+    }
+
+    public String extractRole(
+            String token
+    ) {
+
+        return getClaims(
+                token
+        ).get(
+                "role",
+                String.class
+        );
+
+    }
+
+    public Long extractId(
+            String token
+    ) {
+
+        return getClaims(
+                token
+        ).get(
+                "id",
+                Long.class
+        );
+
+    }
+
 }

@@ -1,4 +1,5 @@
 package com.drivo.config;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -29,9 +30,19 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                HttpMethod.OPTIONS,
+                                "/**"
+                        )
+                        .permitAll()
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/users"
+                        )
+                        .permitAll()
 
                         .requestMatchers(
-                                "/users",
+                                HttpMethod.POST,
                                 "/users/login"
                         )
                         .permitAll()
@@ -51,9 +62,17 @@ public class SecurityConfig {
                                 "SHOP",
                                 "DRIVER"
                         )
-
+                        .requestMatchers(
+                                "/notifications/**"
+                        )
+                        .hasAnyRole(
+                                "ADMIN",
+                                "SHOP",
+                                "DRIVER"
+                        )
                         .anyRequest()
                         .authenticated()
+
 
                 );
 
@@ -82,7 +101,7 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOriginPatterns(
-                List.of("*")
+                List.of("https://drivopro.vercel.app/")
         );
 
         configuration.setAllowedMethods(

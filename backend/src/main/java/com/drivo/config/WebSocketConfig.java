@@ -34,8 +34,12 @@ public class WebSocketConfig
 
     ) {
 
-        registry.addEndpoint("/ws")
-                .setAllowedOriginPatterns("*");     
+        registry.addEndpoint(
+                        "/ws"
+                )
+                .setAllowedOrigins(
+                        "https://drivo-kpfmucgy3-anshadzamans-projects.vercel.app"
+                );
 
     }
 
