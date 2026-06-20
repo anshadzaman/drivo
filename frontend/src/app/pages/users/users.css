@@ -202,6 +202,15 @@
   box-shadow: none;
 }
 
+.btn-create.shop {
+  background: #60a5fa;
+}
+
+.btn-create.shop:hover {
+  background: #93c5fd;
+  box-shadow: 0 4px 14px rgba(96,165,250,0.3);
+}
+
 /* ── Stats grid ── */
 .stats-grid {
   display: grid;
@@ -346,7 +355,6 @@
 }
 
 /* ── User card ── */
-/* ── User card ── */
 .user-card {
   display: flex;
   align-items: center;
@@ -363,6 +371,46 @@
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
+
+/* ── Delete button — icon only ── */
+.delete-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(248,113,113,0.2);
+  background: rgba(248,113,113,0.08);
+  color: #f87171;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  opacity: 0;
+  transition:
+    background 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.15s ease,
+    opacity 0.18s ease;
+}
+
+/* show delete only on card hover */
+.user-card:hover .delete-btn {
+  opacity: 1;
+}
+
+.delete-btn:hover {
+  background: rgba(248,113,113,0.2);
+  box-shadow: 0 3px 10px rgba(248,113,113,0.2);
+  transform: scale(1.1);
+}
+
+.delete-btn:active {
+  transform: scale(1);
+  box-shadow: none;
+}
+
 /* ── Avatar ── */
 .user-avatar {
   width: 40px;
@@ -411,7 +459,6 @@
 }
 
 /* ── Role badge ── */
-/* role badge stays inline, no card-right wrapper needed */
 .role-badge {
   flex-shrink: 0;
   padding: 3px 10px;
@@ -442,6 +489,7 @@
   color: #34d399;
   border-color: rgba(52,211,153,0.25);
 }
+
 /* ── Keyframes ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }
@@ -464,57 +512,4 @@
   .create-button { flex: 1; text-align: center; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .users-grid { grid-template-columns: 1fr; }
-}   
-.btn-create.shop {
-  background: #60a5fa;
-}
-
-.btn-create.shop:hover {
-  background: #93c5fd;
-  box-shadow: 0 4px 14px rgba(96,165,250,0.3);
-}
-.card-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  flex-shrink: 0;
-}
-/* ── Delete button — icon only ── */
-.delete-btn {
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  border-radius: 50%;
-  border: 1px solid rgba(248,113,113,0.2);
-  background: rgba(248,113,113,0.08);
-  color: #f87171;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  flex-shrink: 0;
-  opacity: 0;
-  transition:
-    background 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.15s ease,
-    opacity 0.18s ease;
-}
-
-/* show delete only on card hover */
-.user-card:hover .delete-btn {
-  opacity: 1;
-}
-
-.delete-btn:hover {
-  background: rgba(248,113,113,0.2);
-  box-shadow: 0 3px 10px rgba(248,113,113,0.2);
-  transform: scale(1.1);
-}
-
-.delete-btn:active {
-  transform: scale(1);
-  box-shadow: none;
 }
