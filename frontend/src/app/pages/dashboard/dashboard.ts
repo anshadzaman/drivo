@@ -30,48 +30,40 @@ deliveredCount = 0;
      private shipmentService: ShipmentService,
      private cdr: ChangeDetectorRef
   ) {}
-
-  ngOnInit(): void {
+ngOnInit(): void {
 
   this.role =
     this.getRole();
 
-if (
-  this.role === 'ADMIN'
-) {
+  if (
+    this.role === 'ADMIN'
+  ) {
 
-  this.loadAdminCounts();
-
-}
-
-else if (
-  this.role === 'DRIVER'
-) {
-
-  this.loadDriverCounts();
-
-}
-
-else {
-
-  this.loadShipmentCount();
-  this.loadDeliveredCount();
-  this.loadPendingCount();
-
-}
-
-
-    console.log('dashboard loaded');
-
-    this.userService
-      .getUsers()
-      .subscribe(data => {
-
-        console.log(data);
-
-      });
+    this.loadAdminCounts();
 
   }
+
+  else if (
+    this.role === 'DRIVER'
+  ) {
+
+    this.loadDriverCounts();
+
+  }
+
+  else {
+
+    this.loadShipmentCount();
+    this.loadDeliveredCount();
+    this.loadPendingCount();
+
+  }
+
+  console.log(
+    'dashboard loaded'
+  );
+
+}
     loadShipmentCount() {
 
   this.shipmentService

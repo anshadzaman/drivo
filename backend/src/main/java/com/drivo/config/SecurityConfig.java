@@ -70,6 +70,22 @@ public class SecurityConfig {
                                 "SHOP",
                                 "DRIVER"
                         )
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/users"
+                        )
+                        .hasRole("ADMIN")
+
+                        .requestMatchers(
+                                "/users/count",
+                                "/users/count/drivers",
+                                "/users/count/shops"
+                        )
+                        .hasAnyRole(
+                                "ADMIN",
+                                "SHOP",
+                                "DRIVER"
+                        )
                         .anyRequest()
                         .authenticated()
 
