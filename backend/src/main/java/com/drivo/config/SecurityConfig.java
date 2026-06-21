@@ -101,7 +101,9 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOriginPatterns(
-                List.of("https://drivopro.vercel.app/")
+                List.of("https://drivopro.vercel.app",
+                        "http://localhost:4200"
+                        )
         );
 
         configuration.setAllowedMethods(

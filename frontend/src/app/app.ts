@@ -43,7 +43,7 @@ if (userId > 0) {
           this.loadUnreadCount();
 
           this.loadNotifications();
-
+this.cdr.detectChanges();
         }
 
       );
