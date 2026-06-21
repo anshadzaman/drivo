@@ -38,7 +38,8 @@ public class WebSocketConfig
                         "/ws"
                 )
                 .setAllowedOrigins(
-                        "https://drivopro.vercel.app"
+                        "https://drivopro.vercel.app",
+                        "http://localhost:4200"
                 );
 
     }
