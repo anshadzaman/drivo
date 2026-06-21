@@ -25,16 +25,50 @@ public class UserService {
     private JwtService jwtService;
 
 
-    public User createUser(User user){
+    public User createUser(
+            User user
+    ) {
+
+        if (
+
+                userRepository
+                        .findByEmail(
+                                user.getEmail()
+                        )
+                        .isPresent()
+
+        ) {
+
+            throw new RuntimeException(
+                    "Email already exists"
+            );
+
+        }
+
+        if (
+
+                user.getRole()
+                        == Role.ADMIN
+
+        ) {
+
+            throw new RuntimeException(
+                    "Admin registration not allowed"
+            );
+
+        }
 
         user.setPassword(
 
                 passwordEncoder.encode(
-                        user.getPassword())
+                        user.getPassword()
+                )
 
         );
 
-        return userRepository.save(user);
+        return userRepository.save(
+                user
+        );
 
     }
 

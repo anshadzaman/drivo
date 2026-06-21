@@ -1,14 +1,16 @@
 package com.drivo.controller;
 
+import com.drivo.dto.LoginRequest;
 import com.drivo.dto.LoginResponse;
 import com.drivo.dto.UserDto;
 import com.drivo.entity.User;
 import com.drivo.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import jakarta.validation.Valid;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
-import com.drivo.dto.LoginRequest;
 
 import java.util.List;
 
@@ -16,31 +18,54 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
+    public UserController(
+            UserService userService
+    ) {
+
+        this.userService =
+                userService;
+
+    }
 
     @PostMapping
-    public User createUser(
+    public ResponseEntity<String>
+    createUser(
 
             @Valid
-            @RequestBody User user){
+            @RequestBody
+            User user
 
-        return userService.createUser(user);
+    ) {
+
+        userService.createUser(
+                user
+        );
+
+        return ResponseEntity.ok(
+                "User created successfully"
+        );
 
     }
-
 
     @GetMapping
-    public List<UserDto> getAllUsers(){
+    public List<UserDto>
+    getAllUsers() {
 
-        return userService.getAllUsers();
+        return userService
+                .getAllUsers();
 
     }
+
     @PostMapping("/login")
     public LoginResponse login(
+
+            @Valid
             @RequestBody
-            LoginRequest request) {
+            LoginRequest request
+
+    ) {
 
         return new LoginResponse(
 
@@ -53,7 +78,9 @@ public class UserController {
                 )
 
         );
+
     }
+
     @GetMapping("/count")
     public long getUserCount() {
 
@@ -77,11 +104,18 @@ public class UserController {
                 .getShopCount();
 
     }
+
     @DeleteMapping("/{id}")
-    public void deleteUser(
-            @PathVariable Long id) {
+    public ResponseEntity<String>
+    deleteUser(
+
+            @PathVariable
+            Long id
+
+    ) {
 
         String email =
+
                 SecurityContextHolder
                         .getContext()
                         .getAuthentication()
@@ -89,7 +123,12 @@ public class UserController {
 
         userService.deleteUser(
                 id,
-                email);
+                email
+        );
+
+        return ResponseEntity.ok(
+                "User deleted successfully"
+        );
 
     }
 
