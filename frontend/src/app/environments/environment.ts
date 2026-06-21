@@ -1,9 +1,9 @@
 export const environment = {
 
   apiUrl:
-    'http://localhost:8080',
+    'https://drivo-w7c8.onrender.com',
 
   wsUrl:
-    'ws://localhost:8080/ws'
+    'wss://drivo-w7c8.onrender.com/ws'
 
 };
